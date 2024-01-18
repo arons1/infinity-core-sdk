@@ -2,16 +2,16 @@ import {mnemonicToSeedSync,fromSeed,Network,BIP32Interface} from '../../../core'
 import {keccak256} from '../../../core/base'
 import {privateToAddress} from '../sdk/ethereumjs-util';
 
-type MasterNodeParams = {
+export type MasterNodeParams = {
     mnemonic:string;
     network:Network
 }
-type MasterKeyParams = {
+export type MasterKeyParams = {
     masterNode:BIP32Interface;
     bipIdCoin:number;
     protocol:number;
 }
-type AddressParams = {
+export type AddressParams = {
     privateMasterNode:BIP32Interface;
     change:number;
     index:number;
