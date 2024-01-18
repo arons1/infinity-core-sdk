@@ -14,20 +14,20 @@ class Bip39 {
         return bip32.fromSeed(seed, network);
     }
     getPublicMasterKey = ({
-        root,
+        masterNode,
         bipIdCoin,
         protocol = 39
     }:MasterKeyParams) => {
-        return root.deriveHardened(protocol)
+        return masterNode.deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
         .deriveHardened(0).neutered().toBase58();
     }
     getPrivateMasterKey = ({
-        root,
+        masterNode,
         bipIdCoin,
         protocol = 39
     }:MasterKeyParams) => {
-        return root.deriveHardened(protocol)
+        return masterNode.deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
         .deriveHardened(0).toBase58();
     }
