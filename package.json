@@ -19,7 +19,7 @@
     "url": "git+https://github.com/InfinityWallet/infinity-core-sdk.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/InfinityWallet/infinity-core-sdk/issues"
   },
