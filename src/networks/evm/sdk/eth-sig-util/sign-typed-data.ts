@@ -15,7 +15,7 @@ import {
   legacyToBuffer
 } from './index';
 
-import {abi,base} from '@okxweb3/crypto-lib'
+import { abi } from '../../../../core';
 import {is, pattern, Struct, string} from "superstruct";
 /**
  * This is the message format used for `V1` of `signTypedData`.

@@ -1,4 +1,4 @@
-import {EstimateGasBridgeParams,EstimateGasParams,GasLimitParams,NonceParams,GasPriceParams,TransactionEVM,EstimateGasTokenParams} from './types'
+import {EstimateGasBridgeParams,EstimateGasParams,GasLimitParams,NonceParams,GasPriceParams,TransactionEVM,EstimateGasTokenParams,CalculateGasPrice} from './types'
 import ERC20Abi from '../../../core/abi/erc20'
 
 import BigNumber from 'bignumber.js'
@@ -15,10 +15,13 @@ const estimateTokenFee = async ({
     web3,
     source,
     destination,
-    tokenContract
+    tokenContract,
+    chainId,
+    feeRatio = 0.5,
+    priorityFee
 }: EstimateGasTokenParams) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {from: source})
-    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3})
+    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3,isToken:true})
     var gasPrice = await getGasPrice({
         web3
     })
@@ -36,7 +39,10 @@ const estimateTokenFee = async ({
     transaction = await calculateGasPrice({
         transaction,
         gasPrice,
-        web3
+        web3,
+        chainId,
+        feeRatio,
+        priorityFee
     })
     return {
         estimateGas,
@@ -48,21 +54,36 @@ const estimateTokenFee = async ({
 const calculateGasPrice = async ({
     transaction,
     gasPrice,
-    web3
-})
+    web3,
+    chainId,
+    feeRatio,
+    priorityFee
+}:CalculateGasPrice) => {
+    if(chainId == 1 || chainId == 137){
+        transaction.maxPriorityFeePerGas = web3.utils.toHex(new BigNumber(priorityFee).multipliedBy(feeRatio+1).toString(10).split('.')[0])
+        transaction.maxFeePerGas = new BigNumber(transaction.maxPriorityFeePerGas).plus(new BigNumber(gasPrice).multipliedBy(1+feeRatio)).toString(10);
+        transaction.maxFeePerGas = web3.utils.toHex(new BigNumber(transaction.maxFeePerGas).toString(10).split('.')[0])
+        delete transaction.gasPrice
+      }
+      else{
+        transaction.gasPrice = web3.utils.toHex(gasPrice)
+      }
+      return transaction
+}
 
 const estimateCurrencyFee = async ({
     amount,
     web3,
     source,
-    destination
+    destination,
+    chainId
 }: EstimateGasParams) => {
 
 }
 export const getGasPrice = async ({
     web3
 }:GasPriceParams) => {
-
+    return await web3.eth.getGasPrice()
 }
 export const getGasLimit = async ({
     destination,
@@ -70,11 +91,25 @@ export const getGasLimit = async ({
     amount,
     source,
     contract,
-    web3
+    web3,
+    isToken = false,
+    isBridge = false
 }:GasLimitParams) => {
-    return {
-        data,
-        estimateGas
+    if(isToken){
+        if(isBridge){
+            const data = getDataBSC({
+                fromAddress:source,
+                toAddress:destination,
+                amount,
+                web3:web3
+            })
+        }
+        else{
+
+        }
+    }
+    else{
+
     }
 }
 export const getNonce = async ({
@@ -89,7 +124,10 @@ export const estimateFeeTransfer = async ({
     source,
     tokenContract = '',
     destination = '',
-    amount = '0'
+    amount = '0',
+    chainId,
+    feeRatio = 0.5,
+    priorityFee
 }: EstimateGasParams) => {
     const isBridge = destination.startsWith('bnb')
     if(isBridge){
@@ -97,7 +135,9 @@ export const estimateFeeTransfer = async ({
             amount,
             web3,
             source,
-            destination
+            destination,
+            feeRatio,
+            priorityFee
         })
     }
     else{
@@ -107,7 +147,10 @@ export const estimateFeeTransfer = async ({
                 source,
                 tokenContract,
                 destination,
-                amount
+                amount,
+                chainId,
+                feeRatio,
+                priorityFee
             })
         }
         else{
@@ -115,7 +158,10 @@ export const estimateFeeTransfer = async ({
                 web3,
                 source,
                 destination,
-                amount
+                amount,
+                chainId,
+                feeRatio,
+                priorityFee
             })
         }
     }

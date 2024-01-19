@@ -12,7 +12,7 @@ import {
   Address, ecdsaSign, bufferToHex,
 } from '../ethereumjs-util'
 
-import { base, BN } from '@okxweb3/crypto-lib';
+import { BN } from '../../../../core';
 
 import {
   TxData,
