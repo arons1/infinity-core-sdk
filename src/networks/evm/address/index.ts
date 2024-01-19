@@ -1,21 +1,8 @@
-import {mnemonicToSeedSync,fromSeed,Network,BIP32Interface} from '../../../core'
+import {mnemonicToSeedSync,fromSeed} from '../../../core'
 import {keccak256} from '../../../core/base'
 import {privateToAddress} from '../sdk/ethereumjs-util';
+import {MasterNodeParams,MasterKeyParams,AddressParams} from './types'
 
-export type MasterNodeParams = {
-    mnemonic:string;
-    network:Network
-}
-export type MasterKeyParams = {
-    masterNode:BIP32Interface;
-    bipIdCoin:number;
-    protocol:number;
-}
-export type AddressParams = {
-    privateMasterNode:BIP32Interface;
-    change:number;
-    index:number;
-}
 export const getMasterNode = ({
     mnemonic,
     network
@@ -26,7 +13,7 @@ export const getMasterNode = ({
 export const getPublicMasterKey = ({
     masterNode,
     bipIdCoin,
-    protocol = 39
+    protocol = 44
 }:MasterKeyParams) => {
     return getPrivateMasterKey({
         masterNode,
@@ -37,7 +24,7 @@ export const getPublicMasterKey = ({
 export const getPrivateMasterKey = ({
     masterNode,
     bipIdCoin,
-    protocol = 39
+    protocol = 44
 }:MasterKeyParams) => {
     return masterNode.deriveHardened(protocol)
     .deriveHardened(bipIdCoin)
