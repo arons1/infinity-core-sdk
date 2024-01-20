@@ -1,14 +1,23 @@
 import {EstimateGasBridgeParams,EstimateGasParams,GasLimitParams,NonceParams,GasPriceParams,TransactionEVM,EstimateGasTokenParams,CalculateGasPrice} from './types'
 import ERC20Abi from '../../../core/abi/erc20'
-import {getDataBSC,getGasLimitBSC} from './sendBridge'
+import {getDataBSC,getGasLimitBSC,getFeeBSCtoBC} from './sendBridge'
+import {tokenHubContractAddress} from './abi_bsc'
 import BigNumber from 'bignumber.js'
 const estimateBridgeFee = async ({
-    amount,
+    amount = "0",
     web3,
     source,
-    destination
+    destination = ""
 }: EstimateGasBridgeParams) => {
-
+    var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {from: source})
+    const {estimateGas} = await getGasLimit({source,destination,tokenContract:tokenHubContractAddress,amount,contract,web3,isToken:true,isBridge:true})
+    var gasPrice = await getGasPrice({
+        web3
+    })
+    return {
+        estimateGas,
+        gasPrice
+    }
 }
 const estimateTokenFee = async ({
     amount = "0",
@@ -21,7 +30,7 @@ const estimateTokenFee = async ({
     priorityFee
 }: EstimateGasTokenParams) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {from: source})
-    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3,isToken:true,isBridge:true})
+    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3,isToken:true,isBridge:false})
     var gasPrice = await getGasPrice({
         web3
     })
