@@ -24,7 +24,8 @@ export type EstimateGasBridgeParams = {
     destination?: string;
     amount?:string;
     feeRatio:number;
-    priorityFee:string
+    priorityFee:string;
+    chainId:number
 }
 
 export type NonceParams = {
@@ -39,9 +40,9 @@ export type GasLimitParams = {
     web3:any;
     source:string;
     destination:string;
-    tokenContract:string;
+    tokenContract?:string;
     amount:string;
-    contract:any;
+    contract?:any;
     isToken:boolean;
     isBridge:boolean
 }

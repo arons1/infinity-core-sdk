@@ -7,16 +7,39 @@ const estimateBridgeFee = async ({
     amount = "0",
     web3,
     source,
-    destination = ""
+    destination = "",
+    chainId,
+    feeRatio,
+    priorityFee
 }: EstimateGasBridgeParams) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {from: source})
-    const {estimateGas} = await getGasLimit({source,destination,tokenContract:tokenHubContractAddress,amount,contract,web3,isToken:true,isBridge:true})
+    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract:tokenHubContractAddress,amount,contract,web3,isToken:true,isBridge:true})
     var gasPrice = await getGasPrice({
         web3
     })
+    const nonce = await getNonce({
+        address:source,
+        web3
+    })
+    var transaction = {
+        "from"      : source,
+        "nonce"     : nonce,
+        "to"        : destination,
+        "value":amount,
+        data
+    } as TransactionEVM
+    transaction = await calculateGasPrice({
+        transaction,
+        gasPrice,
+        web3,
+        chainId,
+        feeRatio,
+        priorityFee
+    })
     return {
         estimateGas,
-        gasPrice
+        gasPrice:transaction.gasPrice ?? transaction.maxFeePerGas,
+        transaction
     }
 }
 const estimateTokenFee = async ({
@@ -81,13 +104,39 @@ const calculateGasPrice = async ({
 }
 
 const estimateCurrencyFee = async ({
-    amount,
+    amount = "0",
     web3,
     source,
-    destination,
-    chainId
+    destination = "",
+    chainId,
+    feeRatio,
+    priorityFee
 }: EstimateGasParams) => {
-
+    const {estimateGas} = await getGasLimit({source,destination,amount,web3,isToken:false,isBridge:false})
+    var gasPrice = await getGasPrice({web3})
+    const nonce = await getNonce({
+        address:source,
+        web3
+    })
+    var transaction = {
+        "from"      : source,
+        "nonce"     : nonce,
+        "to"        : destination,
+        "value"     : amount
+    } as TransactionEVM
+    transaction = await calculateGasPrice({
+        transaction,
+        gasPrice,
+        web3,
+        chainId,
+        feeRatio,
+        priorityFee
+    })
+    return {
+        estimateGas,
+        gasPrice,
+        transaction
+    }
 }
 export const getGasPrice = async ({
     web3
@@ -180,7 +229,8 @@ export const estimateFeeTransfer = async ({
             source,
             destination,
             feeRatio,
-            priorityFee
+            priorityFee,
+            chainId
         })
     }
     else{
