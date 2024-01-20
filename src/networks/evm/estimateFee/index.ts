@@ -1,6 +1,6 @@
 import {EstimateGasBridgeParams,EstimateGasParams,GasLimitParams,NonceParams,GasPriceParams,TransactionEVM,EstimateGasTokenParams,CalculateGasPrice} from './types'
 import ERC20Abi from '../../../core/abi/erc20'
-
+import {getDataBSC,getGasLimitBSC} from './sendBridge'
 import BigNumber from 'bignumber.js'
 const estimateBridgeFee = async ({
     amount,
@@ -21,7 +21,7 @@ const estimateTokenFee = async ({
     priorityFee
 }: EstimateGasTokenParams) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {from: source})
-    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3,isToken:true})
+    const {estimateGas,data} = await getGasLimit({source,destination,tokenContract,amount,contract,web3,isToken:true,isBridge:true})
     var gasPrice = await getGasPrice({
         web3
     })
@@ -94,22 +94,56 @@ export const getGasLimit = async ({
     web3,
     isToken = false,
     isBridge = false
-}:GasLimitParams) => {
+}:GasLimitParams) : Promise<{
+    data:string;
+    estimateGas:string
+}> => {
     if(isToken){
+            const nonce = await getNonce({address:source,web3})
+            const data = contract.methods.transfer(destination, amount).encodeABI();
+            const estimateGas = await web3.eth.estimateGas({
+                "from"      : source,
+                "nonce"     : nonce,
+                "to"        : tokenContract,
+                data,
+                "value"     : amount
+            })
+            return {
+                data,
+                estimateGas
+            }
+    }
+    else{
         if(isBridge){
             const data = getDataBSC({
+                toAddress:destination,
+                amount,
+                web3
+            })
+            const estimateGas = await getGasLimitBSC({
                 fromAddress:source,
                 toAddress:destination,
                 amount,
-                web3:web3
+                web3
             })
+            return {
+                data,
+                estimateGas
+            }
         }
         else{
-
+            const nonce = await getNonce({address:source,web3})
+            const estimateGas = await web3.eth.estimateGas({
+                "from"      : source,
+                "nonce"     : nonce,
+                "to"        : destination,
+                "value"     : amount
+            })
+            return {
+                estimateGas,
+                data:""
+            }
         }
-    }
-    else{
-
     }
 }
 export const getNonce = async ({

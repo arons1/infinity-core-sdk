@@ -92,6 +92,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-20.8.0.tgz"
   integrity sha512-LzcWltT83s1bthcvjBmiBvGJiiUe84NWRHkw+ZV6Fr41z2FbIzvc815dk2nQ3RAKMuN2fkenM/z3Xv2QzEpYxQ==
 
+bech32-buffer@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/bech32-buffer/-/bech32-buffer-0.2.1.tgz#8106f2f51bcb2ba1d9fb7718905c3042c5be2fcd"
+  integrity sha512-fCG1TyZuCN48Sdw97p/IR39fvqpFlWDVpG7qnuU1Uc3+Xtc/0uqAp8U7bMW/bGuVF5CcNVIXwxQsWwUr6un6FQ==
+
 bigint-conversion@^2.4.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bigint-conversion/-/bigint-conversion-2.4.3.tgz#cca2ff59033960be8ff517b8e931db82b6bb24fa"

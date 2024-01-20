@@ -6,7 +6,7 @@
  */
 
 import assert from 'assert'
-import {base, signUtil} from '@okxweb3/crypto-lib'
+import {base, signUtil} from '../../../../core';
 import { keccak, keccakFromString, rlphash } from './hash'
 import {assertIsHexString, assertIsBuffer} from './helpers'
 import { BNLike, toType, TypeOutput } from './types'

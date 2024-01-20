@@ -1,19 +1,21 @@
 import { decode } from 'bech32-buffer';
-import Web3 from 'web3';
 import BigNumber from "bignumber.js"
 import { buildSignedBscTx } from './buildTransactionBridge';
-import { tokenHubAbi, tokenHubContractAddress, bep20Abi } from '../Core/Config/abi_bsc.ts';
+import { tokenHubAbi, tokenHubContractAddress } from './abi_bsc';
 
-export const getFeeBSCtoBC = async (web3) => {
+export const getFeeBSCtoBC = async (web3:any) => {
   const contract = new web3.eth.Contract(tokenHubAbi, tokenHubContractAddress);
   const relayFeeWei = await contract.methods.getMiniRelayFee().call();
   return new BigNumber(relayFeeWei)
 }
 export const getDataBSC = ({
-  fromAddress,
   toAddress,
   amount,
   web3
+}:{
+  toAddress:string,
+  amount:string,
+  web3:any
 }) => {
   const decodeData = decode(toAddress);
   const decodeAddress = Buffer.from(decodeData.data).toString('hex');
@@ -35,9 +37,10 @@ export const getGasLimitBSC = async ({
   amount,
   web3
 }: {
-  privateKey: string;
+  fromAddress: string;
   toAddress: string;
   amount: string;
+  web3:any
 }) => {
   const decodeData = decode(toAddress);
   const decodeAddress = Buffer.from(decodeData.data).toString('hex');
@@ -69,13 +72,12 @@ export const transferFromBscToBbc = async ({
   privateKey,
   toAddress,
   amount,
-  decimals,
   web3
 }: {
   privateKey: string;
   toAddress: string;
   amount: string;
-  decimals: number;
+  web3:any;
 }) => {
   const decodeData = decode(toAddress);
   const decodeAddress = Buffer.from(decodeData.data).toString('hex');

@@ -5,8 +5,7 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import {base} from "@okxweb3/crypto-lib";
-import {signUtil} from "@okxweb3/crypto-lib";
+import {base,signUtil} from '../../../../core';
 
 /**
  * Pads a `String` to have an even length

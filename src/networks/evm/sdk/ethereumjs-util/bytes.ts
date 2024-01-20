@@ -5,8 +5,7 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import {BN} from '@okxweb3/crypto-lib'
-import {base} from "@okxweb3/crypto-lib";
+import {base, BN} from '../../../../core';
 import { intToBuffer, padToEven, isHexString } from './util'
 import { PrefixedHexString, TransformableToArray, TransformableToBuffer } from './types'
 import { assertIsBuffer, assertIsArray, assertIsHexString } from './helpers'
