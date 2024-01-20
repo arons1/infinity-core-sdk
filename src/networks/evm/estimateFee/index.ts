@@ -24,7 +24,7 @@ const estimateBridgeFee = async ({
     var transaction = {
         "from"      : source,
         "nonce"     : nonce,
-        "to"        : destination,
+        "to"        : tokenHubContractAddress,
         "value":amount,
         data
     } as TransactionEVM
