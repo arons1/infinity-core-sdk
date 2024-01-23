@@ -19,8 +19,7 @@ const getFeeBSCtoBC = async web3 => {
         abi_bsc_1.tokenHubAbi,
         abi_bsc_1.tokenHubContractAddress,
     );
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
-    return new bignumber_js_1.default(relayFeeWei);
+    return await contract.methods.getMiniRelayFee().call();
 };
 exports.getFeeBSCtoBC = getFeeBSCtoBC;
 const getDataBSC = ({ toAddress, amount, web3 }) => {
@@ -34,7 +33,7 @@ const getDataBSC = ({ toAddress, amount, web3 }) => {
         .transferOut(
             '0x0000000000000000000000000000000000000000',
             `0x${decodeAddress}`,
-            web3.utils.toHex(amount),
+            `0x${new bignumber_js_1.default(amount).toString(16)}`,
             Math.ceil(Date.now() / 1000 + 600),
         )
         .encodeABI();
@@ -42,30 +41,22 @@ const getDataBSC = ({ toAddress, amount, web3 }) => {
 };
 exports.getDataBSC = getDataBSC;
 const getGasLimitBSC = async ({ fromAddress, toAddress, amount, web3 }) => {
-    const decodeData = (0, bech32_buffer_1.decode)(toAddress);
-    const decodeAddress = Buffer.from(decodeData.data).toString('hex');
-    const contract = new web3.eth.Contract(
-        abi_bsc_1.tokenHubAbi,
-        abi_bsc_1.tokenHubContractAddress,
-    );
-    const transferOutABI = contract.methods
-        .transferOut(
-            '0x0000000000000000000000000000000000000000',
-            `0x${decodeAddress}`,
-            web3.utils.toHex(amount),
-            Math.ceil(Date.now() / 1000 + 600),
-        )
-        .encodeABI();
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
+    const data = (0, exports.getDataBSC)({ toAddress, amount, web3 });
+    const relayFeeWei = await (0, exports.getFeeBSCtoBC)(web3);
     const amount_minus_fee = new bignumber_js_1.default(amount)
         .plus(relayFeeWei)
-        .toString(10);
-    const estimatedGas = await web3.eth.estimateGas({
-        to: abi_bsc_1.tokenHubContractAddress,
-        data: transferOutABI,
-        value: amount_minus_fee,
-        from: fromAddress,
-    });
+        .toString(16);
+    let estimatedGas;
+    try {
+        estimatedGas = await web3.eth.estimateGas({
+            to: abi_bsc_1.tokenHubContractAddress,
+            data,
+            value: `0x${amount_minus_fee}`,
+            from: fromAddress,
+        });
+    } catch (e) {
+        console.error(e);
+    }
     return estimatedGas;
 };
 exports.getGasLimitBSC = getGasLimitBSC;
@@ -89,7 +80,7 @@ const transferFromBscToBbc = async ({
             Math.ceil(Date.now() / 1000 + 600),
         )
         .encodeABI();
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
+    const relayFeeWei = await (0, exports.getFeeBSCtoBC)(web3);
     const amount_minus_fee = new bignumber_js_1.default(amount)
         .plus(relayFeeWei)
         .toString(10);

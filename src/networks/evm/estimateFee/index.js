@@ -209,32 +209,37 @@ const getGasLimit = async ({
     isToken = false,
     isBridge = false,
 }) => {
-    if (isToken) {
-        const nonce = await (0, exports.getNonce)({ address: source, web3 });
-        const data = contract.methods.transfer(destination, amount).encodeABI();
-        const estimateGas = await web3.eth.estimateGas({
-            from: source,
-            nonce: nonce,
-            to: tokenContract,
-            data,
-            value: amount,
+    if (isBridge) {
+        const data = (0, sendBridge_1.getDataBSC)({
+            toAddress: destination,
+            amount,
+            web3,
+        });
+        const estimateGas = await (0, sendBridge_1.getGasLimitBSC)({
+            fromAddress: source,
+            toAddress: destination,
+            amount,
+            web3,
         });
         return {
             data,
             estimateGas,
         };
     } else {
-        if (isBridge) {
-            const data = (0, sendBridge_1.getDataBSC)({
-                toAddress: destination,
-                amount,
+        if (isToken) {
+            const nonce = await (0, exports.getNonce)({
+                address: source,
                 web3,
             });
-            const estimateGas = await (0, sendBridge_1.getGasLimitBSC)({
-                fromAddress: source,
-                toAddress: destination,
-                amount,
-                web3,
+            const data = contract.methods
+                .transfer(destination, amount)
+                .encodeABI();
+            const estimateGas = await web3.eth.estimateGas({
+                from: source,
+                nonce: nonce,
+                to: tokenContract,
+                data,
+                value: amount,
             });
             return {
                 data,

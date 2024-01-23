@@ -8,8 +8,7 @@ export const getFeeBSCtoBC = async (web3: any) => {
         tokenHubAbi,
         tokenHubContractAddress,
     );
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
-    return new BigNumber(relayFeeWei);
+    return await contract.methods.getMiniRelayFee().call();
 };
 export const getDataBSC = ({
     toAddress,
@@ -30,7 +29,7 @@ export const getDataBSC = ({
         .transferOut(
             '0x0000000000000000000000000000000000000000',
             `0x${decodeAddress}`,
-            web3.utils.toHex(amount),
+            `0x${new BigNumber(amount).toString(16)}`,
             Math.ceil(Date.now() / 1000 + 600),
         )
         .encodeABI();
@@ -48,33 +47,23 @@ export const getGasLimitBSC = async ({
     amount: string;
     web3: any;
 }) => {
-    const decodeData = decode(toAddress);
-    const decodeAddress = Buffer.from(decodeData.data).toString('hex');
-    const contract = new web3.eth.Contract(
-        tokenHubAbi,
-        tokenHubContractAddress,
-    );
-
-    const transferOutABI = contract.methods
-        .transferOut(
-            '0x0000000000000000000000000000000000000000',
-            `0x${decodeAddress}`,
-            web3.utils.toHex(amount),
-            Math.ceil(Date.now() / 1000 + 600),
-        )
-        .encodeABI();
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
+    const data = getDataBSC({ toAddress, amount, web3 });
+    const relayFeeWei = await getFeeBSCtoBC(web3);
     const amount_minus_fee = new BigNumber(amount)
         .plus(relayFeeWei)
-        .toString(10);
+        .toString(16);
+    let estimatedGas;
 
-    const estimatedGas = await web3.eth.estimateGas({
-        to: tokenHubContractAddress,
-        data: transferOutABI,
-        value: amount_minus_fee,
-        from: fromAddress,
-    });
-
+    try {
+        estimatedGas = await web3.eth.estimateGas({
+            to: tokenHubContractAddress,
+            data,
+            value: `0x${amount_minus_fee}`,
+            from: fromAddress,
+        });
+    } catch (e) {
+        console.error(e);
+    }
     return estimatedGas;
 };
 
@@ -104,7 +93,7 @@ export const transferFromBscToBbc = async ({
             Math.ceil(Date.now() / 1000 + 600),
         )
         .encodeABI();
-    const relayFeeWei = await contract.methods.getMiniRelayFee().call();
+    const relayFeeWei = await getFeeBSCtoBC(web3);
     const amount_minus_fee = new BigNumber(amount)
         .plus(relayFeeWei)
         .toString(10);

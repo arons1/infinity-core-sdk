@@ -8,17 +8,18 @@
     "types": [
       "node"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
   "include": [
-      "ts_src/**/*.ts"
+      "ts_src/**/*.ts", 
+      "ts_src/**/*.js"  
   ],
   "exclude": [
-      "**/*.spec.ts",
+      "**/*.test.ts",
       "node_modules/**/*"
   ]
 }

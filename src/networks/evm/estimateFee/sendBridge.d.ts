@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-export declare const getFeeBSCtoBC: (web3: any) => Promise<BigNumber>;
+export declare const getFeeBSCtoBC: (web3: any) => Promise<any>;
 export declare const getDataBSC: ({ toAddress, amount, web3, }: {
     toAddress: string;
     amount: string;
