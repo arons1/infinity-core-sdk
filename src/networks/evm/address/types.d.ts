@@ -10,11 +10,11 @@ export type MasterKeyParams = {
 };
 export type AddressParams = {
     privateMasterNode: BIP32Interface;
-    change: number;
-    index: number;
+    change?: number;
+    index?: number;
 };
 export type PublicAddressParams = {
     publicMasterNode: BIP32Interface;
-    change: number;
-    index: number;
+    change?: number;
+    index?: number;
 };

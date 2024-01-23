@@ -4,7 +4,6 @@ import {
     GasLimitParams,
     NonceParams,
     GasPriceParams,
-    TransactionEVM,
     EstimateGasTokenParams,
     CalculateGasPrice,
 } from './types';
@@ -12,6 +11,7 @@ import {
 import ERC20Abi from '../../../core/abi/erc20';
 import { getDataBSC, getGasLimitBSC } from './sendBridge';
 import { tokenHubContractAddress } from './abi_bsc';
+import { TransactionEVM } from '../general/types';
 import BigNumber from 'bignumber.js';
 const estimateBridgeFee = async ({
     amount = '0',
@@ -124,15 +124,14 @@ const calculateGasPrice = async ({
     priorityFee,
 }: CalculateGasPrice) => {
     if (chainId == 1 || chainId == 137) {
-        transaction.maxPriorityFeePerGas = web3.utils.toHex(
+        const maxPriority = web3.utils.toHex(
             new BigNumber(priorityFee)
                 .multipliedBy(feeRatio + 1)
                 .toString(10)
                 .split('.')[0],
         );
-        transaction.maxFeePerGas = new BigNumber(
-            transaction.maxPriorityFeePerGas,
-        )
+        transaction.maxPriorityFeePerGas = maxPriority;
+        transaction.maxFeePerGas = new BigNumber(maxPriority)
             .plus(new BigNumber(gasPrice).multipliedBy(1 + feeRatio))
             .toString(10);
         transaction.maxFeePerGas = web3.utils.toHex(

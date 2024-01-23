@@ -129,15 +129,14 @@ const calculateGasPrice = async ({
     priorityFee,
 }) => {
     if (chainId == 1 || chainId == 137) {
-        transaction.maxPriorityFeePerGas = web3.utils.toHex(
+        const maxPriority = web3.utils.toHex(
             new bignumber_js_1.default(priorityFee)
                 .multipliedBy(feeRatio + 1)
                 .toString(10)
                 .split('.')[0],
         );
-        transaction.maxFeePerGas = new bignumber_js_1.default(
-            transaction.maxPriorityFeePerGas,
-        )
+        transaction.maxPriorityFeePerGas = maxPriority;
+        transaction.maxFeePerGas = new bignumber_js_1.default(maxPriority)
             .plus(
                 new bignumber_js_1.default(gasPrice).multipliedBy(1 + feeRatio),
             )

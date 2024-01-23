@@ -1,4 +1,5 @@
-import { EstimateGasParams, GasLimitParams, NonceParams, GasPriceParams, TransactionEVM } from './types';
+import { EstimateGasParams, GasLimitParams, NonceParams, GasPriceParams } from './types';
+import { TransactionEVM } from '../general/types';
 export declare const getGasPrice: ({ web3 }: GasPriceParams) => Promise<any>;
 export declare const getGasLimit: ({ destination, tokenContract, amount, source, contract, web3, isToken, isBridge, }: GasLimitParams) => Promise<{
     data: string;

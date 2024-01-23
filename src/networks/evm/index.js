@@ -38,6 +38,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 __exportStar(require('./address'), exports);
 __exportStar(require('./estimateFee'), exports);
 __exportStar(require('./sendTransaction'), exports);
-__exportStar(require('./signMessage'), exports);
+__exportStar(require('./signTransaction'), exports);
 __exportStar(require('./signTransaction'), exports);
 __exportStar(require('./transactionParser'), exports);

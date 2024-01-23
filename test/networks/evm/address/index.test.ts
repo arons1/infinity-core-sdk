@@ -3,6 +3,7 @@ import {
     getPublicMasterKey,
     getPublicKey,
     getPrivateMasterKey,
+    getPrivateKey,
 } from '../../../../src/networks/evm/address';
 import { describe, expect, test } from '@jest/globals';
 
@@ -40,6 +41,20 @@ describe('generateAddressEVM', () => {
         });
         expect(publicMasterNode.toBase58()).toBe(
             'xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS',
+        );
+    });
+    test('generatePrivateAddress(ETH)', async () => {
+        const masterNode = getMasterNode({ mnemonic, network });
+        const privateMasterNode = getPrivateMasterKey({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const privateAddress = getPrivateKey({
+            privateMasterNode,
+        });
+        expect(privateAddress).toBe(
+            '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
         );
     });
     test('generatePublicAddress(ETH)', async () => {

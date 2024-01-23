@@ -14,7 +14,7 @@ const network = {
     scriptHash: 5,
     wif: 128,
 };
-(0, globals_1.describe)('generateAddressEVN', () => {
+(0, globals_1.describe)('generateAddressEVM', () => {
     (0, globals_1.test)('generateExtendedPrivateKey(ETH)', async () => {
         const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
         const privateMasterNode = (0, address_1.getPrivateMasterKey)({
@@ -32,6 +32,18 @@ const network = {
             masterNode,
         });
         (0, globals_1.expect)(publicMasterNode.toBase58()).toBe('xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS');
+    });
+    (0, globals_1.test)('generatePrivateAddress(ETH)', async () => {
+        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
+        const privateMasterNode = (0, address_1.getPrivateMasterKey)({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const privateAddress = (0, address_1.getPrivateKey)({
+            privateMasterNode,
+        });
+        (0, globals_1.expect)(privateAddress).toBe('0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93');
     });
     (0, globals_1.test)('generatePublicAddress(ETH)', async () => {
         const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });

@@ -1,3 +1,5 @@
+import { TransactionEVM } from '../general/types';
+
 export type EstimateGasParams = {
     web3: any;
     source: string;
@@ -45,17 +47,6 @@ export type GasLimitParams = {
     contract?: any;
     isToken: boolean;
     isBridge: boolean;
-};
-
-export type TransactionEVM = {
-    from: string;
-    nonce: string;
-    to: string;
-    data: string;
-    value: string;
-    maxFeePerGas?: string;
-    gasPrice?: string;
-    maxPriorityFeePerGas: string;
 };
 
 export type CalculateGasPrice = {
