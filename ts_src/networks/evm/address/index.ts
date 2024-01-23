@@ -1,7 +1,12 @@
 import { fromSeed } from '../../../core/bip32';
 import { mnemonicToSeedSync } from '../../../core/bip39';
-import { privateToAddress } from '../sdk/ethereumjs-util';
-import { MasterNodeParams, MasterKeyParams, AddressParams } from './types';
+import { publicToAddress, toChecksumAddress } from '../sdk/ethereumjs-util';
+import {
+    MasterNodeParams,
+    MasterKeyParams,
+    AddressParams,
+    PublicAddressParams,
+} from './types';
 
 export const getMasterNode = ({ mnemonic, network }: MasterNodeParams) => {
     const seed = mnemonicToSeedSync(mnemonic);
@@ -44,11 +49,15 @@ export const getPrivateKey = ({
 };
 
 export const getPublicKey = ({
-    privateMasterNode,
+    publicMasterNode,
     change = 0,
     index = 0,
-}: AddressParams) => {
-    return privateToAddress(
-        privateMasterNode.derive(change).derive(index).privateKey as Buffer,
-    );
+}: PublicAddressParams) => {
+    const address =
+        '0x' +
+        publicToAddress(
+            publicMasterNode.derive(change).derive(index).publicKey,
+            true,
+        ).toString('hex');
+    return toChecksumAddress(address);
 };

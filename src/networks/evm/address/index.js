@@ -39,9 +39,13 @@ const getPrivateKey = ({ privateMasterNode, change = 0, index = 0 }) => {
     );
 };
 exports.getPrivateKey = getPrivateKey;
-const getPublicKey = ({ privateMasterNode, change = 0, index = 0 }) => {
-    return (0, ethereumjs_util_1.privateToAddress)(
-        privateMasterNode.derive(change).derive(index).privateKey,
-    );
+const getPublicKey = ({ publicMasterNode, change = 0, index = 0 }) => {
+    const address =
+        '0x' +
+        (0, ethereumjs_util_1.publicToAddress)(
+            publicMasterNode.derive(change).derive(index).publicKey,
+            true,
+        ).toString('hex');
+    return (0, ethereumjs_util_1.toChecksumAddress)(address);
 };
 exports.getPublicKey = getPublicKey;

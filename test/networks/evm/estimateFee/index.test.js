@@ -22,6 +22,19 @@ const web3BSC = new web3_1.default('https://bsc-dataseed.bnbchain.org/');
         });
         (0, globals_1.expect)(estimateGas).toBe(21000n);
     });
+    (0, globals_1.test)('estimateTokenFee(BSC)', async () => {
+        const { estimateGas } = await (0, estimateFee_1.estimateFeeTransfer)({
+            web3: web3BSC,
+            chainId: 56,
+            priorityFee: '1000000000',
+            feeRatio: 0.5,
+            source: '0xF977814e90dA44bFA03b6295A0616a897441aceC',
+            tokenContract: '0x7a58c0be72be218b41c608b7fe7c5bb630736c71',
+            destination: '0x41414D3EfDf47376ba3D8c7774424AfC7B417Cbf',
+            amount: new bignumber_js_1.default('1').shiftedBy(18).toString(10),
+        });
+        (0, globals_1.expect)(estimateGas).toBe(21632n);
+    });
     (0, globals_1.test)('estimateBridgeFee', async () => {
         const { estimateGas } = await (0, estimateFee_1.estimateFeeTransfer)({
             web3: web3BSC,

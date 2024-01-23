@@ -14,3 +14,8 @@ export type AddressParams = {
     change: number;
     index: number;
 };
+export type PublicAddressParams = {
+    publicMasterNode: BIP32Interface;
+    change: number;
+    index: number;
+};

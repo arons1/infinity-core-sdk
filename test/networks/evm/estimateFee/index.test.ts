@@ -17,6 +17,19 @@ describe('estimateFee', () => {
         });
         expect(estimateGas).toBe(21000n);
     });
+    test('estimateTokenFee(BSC)', async () => {
+        const { estimateGas } = await estimateFeeTransfer({
+            web3: web3BSC,
+            chainId: 56,
+            priorityFee: '1000000000',
+            feeRatio: 0.5,
+            source: '0xF977814e90dA44bFA03b6295A0616a897441aceC',
+            tokenContract: '0x7a58c0be72be218b41c608b7fe7c5bb630736c71',
+            destination: '0x41414D3EfDf47376ba3D8c7774424AfC7B417Cbf',
+            amount: new BigNumber('1').shiftedBy(18).toString(10),
+        });
+        expect(estimateGas).toBe(21632n);
+    });
     test('estimateBridgeFee', async () => {
         const { estimateGas } = await estimateFeeTransfer({
             web3: web3BSC,
