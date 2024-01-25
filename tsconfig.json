@@ -4,7 +4,7 @@
     "module": "commonjs",
     "outDir": "./lib/commonjs",
     "declaration": true,
-    "rootDir": "./ts_src",
+    "rootDir": "./src",
     "types": [
       "node"
     ],
@@ -15,8 +15,8 @@
     "noUnusedParameters": true
   },
   "include": [
-      "ts_src/**/*.ts", 
-      "ts_src/**/*.js"  
+      "src/**/*.ts", 
+      "src/**/*.js"  
   ],
   "exclude": [
       "**/*.test.ts",
