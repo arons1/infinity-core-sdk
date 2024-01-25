@@ -39,12 +39,16 @@ export const getPrivateKey = ({
     change = 0,
     index = 0,
 }: AddressParams) => {
+    return privateMasterNode.derive(change).derive(index).privateKey;
+};
+export const getPrivateAddress = ({
+    privateMasterNode,
+    change = 0,
+    index = 0,
+}: AddressParams) => {
     return (
         '0x' +
-        privateMasterNode
-            .derive(change)
-            .derive(index)
-            .privateKey?.toString('hex')
+        getPrivateKey({ privateMasterNode, index, change })?.toString('hex')
     );
 };
 
@@ -53,10 +57,17 @@ export const getPublicKey = ({
     change = 0,
     index = 0,
 }: PublicAddressParams) => {
+    return publicMasterNode.derive(change).derive(index).publicKey;
+};
+export const getPublicAddress = ({
+    publicMasterNode,
+    change = 0,
+    index = 0,
+}: PublicAddressParams) => {
     const address =
         '0x' +
         publicToAddress(
-            publicMasterNode.derive(change).derive(index).publicKey,
+            getPublicKey({ publicMasterNode, change, index }),
             true,
         ).toString('hex');
     return toChecksumAddress(address);

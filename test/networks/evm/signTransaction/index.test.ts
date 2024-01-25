@@ -2,9 +2,9 @@ import { describe, expect, test } from '@jest/globals';
 import Web3 from 'web3';
 import {
     getMasterNode,
-    getPrivateKey,
+    getPrivateAddress,
     getPrivateMasterKey,
-    getPublicKey,
+    getPublicAddress,
 } from '../../../../src/networks/evm/address';
 import { TransactionEVM } from '../../../../src/networks/evm/general/types';
 import { signTransaction } from '../../../../src/networks/evm/signTransaction';
@@ -31,12 +31,12 @@ describe('signTransactionEMV', () => {
             protocol: 44,
             masterNode,
         });
-        const publicAddress = getPublicKey({
+        const publicAddress = getPublicAddress({
             change: 0,
             index: 0,
             publicMasterNode: privateMasterNode,
         });
-        const privateKey = getPrivateKey({ privateMasterNode });
+        const privateAddress = getPrivateAddress({ privateMasterNode });
         const transaction = {
             value: '0x100000000',
             from: publicAddress,
@@ -49,7 +49,7 @@ describe('signTransactionEMV', () => {
         const rawTransaction = await signTransaction({
             web3,
             transaction,
-            privateKey,
+            privateAddress,
         });
         expect(rawTransaction).toBe(
             '0x02f8700181b483a6792e850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df85010000000080c080a09743e72a2067cfe20c14fff205878761a613af73a732171555587f751d8a1963a04219f98d251e561a563794de5a002d733e76c79323594ebbc9bda5c6c5030022',

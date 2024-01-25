@@ -1,9 +1,9 @@
 import {
     getMasterNode,
     getPublicMasterKey,
-    getPublicKey,
+    getPublicAddress,
     getPrivateMasterKey,
-    getPrivateKey,
+    getPrivateAddress,
 } from '../../../../src/networks/evm/address';
 import { describe, expect, test } from '@jest/globals';
 
@@ -50,7 +50,7 @@ describe('generateAddressEVM', () => {
             protocol: 44,
             masterNode,
         });
-        const privateAddress = getPrivateKey({
+        const privateAddress = getPrivateAddress({
             privateMasterNode,
         });
         expect(privateAddress).toBe(
@@ -64,7 +64,7 @@ describe('generateAddressEVM', () => {
             protocol: 44,
             masterNode,
         });
-        const publicAddress = getPublicKey({
+        const publicAddress = getPublicAddress({
             change: 0,
             index: 0,
             publicMasterNode,

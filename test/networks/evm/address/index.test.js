@@ -40,7 +40,7 @@ const network = {
             protocol: 44,
             masterNode,
         });
-        const privateAddress = (0, address_1.getPrivateKey)({
+        const privateAddress = (0, address_1.getPrivateAddress)({
             privateMasterNode,
         });
         (0, globals_1.expect)(privateAddress).toBe('0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93');
@@ -52,7 +52,7 @@ const network = {
             protocol: 44,
             masterNode,
         });
-        const publicAddress = (0, address_1.getPublicKey)({
+        const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,
             index: 0,
             publicMasterNode,

@@ -28,12 +28,12 @@ const network = {
             protocol: 44,
             masterNode,
         });
-        const publicAddress = (0, address_1.getPublicKey)({
+        const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,
             index: 0,
             publicMasterNode: privateMasterNode,
         });
-        const privateKey = (0, address_1.getPrivateKey)({ privateMasterNode });
+        const privateAddress = (0, address_1.getPrivateAddress)({ privateMasterNode });
         const transaction = {
             value: '0x100000000',
             from: publicAddress,
@@ -46,7 +46,7 @@ const network = {
         const rawTransaction = await (0, signTransaction_1.signTransaction)({
             web3,
             transaction,
-            privateKey,
+            privateAddress,
         });
         (0, globals_1.expect)(rawTransaction).toBe('0x02f8700181b483a6792e850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df85010000000080c080a09743e72a2067cfe20c14fff205878761a613af73a732171555587f751d8a1963a04219f98d251e561a563794de5a002d733e76c79323594ebbc9bda5c6c5030022');
     });

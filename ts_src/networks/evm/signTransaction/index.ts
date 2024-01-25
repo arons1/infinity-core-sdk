@@ -3,11 +3,11 @@ import { SignTransactionParams } from './types';
 export const signTransaction = async ({
     web3,
     transaction,
-    privateKey,
+    privateAddress,
 }: SignTransactionParams) => {
     const signedTransaction = await web3.eth.accounts.signTransaction(
         transaction,
-        privateKey,
+        privateAddress,
     );
     return signedTransaction?.rawTransaction;
 };

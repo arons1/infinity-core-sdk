@@ -1,6 +1,8 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.getPublicKey =
+exports.getPublicAddress =
+    exports.getPublicKey =
+    exports.getPrivateAddress =
     exports.getPrivateKey =
     exports.getPrivateMasterKey =
     exports.getPublicMasterKey =
@@ -30,22 +32,31 @@ const getPrivateMasterKey = ({ masterNode, bipIdCoin, protocol = 44 }) => {
 };
 exports.getPrivateMasterKey = getPrivateMasterKey;
 const getPrivateKey = ({ privateMasterNode, change = 0, index = 0 }) => {
-    return (
-        '0x' +
-        privateMasterNode
-            .derive(change)
-            .derive(index)
-            .privateKey?.toString('hex')
-    );
+    return privateMasterNode.derive(change).derive(index).privateKey;
 };
 exports.getPrivateKey = getPrivateKey;
+const getPrivateAddress = ({ privateMasterNode, change = 0, index = 0 }) => {
+    return (
+        '0x' +
+        (0, exports.getPrivateKey)({
+            privateMasterNode,
+            index,
+            change,
+        })?.toString('hex')
+    );
+};
+exports.getPrivateAddress = getPrivateAddress;
 const getPublicKey = ({ publicMasterNode, change = 0, index = 0 }) => {
+    return publicMasterNode.derive(change).derive(index).publicKey;
+};
+exports.getPublicKey = getPublicKey;
+const getPublicAddress = ({ publicMasterNode, change = 0, index = 0 }) => {
     const address =
         '0x' +
         (0, ethereumjs_util_1.publicToAddress)(
-            publicMasterNode.derive(change).derive(index).publicKey,
+            (0, exports.getPublicKey)({ publicMasterNode, change, index }),
             true,
         ).toString('hex');
     return (0, ethereumjs_util_1.toChecksumAddress)(address);
 };
-exports.getPublicKey = getPublicKey;
+exports.getPublicAddress = getPublicAddress;
