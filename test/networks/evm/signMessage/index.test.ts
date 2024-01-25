@@ -1,5 +1,4 @@
 import { describe, expect, test } from '@jest/globals';
-import Web3 from 'web3';
 import {
     signMessage,
     verifyMessage,
@@ -11,7 +10,7 @@ import {
     getPublicAddress,
     getPublicMasterKey,
 } from '../../../../lib/commonjs/networks/evm/address';
-const web3BSC = new Web3('https://bsc-dataseed.bnbchain.org/');
+import { web3BSC } from '../helper';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {

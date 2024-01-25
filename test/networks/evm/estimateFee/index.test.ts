@@ -1,13 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
-import Web3 from 'web3';
 import { estimateFeeTransfer } from '../../../../lib/commonjs/networks/evm/estimateFee';
 import BigNumber from 'bignumber.js';
-const web3 = new Web3('https://rpc.mevblocker.io/');
-const web3BSC = new Web3('https://bsc-dataseed.bnbchain.org/');
+import { web3Ethereum, web3BSC } from '../helper';
 describe('estimateFee', () => {
     test('estimateCurrencyFee(ETH)', async () => {
         const { estimateGas } = await estimateFeeTransfer({
-            web3,
+            web3: web3Ethereum,
             chainId: 1,
             priorityFee: '1000000000',
             feeRatio: 0.5,

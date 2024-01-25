@@ -1,5 +1,4 @@
 import { describe, expect, test } from '@jest/globals';
-import Web3 from 'web3';
 import {
     getMasterNode,
     getPrivateAddress,
@@ -8,8 +7,7 @@ import {
 } from '../../../../lib/commonjs/networks/evm/address';
 import { TransactionEVM } from '../../../../lib/commonjs/networks/evm/general/types';
 import { signTransaction } from '../../../../lib/commonjs/networks/evm/signTransaction';
-
-const web3 = new Web3('https://rpc.mevblocker.io/');
+import { web3Ethereum } from '../helper';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -47,7 +45,7 @@ describe('signTransactionEMV', () => {
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
         } as TransactionEVM;
         const rawTransaction = await signTransaction({
-            web3,
+            web3: web3Ethereum,
             transaction,
             privateAddress,
         });

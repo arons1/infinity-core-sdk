@@ -1,13 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
-const web3_1 = __importDefault(require("web3"));
 const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const signTransaction_1 = require("../../../../lib/commonjs/networks/evm/signTransaction");
-const web3 = new web3_1.default('https://rpc.mevblocker.io/');
+const helper_1 = require("../helper");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
     messagePrefix: '\u0018Bitcoin Signed Message:\n',
@@ -44,7 +40,7 @@ const network = {
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
         };
         const rawTransaction = await (0, signTransaction_1.signTransaction)({
-            web3,
+            web3: helper_1.web3Ethereum,
             transaction,
             privateAddress,
         });
