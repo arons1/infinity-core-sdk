@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const web3_1 = __importDefault(require("web3"));
-const signMessage_1 = require("../../../../src/networks/evm/signMessage");
-const address_1 = require("../../../../src/networks/evm/address");
+const signMessage_1 = require("../../../../lib/commonjs/networks/evm/signMessage");
+const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const web3BSC = new web3_1.default('https://bsc-dataseed.bnbchain.org/');
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {

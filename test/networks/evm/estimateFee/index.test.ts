@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import Web3 from 'web3';
-import { estimateFeeTransfer } from '../../../../src/networks/evm/estimateFee';
+import { estimateFeeTransfer } from '../../../../lib/commonjs/networks/evm/estimateFee';
 import BigNumber from 'bignumber.js';
 const web3 = new Web3('https://rpc.mevblocker.io/');
 const web3BSC = new Web3('https://bsc-dataseed.bnbchain.org/');

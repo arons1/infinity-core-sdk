@@ -3,14 +3,14 @@ import Web3 from 'web3';
 import {
     signMessage,
     verifyMessage,
-} from '../../../../src/networks/evm/signMessage';
+} from '../../../../lib/commonjs/networks/evm/signMessage';
 import {
     getMasterNode,
     getPrivateMasterKey,
     getPrivateKey,
     getPublicAddress,
     getPublicMasterKey,
-} from '../../../../src/networks/evm/address';
+} from '../../../../lib/commonjs/networks/evm/address';
 const web3BSC = new Web3('https://bsc-dataseed.bnbchain.org/');
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';

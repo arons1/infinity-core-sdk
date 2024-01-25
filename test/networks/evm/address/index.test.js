@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const address_1 = require("../../../../src/networks/evm/address");
+const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const globals_1 = require("@jest/globals");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {

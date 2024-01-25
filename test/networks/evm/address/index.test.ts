@@ -4,7 +4,7 @@ import {
     getPublicAddress,
     getPrivateMasterKey,
     getPrivateAddress,
-} from '../../../../src/networks/evm/address';
+} from '../../../../lib/commonjs/networks/evm/address';
 import { describe, expect, test } from '@jest/globals';
 
 const mnemonic =

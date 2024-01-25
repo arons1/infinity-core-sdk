@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const web3_1 = __importDefault(require("web3"));
-const estimateFee_1 = require("../../../../src/networks/evm/estimateFee");
+const estimateFee_1 = require("../../../../lib/commonjs/networks/evm/estimateFee");
 const bignumber_js_1 = __importDefault(require("bignumber.js"));
 const web3 = new web3_1.default('https://rpc.mevblocker.io/');
 const web3BSC = new web3_1.default('https://bsc-dataseed.bnbchain.org/');

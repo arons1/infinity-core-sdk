@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const web3_1 = __importDefault(require("web3"));
-const address_1 = require("../../../../src/networks/evm/address");
-const signTransaction_1 = require("../../../../src/networks/evm/signTransaction");
+const address_1 = require("../../../../lib/commonjs/networks/evm/address");
+const signTransaction_1 = require("../../../../lib/commonjs/networks/evm/signTransaction");
 const web3 = new web3_1.default('https://rpc.mevblocker.io/');
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {

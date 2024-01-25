@@ -5,9 +5,9 @@ import {
     getPrivateAddress,
     getPrivateMasterKey,
     getPublicAddress,
-} from '../../../../src/networks/evm/address';
-import { TransactionEVM } from '../../../../src/networks/evm/general/types';
-import { signTransaction } from '../../../../src/networks/evm/signTransaction';
+} from '../../../../lib/commonjs/networks/evm/address';
+import { TransactionEVM } from '../../../../lib/commonjs/networks/evm/general/types';
+import { signTransaction } from '../../../../lib/commonjs/networks/evm/signTransaction';
 
 const web3 = new Web3('https://rpc.mevblocker.io/');
 const mnemonic =
