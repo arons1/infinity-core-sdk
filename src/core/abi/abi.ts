@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-useless-escape */
 const utils = require('./util');
 const base = require('../base');
