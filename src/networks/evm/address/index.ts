@@ -83,7 +83,7 @@ export const getHarmonyPublicAddress = ({
 }: PublicAddressParams) => {
     return new HarmonyAddress(
         getPublicAddress({ publicMasterNode, change, index }),
-    );
+    ).bech32;
 };
 const encodeAddressToBech32 = ({
     address,
@@ -117,11 +117,7 @@ export const getXDCPublicAddress = ({
     change = 0,
     index = 0,
 }: PublicAddressParams) => {
-    const address =
-        'xdc' +
-        publicToAddress(
-            getPublicKey({ publicMasterNode, change, index }),
-            true,
-        ).toString('hex');
-    return toChecksumAddress(address);
+    return (
+        'xdc' + getPublicAddress({ publicMasterNode, change, index }).slice(2)
+    );
 };

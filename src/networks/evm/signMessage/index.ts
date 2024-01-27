@@ -15,6 +15,5 @@ export const verifyMessage = async ({
     signature,
 }: VerifyMessageParams) => {
     const publicAddress = await web3.eth.accounts.recover(message, signature);
-    console.log(publicAddress);
     return publicAddress?.toLowerCase() == address.toLowerCase();
 };

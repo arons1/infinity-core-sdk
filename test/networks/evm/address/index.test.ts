@@ -4,6 +4,9 @@ import {
     getPublicAddress,
     getPrivateMasterKey,
     getPrivateAddress,
+    getHarmonyPublicAddress,
+    getOKXPublicAddress,
+    getXDCPublicAddress,
 } from '../../../../lib/commonjs/networks/evm/address';
 import { describe, expect, test } from '@jest/globals';
 
@@ -72,5 +75,54 @@ describe('generateAddressEVM', () => {
         expect(publicAddress).toBe(
             '0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
         );
+    });
+
+    test('generateXDCPublicAddress', async () => {
+        const masterNode = getMasterNode({ mnemonic, network });
+        const publicMasterNode = getPublicMasterKey({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = getXDCPublicAddress({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        expect(publicAddress).toBe(
+            'xdc0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
+        );
+    });
+
+    test('generateHarmonyPublicAddress', async () => {
+        const masterNode = getMasterNode({ mnemonic, network });
+        const publicMasterNode = getPublicMasterKey({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = getHarmonyPublicAddress({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        expect(publicAddress).toBe(
+            'one1pjrtg0vvzz8ttts9yxq90uxnz08ellth0d4hd0',
+        );
+    });
+
+    test('generateOKXPublicAddress', async () => {
+        const masterNode = getMasterNode({ mnemonic, network });
+        const publicMasterNode = getPublicMasterKey({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = getOKXPublicAddress({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        expect(publicAddress).toBe('ex1pjrtg0vvzz8ttts9yxq90uxnz08ellthg9dn08');
     });
 });

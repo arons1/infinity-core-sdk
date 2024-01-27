@@ -59,4 +59,46 @@ const network = {
         });
         (0, globals_1.expect)(publicAddress).toBe('0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77');
     });
+    (0, globals_1.test)('generateXDCPublicAddress', async () => {
+        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
+        const publicMasterNode = (0, address_1.getPublicMasterKey)({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = (0, address_1.getXDCPublicAddress)({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        (0, globals_1.expect)(publicAddress).toBe('xdc0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77');
+    });
+    (0, globals_1.test)('generateHarmonyPublicAddress', async () => {
+        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
+        const publicMasterNode = (0, address_1.getPublicMasterKey)({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = (0, address_1.getHarmonyPublicAddress)({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        (0, globals_1.expect)(publicAddress).toBe('one1pjrtg0vvzz8ttts9yxq90uxnz08ellth0d4hd0');
+    });
+    (0, globals_1.test)('generateOKXPublicAddress', async () => {
+        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
+        const publicMasterNode = (0, address_1.getPublicMasterKey)({
+            bipIdCoin: 60,
+            protocol: 44,
+            masterNode,
+        });
+        const publicAddress = (0, address_1.getOKXPublicAddress)({
+            change: 0,
+            index: 0,
+            publicMasterNode,
+        });
+        (0, globals_1.expect)(publicAddress).toBe('ex1pjrtg0vvzz8ttts9yxq90uxnz08ellthg9dn08');
+    });
 });

@@ -1,7 +1,7 @@
 import { fromSeed } from '../../../core/bip32';
 import { mnemonicToSeedSync } from '../../../core/bip39';
 import { Network, payments } from 'bitcoinjs-lib';
-import tinysecp from 'tiny-secp256k1';
+import bs58check from 'bs58check';
 import {
     MasterNodeParams,
     MasterKeyParams,
@@ -9,13 +9,34 @@ import {
     PublicAddressParams,
     PublicKeyParams,
 } from './types';
-import ECPairFactory from '../../../core/ecpair';
-
-const ECPair = ECPairFactory(tinysecp);
 
 export const getMasterNode = ({ mnemonic, network }: MasterNodeParams) => {
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
+};
+export const xpubToYpub = (xpub: string) => {
+    var data = bs58check.decode(xpub);
+    data = data.slice(4);
+    data = Buffer.concat([Buffer.from('049d7cb2', 'hex'), data]);
+    return bs58check.encode(data);
+};
+export const xprvToYprv = (xpub: string) => {
+    var data = bs58check.decode(xpub);
+    data = data.slice(4);
+    data = Buffer.concat([Buffer.from('049d7878', 'hex'), data]);
+    return bs58check.encode(data);
+};
+export const xprvToZprv = (xpub: string) => {
+    var data = bs58check.decode(xpub);
+    data = data.slice(4);
+    data = Buffer.concat([Buffer.from('04b2430c', 'hex'), data]);
+    return bs58check.encode(data);
+};
+export const xpubToZpub = (xpub: string) => {
+    var data = bs58check.decode(xpub);
+    data = data.slice(4);
+    data = Buffer.concat([Buffer.from('04b24746', 'hex'), data]);
+    return bs58check.encode(data);
 };
 export const getPublicMasterKey = ({
     masterNode,
@@ -58,7 +79,7 @@ export const getPrivateAddress = ({
         change,
         network,
     });
-    return ECPair.fromWIF(privateKey.toWIF(), network as Network);
+    return privateKey.toWIF();
 };
 
 export const getPublicKey = ({
@@ -75,17 +96,17 @@ export const getPublicAddressSegwit = ({
     network,
 }: PublicAddressParams) => {
     const pubkey = getPublicKey({ publicMasterNode, change, index });
-    return payments.p2pkh({ pubkey, network: network as Network }).address;
+    return payments.p2wpkh({ pubkey, network: network as Network }).address;
 };
 
-export const getPublicAddressP2PKHP2S = ({
+export const getPublicAddressP2WPKHP2S = ({
     publicMasterNode,
     change = 0,
     index = 0,
     network,
 }: PublicAddressParams) => {
     const pubkey = getPublicKey({ publicMasterNode, change, index });
-    const redeem = payments.p2pkh({ pubkey, network: network as Network });
+    const redeem = payments.p2wpkh({ pubkey, network: network as Network });
     return payments.p2sh({
         redeem,
         network: network as Network,
