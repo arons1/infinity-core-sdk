@@ -7,5 +7,5 @@ export type TransactionEVM = {
     maxFeePerGas?: string;
     gasPrice?: string;
     maxPriorityFeePerGas?: string;
-    gasLimit?:string
+    gasLimit?: string;
 };

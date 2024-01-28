@@ -4,7 +4,7 @@ export const signTransaction = async ({
     web3,
     transaction,
     privateAddress,
-}: SignTransactionParams) => {
+}: SignTransactionParams): Promise<string> => {
     const signedTransaction = await web3.eth.accounts.signTransaction(
         transaction,
         privateAddress,

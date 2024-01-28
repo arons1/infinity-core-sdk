@@ -1,5 +1,9 @@
 import { TransactionEVM } from '../general/types';
-
+export type ReturnEstimate = {
+    transaction: TransactionEVM;
+    estimateGas: string;
+    gasPrice?: string;
+};
 export type EstimateGasParams = {
     web3: any;
     source: string;

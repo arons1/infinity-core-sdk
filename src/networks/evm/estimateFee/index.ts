@@ -6,6 +6,7 @@ import {
     GasPriceParams,
     EstimateGasTokenParams,
     CalculateGasPrice,
+    ReturnEstimate,
 } from './types';
 // @ts-ignore
 import ERC20Abi from '../../../core/abi/erc20';
@@ -21,7 +22,7 @@ const estimateBridgeFee = async ({
     chainId,
     feeRatio,
     priorityFee,
-}: EstimateGasBridgeParams) => {
+}: EstimateGasBridgeParams): Promise<ReturnEstimate> => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {
         from: source,
     });
@@ -72,7 +73,7 @@ const estimateTokenFee = async ({
     chainId,
     feeRatio = 0.5,
     priorityFee,
-}: EstimateGasTokenParams) => {
+}: EstimateGasTokenParams): Promise<ReturnEstimate> => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {
         from: source,
     });
@@ -122,7 +123,7 @@ const calculateGasPrice = async ({
     chainId,
     feeRatio,
     priorityFee,
-}: CalculateGasPrice) => {
+}: CalculateGasPrice): Promise<TransactionEVM> => {
     if (chainId == 1 || chainId == 137) {
         const maxPriority = web3.utils.toHex(
             new BigNumber(priorityFee)
@@ -152,7 +153,7 @@ const estimateCurrencyFee = async ({
     chainId,
     feeRatio,
     priorityFee,
-}: EstimateGasParams) => {
+}: EstimateGasParams): Promise<ReturnEstimate> => {
     const { estimateGas } = await getGasLimit({
         source,
         destination,
@@ -186,7 +187,9 @@ const estimateCurrencyFee = async ({
         transaction,
     };
 };
-export const getGasPrice = async ({ web3 }: GasPriceParams) => {
+export const getGasPrice = async ({
+    web3,
+}: GasPriceParams): Promise<string> => {
     return await web3.eth.getGasPrice();
 };
 export const getGasLimit = async ({
@@ -250,7 +253,10 @@ export const getGasLimit = async ({
         }
     }
 };
-export const getNonce = async ({ address, web3 }: NonceParams) => {
+export const getNonce = async ({
+    address,
+    web3,
+}: NonceParams): Promise<string> => {
     return await web3.eth.getTransactionCount(address, 'pending');
 };
 
@@ -263,7 +269,7 @@ export const estimateFeeTransfer = async ({
     chainId,
     feeRatio = 0.5,
     priorityFee,
-}: EstimateGasParams) => {
+}: EstimateGasParams): Promise<ReturnEstimate> => {
     const isBridge = destination.startsWith('bnb');
     if (isBridge) {
         return await estimateBridgeFee({
