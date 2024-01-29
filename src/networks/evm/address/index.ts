@@ -1,5 +1,5 @@
 import { fromSeed } from '../../../core/bip32';
-import { mnemonicToSeedSync } from '../../../core/bip39';
+import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
 import { publicToAddress, toChecksumAddress } from '../sdk/ethereumjs-util';
 import { HarmonyAddress } from '@harmony-js/crypto';
 import { bech32 } from '@scure/base';
@@ -11,6 +11,7 @@ import {
     AddressParams,
     PublicAddressParams,
 } from './types';
+import { DerivePathError, GenPrivateKeyError, InvalidMnemonic } from '../../../errors/networks';
 
 /* 
 getRootNode
@@ -22,6 +23,8 @@ export const getRootNode = ({
     mnemonic,
     network,
 }: RootNodeParams): BIP32Interface => {
+    if(!validateMnemonic(mnemonic))
+        throw new Error(InvalidMnemonic)
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
 };
@@ -86,9 +89,12 @@ export const getPrivateAddress = ({
     change = 0,
     index = 0,
 }: AddressParams): string => {
+    const privateKey = getPrivateKey({ privateAccountNode, index, change })
+    if(!privateKey)
+        throw new Error(GenPrivateKeyError)
     return (
         '0x' +
-        getPrivateKey({ privateAccountNode, index, change })?.toString('hex')
+        privateKey?.toString('hex')
     );
 };
 /* 
@@ -122,6 +128,9 @@ export const getPublicAddress = ({
         const address = '0x' + publicToAddress(pubKey, true).toString('hex');
         return toChecksumAddress(address);
     }
+    else{
+        throw new Error(DerivePathError)
+    }
 };
 /* 
 getHarmonyPublicAddress
@@ -137,6 +146,7 @@ export const getHarmonyPublicAddress = ({
 }: PublicAddressParams): string | undefined => {
     const pubKey = getPublicAddress({ publicAccountNode, change, index });
     if (pubKey) return new HarmonyAddress(pubKey).bech32;
+    else throw new Error(DerivePathError)
 };
 
 const encodeAddressToBech32 = ({
@@ -170,6 +180,7 @@ export const getOKXPublicAddress = ({
             prefix: 'ex',
         });
     }
+    else throw new Error(DerivePathError)
 };
 /* 
 getXDCPublicAddress
@@ -187,6 +198,7 @@ export const getXDCPublicAddress = ({
     if (pubKey) {
         return 'xdc' + pubKey.slice(2);
     }
+    else throw new Error(DerivePathError)
 };
 /* 
 validatePublicAddress

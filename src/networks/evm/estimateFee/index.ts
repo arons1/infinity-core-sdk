@@ -15,11 +15,17 @@ import { tokenHubContractAddress } from './abi_bsc';
 import { TransactionEVM } from '../general/types';
 import BigNumber from 'bignumber.js';
 import {
+    CannotGetNonce,
     InvalidAddress,
+    InvalidAmount,
     InvalidChainError,
+    InvalidContractAddress,
+    InvalidTokenContract,
     PriorityFeeError,
 } from '../../../errors/networks';
 import { validatePublicAddress } from '../address';
+import { isValidNumber } from '../../../utils';
+import { SupportedChains } from '../general/contants';
 /* 
 estimateBridgeFee
     Returns BSC bridge to BC estimate cost
@@ -38,7 +44,7 @@ const estimateBridgeFee = async ({
     chainId,
     feeRatio,
 }: EstimateGasBridgeParams): Promise<ReturnEstimate> => {
-    if (chainId != 56 && chainId != 96) throw InvalidChainError;
+
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {
         from: source,
     });
@@ -49,8 +55,7 @@ const estimateBridgeFee = async ({
         amount,
         contract,
         web3,
-        isToken: true,
-        isBridge: true,
+        isToken: true
     });
     var gasPrice = await getGasPrice({
         web3,
@@ -101,6 +106,7 @@ const estimateTokenFee = async ({
     feeRatio = 0.5,
     priorityFee,
 }: EstimateGasTokenParams): Promise<ReturnEstimate> => {
+    
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {
         from: source,
     });
@@ -111,8 +117,7 @@ const estimateTokenFee = async ({
         amount,
         contract,
         web3,
-        isToken: true,
-        isBridge: false,
+        isToken: true
     });
     var gasPrice = await getGasPrice({
         web3,
@@ -143,6 +148,7 @@ const estimateTokenFee = async ({
     };
 };
 
+
 const calculateGasPrice = async ({
     transaction,
     gasPrice,
@@ -152,11 +158,8 @@ const calculateGasPrice = async ({
     priorityFee,
 }: CalculateGasPrice): Promise<TransactionEVM> => {
     if (chainId == 1 || chainId == 137) {
-        if (
-            priorityFee == undefined ||
-            new BigNumber(priorityFee as string).isNaN()
-        )
-            throw PriorityFeeError;
+        if (!isValidNumber(priorityFee))
+            throw new Error(PriorityFeeError);
         const maxPriority = web3.utils.toHex(
             new BigNumber(priorityFee as string)
                 .multipliedBy(feeRatio + 1)
@@ -201,8 +204,7 @@ const estimateCurrencyFee = async ({
         destination,
         amount,
         web3,
-        isToken: false,
-        isBridge: false,
+        isToken: false
     });
     var gasPrice = await getGasPrice({ web3 });
     const nonce = await getNonce({
@@ -261,12 +263,14 @@ export const getGasLimit = async ({
     source,
     contract,
     web3,
-    isToken = false,
-    isBridge = false,
+    isToken = false
 }: GasLimitParams): Promise<{
     data: string;
     estimateGas: string;
 }> => {
+    if (!validatePublicAddress({ address: source })) throw  new Error(InvalidAddress);
+    if (!isValidNumber(amount)) throw new Error(InvalidAmount);
+    const isBridge = destination.startsWith('bnb');
     if (isBridge) {
         const data = getDataBSC({
             toAddress: destination,
@@ -284,8 +288,12 @@ export const getGasLimit = async ({
             estimateGas,
         };
     } else {
+        if (!validatePublicAddress({ address: destination })) throw  new Error(InvalidAddress);
         if (isToken) {
+            if (!validatePublicAddress({ address: tokenContract as string })) throw  new Error(InvalidContractAddress);
+            if(!contract)   throw new Error(InvalidTokenContract)
             const nonce = await getNonce({ address: source, web3 });
+            if(!nonce)   throw new Error(CannotGetNonce)
             const data = contract.methods
                 .transfer(destination, amount)
                 .encodeABI();
@@ -302,6 +310,7 @@ export const getGasLimit = async ({
             };
         } else {
             const nonce = await getNonce({ address: source, web3 });
+            if(nonce == undefined)   throw new Error(CannotGetNonce)
             const estimateGas = await web3.eth.estimateGas({
                 from: source,
                 nonce: nonce,
@@ -349,8 +358,10 @@ export const estimateFeeTransfer = async ({
     priorityFee,
 }: EstimateGasParams): Promise<ReturnEstimate> => {
     const isBridge = destination.startsWith('bnb');
-    if (!validatePublicAddress({ address: source })) throw InvalidAddress;
+    if (!validatePublicAddress({ address: source })) throw  new Error(InvalidAddress);
+    if (!SupportedChains.includes(chainId)) throw  new Error(InvalidChainError);
     if (isBridge) {
+        if (chainId != 56 && chainId != 96) throw new Error(InvalidChainError);
         return await estimateBridgeFee({
             amount,
             web3,
@@ -361,8 +372,10 @@ export const estimateFeeTransfer = async ({
         });
     } else {
         if (!validatePublicAddress({ address: destination }))
-            throw InvalidAddress;
+            throw  new Error(InvalidAddress);
         if (tokenContract.length > 0) {
+            if (!validatePublicAddress({ address: tokenContract }))
+                throw  new Error(InvalidContractAddress);
             return await estimateTokenFee({
                 web3,
                 source,

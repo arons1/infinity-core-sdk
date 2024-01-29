@@ -49,7 +49,6 @@ export type GasLimitParams = {
     amount: string;
     contract?: any;
     isToken: boolean;
-    isBridge: boolean;
 };
 
 export type CalculateGasPrice = {
