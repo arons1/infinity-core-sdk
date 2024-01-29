@@ -188,3 +188,21 @@ export const getXDCPublicAddress = ({
         return 'xdc' + pubKey.slice(2);
     }
 };
+/* 
+validatePublicAddress
+    Returns if the public address is valid
+    @param address: Public address
+*/
+export const validatePublicAddress = ({
+    address
+}:{
+    address:string
+}): boolean => {
+    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+        return false;
+    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+        return true;
+    } else {
+        return true;
+    }
+};

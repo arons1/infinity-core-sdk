@@ -14,6 +14,8 @@ import { getDataBSC, getGasLimitBSC } from './sendBridge';
 import { tokenHubContractAddress } from './abi_bsc';
 import { TransactionEVM } from '../general/types';
 import BigNumber from 'bignumber.js';
+import { InvalidAddress, InvalidChainError, PriorityFeeError } from '../../../errors/networks';
+import { validatePublicAddress } from '../address';
 /* 
 estimateBridgeFee
     Returns BSC bridge to BC estimate cost
@@ -33,6 +35,8 @@ const estimateBridgeFee = async ({
     chainId,
     feeRatio
 }: EstimateGasBridgeParams): Promise<ReturnEstimate> => {
+    if(chainId != 56 && chainId != 96)
+        throw InvalidChainError
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {
         from: source,
     });
@@ -147,7 +151,7 @@ const calculateGasPrice = async ({
 }: CalculateGasPrice): Promise<TransactionEVM> => {
     if (chainId == 1 || chainId == 137) {
         if(priorityFee == undefined || new BigNumber(priorityFee as string).isNaN())
-            throw "Missing or invalid priority fee"
+            throw PriorityFeeError
         const maxPriority = web3.utils.toHex(
             new BigNumber(priorityFee as string)
                 .multipliedBy(feeRatio + 1)
@@ -340,6 +344,8 @@ export const estimateFeeTransfer = async ({
     priorityFee,
 }: EstimateGasParams): Promise<ReturnEstimate> => {
     const isBridge = destination.startsWith('bnb');
+    if(!validatePublicAddress({address:source}))
+        throw InvalidAddress
     if (isBridge) {
         return await estimateBridgeFee({
             amount,
@@ -350,6 +356,8 @@ export const estimateFeeTransfer = async ({
             chainId,
         });
     } else {
+        if(!validatePublicAddress({address:destination}))
+            throw InvalidAddress
         if (tokenContract.length > 0) {
             return await estimateTokenFee({
                 web3,
