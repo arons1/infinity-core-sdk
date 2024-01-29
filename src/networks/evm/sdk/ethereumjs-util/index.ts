@@ -33,7 +33,6 @@ export * from './signature';
 /**
  * Utilities for manipulating Buffers, byte arrays, etc.
  */
-export * from './bytes';
 
 /**
  * Helpful TypeScript types

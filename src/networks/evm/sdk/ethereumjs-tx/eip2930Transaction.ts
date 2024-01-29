@@ -10,7 +10,6 @@ import {
     bnToUnpaddedBuffer,
     keccak256,
     MAX_INTEGER,
-    toBuffer,
     toType,
     TypeOutput,
     validateNoLeadingZeroes,

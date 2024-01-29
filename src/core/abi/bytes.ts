@@ -6,6 +6,8 @@
  * */
 
 import { assertIsArray, assertIsBuffer, assertIsHexString } from './helpers';
+import { BN } from '../';
+
 import {
     isHexPrefixed,
     isHexString,
@@ -149,6 +151,7 @@ export type ToBufferInputTypes =
     | PrefixedHexString
     | number
     | bigint
+    | BN
     | Buffer
     | Uint8Array
     | number[]

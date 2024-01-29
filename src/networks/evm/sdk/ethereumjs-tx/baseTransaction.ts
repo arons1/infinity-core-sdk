@@ -6,12 +6,10 @@
  */
 
 import {
-    toBuffer,
     MAX_INTEGER,
     MAX_UINT64,
     Address,
     ecdsaSign,
-    bufferToHex,
 } from '../ethereumjs-util';
 
 import { BN } from '../../../../core';

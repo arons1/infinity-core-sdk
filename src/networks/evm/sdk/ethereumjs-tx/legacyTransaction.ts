@@ -10,8 +10,6 @@ import {
     bnToUnpaddedBuffer,
     MAX_INTEGER,
     rlphash,
-    toBuffer,
-    unpadBuffer,
     validateNoLeadingZeroes,
 } from '../ethereumjs-util';
 import { TxData, JsonTx, TxValuesArray } from './types';
@@ -19,6 +17,7 @@ import { BaseTransaction } from './baseTransaction';
 
 import { BN } from '../../../../core';
 import { rlp } from '../../../../core/base';
+import { unpadBuffer } from '../../../../core/abi/bytes';
 
 const TRANSACTION_TYPE = 0;
 

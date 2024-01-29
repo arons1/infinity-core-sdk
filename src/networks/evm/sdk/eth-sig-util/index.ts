@@ -9,7 +9,6 @@
 export * from './sign-typed-data';
 export * from './encryption';
 
-import { toBuffer } from '../ethereumjs-util';
 
 /**
  * Pads the front of the given hex string with zeroes until it reaches the

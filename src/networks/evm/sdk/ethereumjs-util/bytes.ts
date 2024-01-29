@@ -11,66 +11,9 @@ import {
     TransformableToArray,
     TransformableToBuffer,
 } from './types';
-import { assertIsBuffer, assertIsArray } from './helpers';
+import { assertIsBuffer } from './helpers';
+import { stripZeros } from '../../../../core/abi/util';
 
-/**
- * Returns a buffer filled with 0s.
- * @param bytes the number of bytes the buffer should be
- */
-export const zeros = function (bytes: number): Buffer {
-    return Buffer.allocUnsafe(bytes).fill(0);
-};
-
-/**
- * Pads a `Buffer` with zeros till it has `length` bytes.
- * Truncates the beginning or end of input if its length exceeds `length`.
- * @param msg the value to pad (Buffer)
- * @param length the number of bytes the output should be
- * @param right whether to start padding form the left or right
- * @return (Buffer)
- */
-const setLength = function (msg: Buffer, length: number, right: boolean) {
-    const buf = zeros(length);
-    if (right) {
-        if (msg.length < length) {
-            msg.copy(buf);
-            return buf;
-        }
-        return msg.slice(0, length);
-    } else {
-        if (msg.length < length) {
-            msg.copy(buf, length - msg.length);
-            return buf;
-        }
-        return msg.slice(-length);
-    }
-};
-
-/**
- * Left Pads a `Buffer` with leading zeros till it has `length` bytes.
- * Or it truncates the beginning if it exceeds.
- * @param msg the value to pad (Buffer)
- * @param length the number of bytes the output should be
- * @return (Buffer)
- */
-export const setLengthLeft = function (msg: Buffer, length: number) {
-    assertIsBuffer(msg);
-    return setLength(msg, length, false);
-};
-
-/**
- * Trims leading zeros from a `Buffer`, `String` or `Number[]`.
- * @param a (Buffer|Array|String)
- * @return (Buffer|Array|String)
- */
-export const stripZeros = function (a: any): Buffer | number[] | string {
-    let first = a[0];
-    while (a.length > 0 && first.toString() === '0') {
-        a = a.slice(1);
-        first = a[0];
-    }
-    return a;
-};
 
 /**
  * Trims leading zeros from a `Buffer`.
@@ -82,15 +25,6 @@ export const unpadBuffer = function (a: Buffer): Buffer {
     return stripZeros(a) as Buffer;
 };
 
-/**
- * Trims leading zeros from an `Array` (of numbers).
- * @param a (number[])
- * @return (number[])
- */
-export const unpadArray = function (a: number[]): number[] {
-    assertIsArray(a);
-    return stripZeros(a) as number[];
-};
 
 export type ToBufferInputTypes =
     | PrefixedHexString

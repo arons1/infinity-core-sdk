@@ -6,8 +6,9 @@
  */
 
 const assert = require('assert');
-import { toBuffer, zeros } from './bytes';
+import { toBuffer } from './bytes';
 import { isValidAddress, pubToAddress, privateToAddress } from './account';
+import { zeros } from '../../../../core/abi/bytes';
 
 export class Address {
     public readonly buf: Buffer;
