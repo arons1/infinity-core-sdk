@@ -1,9 +1,9 @@
-import { InvalidAddress, InvalidChainError } from "../../../errors/networks";
-import { calculateGasPrice, getGasPrice, getNonce } from "../estimateFee";
-import { SupportedChains } from "../general/contants";
-import { TransactionEVM } from "../general/types";
-import { isValidAddress } from "../sdk/ethereumjs-util/account";
-import { BuildTransaction } from "./types";
+import { InvalidAddress, InvalidChainError } from '../../../errors/networks';
+import { calculateGasPrice, getGasPrice, getNonce } from '../estimateFee';
+import { SupportedChains } from '../general/contants';
+import { TransactionEVM } from '../general/types';
+import { isValidAddress } from '../sdk/ethereumjs-util/account';
+import { BuildTransaction } from './types';
 
 export const buildTransaction = async ({
     value,
@@ -14,12 +14,12 @@ export const buildTransaction = async ({
     chainId,
     feeRatio = 0.5,
     priorityFee,
-    gasPrice
-}:BuildTransaction) : Promise<TransactionEVM> => {
-    if (!isValidAddress(source)) throw  new Error(InvalidAddress);
-    if (!SupportedChains.includes(chainId)) throw  new Error(InvalidChainError);
-    if (!isValidAddress(destination)) throw  new Error(InvalidAddress);
-    if(!gasPrice)
+    gasPrice,
+}: BuildTransaction): Promise<TransactionEVM> => {
+    if (!isValidAddress(source)) throw new Error(InvalidAddress);
+    if (!SupportedChains.includes(chainId)) throw new Error(InvalidChainError);
+    if (!isValidAddress(destination)) throw new Error(InvalidAddress);
+    if (!gasPrice)
         gasPrice = await getGasPrice({
             web3,
         });
@@ -42,5 +42,5 @@ export const buildTransaction = async ({
         feeRatio,
         priorityFee,
     });
-    return transaction
-}
+    return transaction;
+};

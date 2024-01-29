@@ -14,7 +14,6 @@ import {
 import { assertIsBuffer } from './helpers';
 import { stripZeros } from '../../../../core/abi/util';
 
-
 /**
  * Trims leading zeros from a `Buffer`.
  * @param a (Buffer)
@@ -24,7 +23,6 @@ export const unpadBuffer = function (a: Buffer): Buffer {
     assertIsBuffer(a);
     return stripZeros(a) as Buffer;
 };
-
 
 export type ToBufferInputTypes =
     | PrefixedHexString

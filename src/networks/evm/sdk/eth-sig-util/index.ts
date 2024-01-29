@@ -9,7 +9,6 @@
 export * from './sign-typed-data';
 export * from './encryption';
 
-
 /**
  * Pads the front of the given hex string with zeroes until it reaches the
  * target length. If the input string is already longer than or equal to the

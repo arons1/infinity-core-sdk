@@ -5,7 +5,6 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-
 /**
  * Throws if a string is not hex prefixed
  * @param {string} input string to check hex prefix of

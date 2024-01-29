@@ -10,8 +10,15 @@ import {
     AddressParams,
     PublicAddressParams,
 } from './types';
-import { DerivePathError, GenPrivateKeyError, InvalidMnemonic } from '../../../errors/networks';
-import { publicToAddress, toChecksumAddress } from '../sdk/ethereumjs-util/account';
+import {
+    DerivePathError,
+    GenPrivateKeyError,
+    InvalidMnemonic,
+} from '../../../errors/networks';
+import {
+    publicToAddress,
+    toChecksumAddress,
+} from '../sdk/ethereumjs-util/account';
 
 /* 
 getRootNode
@@ -23,8 +30,7 @@ export const getRootNode = ({
     mnemonic,
     network,
 }: RootNodeParams): BIP32Interface => {
-    if(!validateMnemonic(mnemonic))
-        throw new Error(InvalidMnemonic)
+    if (!validateMnemonic(mnemonic)) throw new Error(InvalidMnemonic);
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
 };
@@ -89,13 +95,9 @@ export const getPrivateAddress = ({
     change = 0,
     index = 0,
 }: AddressParams): string => {
-    const privateKey = getPrivateKey({ privateAccountNode, index, change })
-    if(!privateKey)
-        throw new Error(GenPrivateKeyError)
-    return (
-        '0x' +
-        privateKey?.toString('hex')
-    );
+    const privateKey = getPrivateKey({ privateAccountNode, index, change });
+    if (!privateKey) throw new Error(GenPrivateKeyError);
+    return '0x' + privateKey?.toString('hex');
 };
 /* 
 getPublicKey
@@ -127,9 +129,8 @@ export const getPublicAddress = ({
     if (pubKey) {
         const address = '0x' + publicToAddress(pubKey, true).toString('hex');
         return toChecksumAddress(address);
-    }
-    else{
-        throw new Error(DerivePathError)
+    } else {
+        throw new Error(DerivePathError);
     }
 };
 /* 
@@ -146,7 +147,7 @@ export const getHarmonyPublicAddress = ({
 }: PublicAddressParams): string | undefined => {
     const pubKey = getPublicAddress({ publicAccountNode, change, index });
     if (pubKey) return new HarmonyAddress(pubKey).bech32;
-    else throw new Error(DerivePathError)
+    else throw new Error(DerivePathError);
 };
 
 const encodeAddressToBech32 = ({
@@ -179,8 +180,7 @@ export const getOKXPublicAddress = ({
             address: toChecksumAddress(address),
             prefix: 'ex',
         });
-    }
-    else throw new Error(DerivePathError)
+    } else throw new Error(DerivePathError);
 };
 /* 
 getXDCPublicAddress
@@ -197,7 +197,5 @@ export const getXDCPublicAddress = ({
     const pubKey = getPublicAddress({ publicAccountNode, change, index });
     if (pubKey) {
         return 'xdc' + pubKey.slice(2);
-    }
-    else throw new Error(DerivePathError)
+    } else throw new Error(DerivePathError);
 };
-

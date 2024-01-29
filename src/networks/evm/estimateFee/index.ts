@@ -44,7 +44,6 @@ const estimateBridgeFee = async ({
     chainId,
     feeRatio,
 }: EstimateGasBridgeParams): Promise<ReturnEstimate> => {
-
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {
         from: source,
     });
@@ -55,7 +54,7 @@ const estimateBridgeFee = async ({
         amount,
         contract,
         web3,
-        isToken: true
+        isToken: true,
     });
     var gasPrice = await getGasPrice({
         web3,
@@ -106,7 +105,6 @@ const estimateTokenFee = async ({
     feeRatio = 0.5,
     priorityFee,
 }: EstimateGasTokenParams): Promise<ReturnEstimate> => {
-    
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {
         from: source,
     });
@@ -117,7 +115,7 @@ const estimateTokenFee = async ({
         amount,
         contract,
         web3,
-        isToken: true
+        isToken: true,
     });
     var gasPrice = await getGasPrice({
         web3,
@@ -148,7 +146,6 @@ const estimateTokenFee = async ({
     };
 };
 
-
 export const calculateGasPrice = async ({
     transaction,
     gasPrice,
@@ -158,8 +155,7 @@ export const calculateGasPrice = async ({
     priorityFee,
 }: CalculateGasPrice): Promise<TransactionEVM> => {
     if (chainId == 1 || chainId == 137) {
-        if (!isValidNumber(priorityFee))
-            throw new Error(PriorityFeeError);
+        if (!isValidNumber(priorityFee)) throw new Error(PriorityFeeError);
         const maxPriority = web3.utils.toHex(
             new BigNumber(priorityFee as string)
                 .multipliedBy(feeRatio + 1)
@@ -204,7 +200,7 @@ const estimateCurrencyFee = async ({
         destination,
         amount,
         web3,
-        isToken: false
+        isToken: false,
     });
     var gasPrice = await getGasPrice({ web3 });
     const nonce = await getNonce({
@@ -263,12 +259,12 @@ export const getGasLimit = async ({
     source,
     contract,
     web3,
-    isToken = false
+    isToken = false,
 }: GasLimitParams): Promise<{
     data: string;
     estimateGas: string;
 }> => {
-    if (!isValidAddress(source)) throw  new Error(InvalidAddress);
+    if (!isValidAddress(source)) throw new Error(InvalidAddress);
     if (!isValidNumber(amount)) throw new Error(InvalidAmount);
     const isBridge = destination.startsWith('bnb');
     if (isBridge) {
@@ -288,12 +284,13 @@ export const getGasLimit = async ({
             estimateGas,
         };
     } else {
-        if (!isValidAddress(destination)) throw  new Error(InvalidAddress);
+        if (!isValidAddress(destination)) throw new Error(InvalidAddress);
         if (isToken) {
-            if (!isValidAddress(tokenContract as string)) throw  new Error(InvalidContractAddress);
-            if(!contract)   throw new Error(InvalidTokenContract)
+            if (!isValidAddress(tokenContract as string))
+                throw new Error(InvalidContractAddress);
+            if (!contract) throw new Error(InvalidTokenContract);
             const nonce = await getNonce({ address: source, web3 });
-            if(!nonce)   throw new Error(CannotGetNonce)
+            if (!nonce) throw new Error(CannotGetNonce);
             const data = contract.methods
                 .transfer(destination, amount)
                 .encodeABI();
@@ -310,7 +307,7 @@ export const getGasLimit = async ({
             };
         } else {
             const nonce = await getNonce({ address: source, web3 });
-            if(nonce == undefined)   throw new Error(CannotGetNonce)
+            if (nonce == undefined) throw new Error(CannotGetNonce);
             const estimateGas = await web3.eth.estimateGas({
                 from: source,
                 nonce: nonce,
@@ -358,8 +355,8 @@ export const estimateFeeTransfer = async ({
     priorityFee,
 }: EstimateGasParams): Promise<ReturnEstimate> => {
     const isBridge = destination.startsWith('bnb');
-    if (!isValidAddress(source)) throw  new Error(InvalidAddress);
-    if (!SupportedChains.includes(chainId)) throw  new Error(InvalidChainError);
+    if (!isValidAddress(source)) throw new Error(InvalidAddress);
+    if (!SupportedChains.includes(chainId)) throw new Error(InvalidChainError);
     if (isBridge) {
         if (chainId != 56 && chainId != 96) throw new Error(InvalidChainError);
         return await estimateBridgeFee({
@@ -371,11 +368,10 @@ export const estimateFeeTransfer = async ({
             chainId,
         });
     } else {
-        if (!isValidAddress(destination))
-            throw  new Error(InvalidAddress);
+        if (!isValidAddress(destination)) throw new Error(InvalidAddress);
         if (tokenContract.length > 0) {
             if (!isValidAddress(tokenContract))
-                throw  new Error(InvalidContractAddress);
+                throw new Error(InvalidContractAddress);
             return await estimateTokenFee({
                 web3,
                 source,

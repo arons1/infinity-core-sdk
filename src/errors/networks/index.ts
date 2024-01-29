@@ -9,18 +9,18 @@ export const GenMnemonicError = 'generate mnemonic error';
 export const InvalidChainError = 'invalid chain';
 export const PriorityFeeError = 'prioriy fee is required for current chain';
 export const DerivePathError = 'derive hdPath error';
-export const InvalidAmount = 'invalid amount'
+export const InvalidAmount = 'invalid amount';
 export const InvalidAddress = 'invalid address';
-export const InvalidContractAddress = 'invalid token contract address'
-export const InvalidMnemonic = 'invalid mnemonic'
+export const InvalidContractAddress = 'invalid token contract address';
+export const InvalidMnemonic = 'invalid mnemonic';
 export const GetMpcRawTransactionError = 'get mpc raw transaction error';
 export const GetMpcTransactionError = 'get mpc transaction error';
 export const GetHardwareRawTransactionError =
     'get hardware raw transaction error';
 export const GetHardwareSignedTransactionError =
     'get hardware signed transaction error';
-export const CannotGetNonce = 'Cannot get nonce'
-export const InvalidTokenContract = "invalid token contract"
+export const CannotGetNonce = 'Cannot get nonce';
+export const InvalidTokenContract = 'invalid token contract';
 export const GetHardWareMessageHashError = 'get hardware message hash error';
 export const MPCAesKeyMissError = 'mpc get aes key error';
 export const MPCStepError = 'mpc step error';

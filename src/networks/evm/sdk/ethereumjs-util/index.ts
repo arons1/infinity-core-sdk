@@ -38,5 +38,3 @@ export * from './signature';
  * Helpful TypeScript types
  */
 export * from './types';
-
-
