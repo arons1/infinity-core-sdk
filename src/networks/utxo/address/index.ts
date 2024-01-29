@@ -104,6 +104,7 @@ getPrivateAddress
     @param privateAccountNode: Account Extended Private Node
     @param change: account change derivation
     @param index: account index derivation
+    @param network: network for derivation
 */
 export const getPrivateAddress = ({
     privateAccountNode,
@@ -139,6 +140,7 @@ getPublicAddressSegwit
     @param publicAccountNode: Account Extended Public Address
     @param change: account change derivation
     @param index: account index derivation
+    @param network: network for derivation
 */
 export const getPublicAddressSegwit = ({
     publicAccountNode,
@@ -155,6 +157,7 @@ getPublicAddressP2WPKHP2S
     @param publicAccountNode: Account Extended Public Address
     @param change: account change derivation
     @param index: account index derivation
+    @param network: network for derivation
 */
 export const getPublicAddressP2WPKHP2S = ({
     publicAccountNode,
@@ -175,6 +178,7 @@ getPublicAddressP2PKH
     @param publicAccountNode: Account Extended Public Address
     @param change: account change derivation
     @param index: account index derivation
+    @param network: network for derivation
 */
 export const getPublicAddressP2PKH = ({
     publicAccountNode,
