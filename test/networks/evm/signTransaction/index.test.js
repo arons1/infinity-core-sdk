@@ -18,18 +18,18 @@ const network = {
 };
 (0, globals_1.describe)('signTransactionEMV', () => {
     (0, globals_1.test)('signTransaction(ETH)', async () => {
-        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
-        const privateMasterNode = (0, address_1.getPrivateMasterKey)({
+        const rootNode = (0, address_1.getRootNode)({ mnemonic, network });
+        const privateAccountNode = (0, address_1.getPrivateMasterKey)({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,
             index: 0,
-            publicMasterNode: privateMasterNode,
+            publicAccountNode: privateAccountNode,
         });
-        const privateAddress = (0, address_1.getPrivateAddress)({ privateMasterNode });
+        const privateAddress = (0, address_1.getPrivateAddress)({ privateAccountNode });
         const transaction = {
             value: '0x100000000',
             from: publicAddress,

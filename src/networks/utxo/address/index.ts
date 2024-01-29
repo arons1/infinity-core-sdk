@@ -5,17 +5,22 @@ import bs58check from 'bs58check';
 import { BIP32Interface } from '../../../core/bip32';
 
 import {
-    MasterNodeParams,
+    RootNodeParams,
     MasterKeyParams,
     AddressParams,
     PublicAddressParams,
     PublicKeyParams,
 } from './types';
-
-export const getMasterNode = ({
+/* 
+getRootNode
+    Returns root node
+    @param mnemonic: X words phrase
+    @param network: Network for this node
+*/
+export const getRootNode = ({
     mnemonic,
     network,
-}: MasterNodeParams): BIP32Interface => {
+}: RootNodeParams): BIP32Interface => {
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
 };
@@ -44,86 +49,139 @@ export const xprvToZprv = (data: string): string => {
 export const xpubToZpub = (data: string): string => {
     return encodeGeneric(data, 'zpub');
 };
+/* 
+getPublicMasterKey
+    Returns Account Extended Public Key
+    @param rootNode: Root node
+    @param bipIdCoin: Coin BIP32 ID
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
 export const getPublicMasterKey = ({
-    masterNode,
+    rootNode,
     bipIdCoin,
     protocol = 44,
 }: MasterKeyParams): BIP32Interface => {
     return getPrivateMasterKey({
-        masterNode,
+        rootNode,
         bipIdCoin,
         protocol,
     }).neutered();
 };
+/* 
+getPrivateMasterKey
+    Returns Account Extended Private Node
+    @param rootNode: Root node
+    @param bipIdCoin: Coin BIP32 ID
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
 export const getPrivateMasterKey = ({
-    masterNode,
+    rootNode,
     bipIdCoin,
     protocol = 44,
 }: MasterKeyParams): BIP32Interface => {
-    return masterNode
+    return rootNode
         .deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
         .deriveHardened(0);
 };
-
+/* 
+getPrivateKey
+    Returns Private key
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPrivateKey = ({
-    privateMasterNode,
+    privateAccountNode,
     change = 0,
     index = 0,
 }: AddressParams): BIP32Interface => {
-    return privateMasterNode.derive(change).derive(index);
+    return privateAccountNode.derive(change).derive(index);
 };
+/* 
+getPrivateAddress
+    Returns Private address
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPrivateAddress = ({
-    privateMasterNode,
+    privateAccountNode,
     change = 0,
     index = 0,
     network,
 }: AddressParams): string => {
     const privateKey = getPrivateKey({
-        privateMasterNode,
+        privateAccountNode,
         index,
         change,
         network,
     });
     return privateKey.toWIF();
 };
-
+/* 
+getPublicKey
+    Returns Public address
+    @param publicAccountNode: Account Extended Public Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicKey = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicKeyParams): Buffer => {
-    return publicMasterNode.derive(change).derive(index).publicKey;
+    return publicAccountNode.derive(change).derive(index).publicKey;
 };
+/* 
+getPublicAddressSegwit
+    Returns Public Segwit address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicAddressSegwit = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
     network,
 }: PublicAddressParams): string | undefined => {
-    const pubkey = getPublicKey({ publicMasterNode, change, index });
+    const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2wpkh({ pubkey, network: network as Network }).address;
 };
-
+/* 
+getPublicAddressP2WPKHP2S
+    Returns Public P2WPKHP2S address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicAddressP2WPKHP2S = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
     network,
 }: PublicAddressParams): string | undefined => {
-    const pubkey = getPublicKey({ publicMasterNode, change, index });
+    const pubkey = getPublicKey({ publicAccountNode, change, index });
     const redeem = payments.p2wpkh({ pubkey, network: network as Network });
     return payments.p2sh({
         redeem,
         network: network as Network,
     }).address;
 };
+/* 
+getPublicAddressP2PKH
+    Returns Public P2PKH address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicAddressP2PKH = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
     network,
 }: PublicAddressParams): string | undefined => {
-    const pubkey = getPublicKey({ publicMasterNode, change, index });
+    const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2pkh({ pubkey, network: network as Network }).address;
 };

@@ -14,14 +14,24 @@ import { getDataBSC, getGasLimitBSC } from './sendBridge';
 import { tokenHubContractAddress } from './abi_bsc';
 import { TransactionEVM } from '../general/types';
 import BigNumber from 'bignumber.js';
+/* 
+estimateBridgeFee
+    Returns BSC bridge to BC estimate cost
+    @param amount: Amount to bridge in wei
+    @param web3: web3 connector
+    @param source: source account to send from
+    @param destination: destination account to receive (BC)
+    @param chainId: chainId (56 or 97)
+    @param feeRatio: ratio (between 0 and 1) to increase de fee
+    @param priorityFee: account index derivation
+*/
 const estimateBridgeFee = async ({
     amount = '0',
     web3,
     source,
     destination = '',
     chainId,
-    feeRatio,
-    priorityFee,
+    feeRatio
 }: EstimateGasBridgeParams): Promise<ReturnEstimate> => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenHubContractAddress, {
         from: source,
@@ -55,8 +65,7 @@ const estimateBridgeFee = async ({
         gasPrice,
         web3,
         chainId,
-        feeRatio,
-        priorityFee,
+        feeRatio
     });
     return {
         estimateGas,
@@ -64,6 +73,18 @@ const estimateBridgeFee = async ({
         transaction,
     };
 };
+/* 
+estimateTokenFee
+    Returns token transfer estimate cost
+    @param amount: Amount to bridge in wei
+    @param web3: web3 connector
+    @param source: source account to send from
+    @param destination: destination account to receive
+    @param chainId: chainId
+    @param feeRatio: ratio (between 0 and 1) to increase de fee
+    @param priorityFee: account index derivation
+    @param tokenContract: token contract
+*/
 const estimateTokenFee = async ({
     amount = '0',
     web3,
@@ -125,8 +146,10 @@ const calculateGasPrice = async ({
     priorityFee,
 }: CalculateGasPrice): Promise<TransactionEVM> => {
     if (chainId == 1 || chainId == 137) {
+        if(priorityFee == undefined || new BigNumber(priorityFee as string).isNaN())
+            throw "Missing or invalid priority fee"
         const maxPriority = web3.utils.toHex(
-            new BigNumber(priorityFee)
+            new BigNumber(priorityFee as string)
                 .multipliedBy(feeRatio + 1)
                 .toString(10)
                 .split('.')[0],
@@ -144,7 +167,17 @@ const calculateGasPrice = async ({
     }
     return transaction;
 };
-
+/* 
+estimateCurrencyFee
+    Returns currency transfer estimate cost
+    @param amount: Amount to bridge in wei
+    @param web3: web3 connector
+    @param source: source account to send from
+    @param destination: destination account to receive
+    @param chainId: chainId
+    @param feeRatio: ratio (between 0 and 1) to increase de fee
+    @param priorityFee: account index derivation
+*/
 const estimateCurrencyFee = async ({
     amount = '0',
     web3,
@@ -187,11 +220,31 @@ const estimateCurrencyFee = async ({
         transaction,
     };
 };
+/* 
+getGasPrice
+    Returns gas price
+    @param web3: web3 connector
+*/
 export const getGasPrice = async ({
     web3,
 }: GasPriceParams): Promise<string> => {
     return await web3.eth.getGasPrice();
 };
+/* 
+getGasLimit
+    Returns gas limit estimate cost
+    @param amount: Amount to bridge in wei
+    @param web3: web3 connector
+    @param source: source account to send from
+    @param destination: destination account to receive
+    @param chainId: chainId
+    @param feeRatio: ratio (between 0 and 1) to increase de fee
+    @param priorityFee: account index derivation
+    @param tokenContract: token contract
+    @param contract: Web3 contract
+    @param isToken: If it's a token transfer
+    @param isToken: If it's a BSC to BC bridge
+*/
 export const getGasLimit = async ({
     destination,
     tokenContract,
@@ -253,13 +306,29 @@ export const getGasLimit = async ({
         }
     }
 };
+/* 
+getNonce
+    Returns gas limit estimate cost
+    @param address: Account
+    @param web3: web3 connector
+*/
 export const getNonce = async ({
     address,
     web3,
 }: NonceParams): Promise<string> => {
     return await web3.eth.getTransactionCount(address, 'pending');
 };
-
+/* 
+estimateFeeTransfer
+    Returns estimate fee transfer
+    @param web3: web3 connector
+    @param source: source account to send from
+    @param destination: destination account to receive
+    @param chainId: chainId
+    @param feeRatio: ratio (between 0 and 1) to increase de fee
+    @param priorityFee: account index derivation
+    @param tokenContract: token contract
+*/
 export const estimateFeeTransfer = async ({
     web3,
     source,
@@ -278,7 +347,6 @@ export const estimateFeeTransfer = async ({
             source,
             destination,
             feeRatio,
-            priorityFee,
             chainId,
         });
     } else {

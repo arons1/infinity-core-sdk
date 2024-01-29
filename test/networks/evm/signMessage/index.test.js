@@ -18,14 +18,14 @@ const network = {
 };
 (0, globals_1.describe)('signMessageEVM', () => {
     (0, globals_1.test)('signMessage(BSC)', async () => {
-        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
-        const privateMasterNode = (0, address_1.getPrivateMasterKey)({
+        const rootNode = (0, address_1.getRootNode)({ mnemonic, network });
+        const privateAccountNode = (0, address_1.getPrivateMasterKey)({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const privateKey = (0, address_1.getPrivateKey)({
-            privateMasterNode,
+            privateAccountNode,
         });
         const { signature } = await (0, signMessage_1.signMessage)({
             web3: helper_1.web3BSC,
@@ -35,14 +35,14 @@ const network = {
         (0, globals_1.expect)(signature).toBe('0xc43ae069d67e364a0a539f20a2a598cbf9f2988e0b4c26ec79d9cfc42a3621c42fc5fe5887e991d0a45951e23799b6d58c6f8a8813e622398ca23219f88670aa1b');
     });
     (0, globals_1.test)('verifyMessage(BSC)', async () => {
-        const masterNode = (0, address_1.getMasterNode)({ mnemonic, network });
-        const publicMasterNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, address_1.getRootNode)({ mnemonic, network });
+        const publicAccountNode = (0, address_1.getPublicMasterKey)({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
-            publicMasterNode,
+            publicAccountNode,
         });
         const signature = '0xc43ae069d67e364a0a539f20a2a598cbf9f2988e0b4c26ec79d9cfc42a3621c42fc5fe5887e991d0a45951e23799b6d58c6f8a8813e622398ca23219f88670aa1b';
         const verify = await (0, signMessage_1.verifyMessage)({

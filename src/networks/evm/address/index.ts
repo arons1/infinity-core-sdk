@@ -6,84 +6,136 @@ import { bech32 } from '@scure/base';
 import { BIP32Interface } from '../../../core/bip32';
 
 import {
-    MasterNodeParams,
+    RootNodeParams,
     MasterKeyParams,
     AddressParams,
     PublicAddressParams,
 } from './types';
 
-export const getMasterNode = ({
+/* 
+getRootNode
+    Returns root node
+    @param mnemonic: X words phrase
+    @param network: Network for this node
+*/
+export const getRootNode = ({
     mnemonic,
     network,
-}: MasterNodeParams): BIP32Interface => {
+}: RootNodeParams): BIP32Interface => {
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
 };
+/* 
+getPublicMasterKey
+    Returns Account Extended Public Key
+    @param rootNode: Root node
+    @param bipIdCoin: Coin BIP32 ID
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
 export const getPublicMasterKey = ({
-    masterNode,
+    rootNode,
     bipIdCoin,
     protocol = 44,
 }: MasterKeyParams): BIP32Interface => {
     return getPrivateMasterKey({
-        masterNode,
+        rootNode,
         bipIdCoin,
         protocol,
     }).neutered();
 };
+/* 
+getPrivateMasterKey
+    Returns Account Extended Private Node
+    @param rootNode: Root node
+    @param bipIdCoin: Coin BIP32 ID
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
 export const getPrivateMasterKey = ({
-    masterNode,
+    rootNode,
     bipIdCoin,
     protocol = 44,
 }: MasterKeyParams): BIP32Interface => {
-    return masterNode
+    return rootNode
         .deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
         .deriveHardened(0);
 };
-
+/* 
+getPrivateKey
+    Returns Private key
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPrivateKey = ({
-    privateMasterNode,
+    privateAccountNode,
     change = 0,
     index = 0,
 }: AddressParams): Buffer | undefined => {
-    return privateMasterNode.derive(change).derive(index).privateKey;
+    return privateAccountNode.derive(change).derive(index).privateKey;
 };
+/* 
+getPrivateAddress
+    Returns Private address
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPrivateAddress = ({
-    privateMasterNode,
+    privateAccountNode,
     change = 0,
     index = 0,
 }: AddressParams): string => {
     return (
         '0x' +
-        getPrivateKey({ privateMasterNode, index, change })?.toString('hex')
+        getPrivateKey({ privateAccountNode, index, change })?.toString('hex')
     );
 };
-
+/* 
+getPublicKey
+    Returns Public address
+    @param publicAccountNode: Account Extended Public Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicKey = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicAddressParams): Buffer | undefined => {
-    return publicMasterNode.derive(change).derive(index).publicKey;
+    return publicAccountNode.derive(change).derive(index).publicKey;
 };
+/* 
+getPublicAddress
+    Returns Public address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPublicAddress = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicAddressParams): string | undefined => {
-    const pubKey = getPublicKey({ publicMasterNode, change, index });
+    const pubKey = getPublicKey({ publicAccountNode, change, index });
     if (pubKey) {
         const address = '0x' + publicToAddress(pubKey, true).toString('hex');
         return toChecksumAddress(address);
     }
 };
-
+/* 
+getHarmonyPublicAddress
+    Returns Public Harmony address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getHarmonyPublicAddress = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicAddressParams): string | undefined => {
-    const pubKey = getPublicAddress({ publicMasterNode, change, index });
+    const pubKey = getPublicAddress({ publicAccountNode, change, index });
     if (pubKey) return new HarmonyAddress(pubKey).bech32;
 };
 
@@ -98,12 +150,19 @@ const encodeAddressToBech32 = ({
     const words = bech32.toWords(Buffer.from(hexAddr, 'hex'));
     return bech32.encode(prefix, words);
 };
+/* 
+getOKXPublicAddress
+    Returns Public OKX address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getOKXPublicAddress = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicAddressParams): string | undefined => {
-    const pubKey = getPublicKey({ publicMasterNode, change, index });
+    const pubKey = getPublicKey({ publicAccountNode, change, index });
     if (pubKey) {
         const address = '0x' + publicToAddress(pubKey, true).toString('hex');
         return encodeAddressToBech32({
@@ -112,14 +171,19 @@ export const getOKXPublicAddress = ({
         });
     }
 };
-
-
+/* 
+getXDCPublicAddress
+    Returns Public XDC address
+    @param publicAccountNode: Account Extended Public Address
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getXDCPublicAddress = ({
-    publicMasterNode,
+    publicAccountNode,
     change = 0,
     index = 0,
 }: PublicAddressParams): string | undefined => {
-    const pubKey = getPublicAddress({ publicMasterNode, change, index });
+    const pubKey = getPublicAddress({ publicAccountNode, change, index });
     if (pubKey) {
         return 'xdc' + pubKey.slice(2);
     }

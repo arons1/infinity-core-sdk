@@ -1,5 +1,5 @@
 import {
-    getMasterNode,
+    getRootNode,
     getPublicMasterKey,
     getPrivateMasterKey,
     xpubToYpub,
@@ -39,101 +39,101 @@ const networkLTC = {
 };
 describe('generateAddressUTXO', () => {
     test('generateExtendedPrivateKeyBTC', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 0,
             protocol: 49,
-            masterNode,
+            rootNode,
         });
-        expect(xprvToYprv(privateMasterNode.toBase58())).toBe(
+        expect(xprvToYprv(privateAccountNode.toBase58())).toBe(
             'yprvAHZLii61veRXpyD1b7vfCAUapNPfpoYCiVA78H5Ddn7uSFjBnXv8JtQpVgsgtudUwgCHHGFnGMTgETVjFNzu2j8SLZuR6ZK7Qiczin1QwWS',
         );
     });
     test('generateExtendedPrivateKeySegwitBTC', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 0,
             protocol: 84,
-            masterNode,
+            rootNode,
         });
-        expect(xprvToZprv(privateMasterNode.toBase58())).toBe(
+        expect(xprvToZprv(privateAccountNode.toBase58())).toBe(
             'zprvAcf4ncnUAESerj58XNSsX57U76UiqNwuRmqcgK2KksLtwaFCiP7P21EAifdWVN9dkByxZ2RZ58gLwiR1p1nky91CF83MSkt36tFfkcRGksM',
         );
     });
     test('generateExtendedPublicKeyBTC', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
-        expect(publicMasterNode.toBase58()).toBe(
+        expect(publicAccountNode.toBase58()).toBe(
             'xpub6CRVjHtvvpPy5jpN9ppfjLA1ttbSYYZZfhrwyJEX1p2NYkx3xhvhNCiPJ9rjp3JDLTLsQAaesL8JLrUCbrxE4KKPRGqYLgvibRoC7a7gpww',
         );
     });
     test('xpubToYpub', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: 49,
-            masterNode,
+            rootNode,
         });
-        expect(xpubToYpub(publicMasterNode.toBase58())).toBe(
+        expect(xpubToYpub(publicAccountNode.toBase58())).toBe(
             'ypub6WYh8Dcum1yq3THUh9TfZJRKNQEAEGG45i5hvfUqC7etK44LL5ENrgjJLzkDQupjAKg7sAUo91YKqzJSXjH9AVHxmAgUaCjq9yhmawGm1xG',
         );
     });
     test('xpubToZpub', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: 84,
-            masterNode,
+            rootNode,
         });
-        expect(xpubToZpub(publicMasterNode.toBase58())).toBe(
+        expect(xpubToZpub(publicAccountNode.toBase58())).toBe(
             'zpub6qeRC8KMzbzx5D9bdPystD4Cf8KDEqfknzmDUhRwKCsspNaMFvRdZoYeZxUYVkWx8E274jeFk4EWKmWqvaZSR2KUNfHyppdVByAbE9GSTPM',
         );
     });
     test('getPublicAddressP2WPKHP2S', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: 49,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddressP2WPKHP2S({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
             network: networkBTC,
         });
         expect(publicAddress).toBe('32juhuebHD1h2nEkBeUN3LnrNAVVdfuB8m');
     });
     test('getPublicAddressLTC', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkLTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkLTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 2,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddressP2PKH({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
             network: networkLTC,
         });
         expect(publicAddress).toBe('LNiHyZY6wstYSJnkyE8dXTCGZRuBk7526m');
     });
     test('getPublicAddressSegwit', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkBTC });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkBTC });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: 84,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddressSegwit({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
             network: networkBTC,
         });
         expect(publicAddress).toBe(
@@ -142,16 +142,16 @@ describe('generateAddressUTXO', () => {
     });
 
     test('getPrivateAddressLTC', async () => {
-        const masterNode = getMasterNode({ mnemonic, network: networkLTC });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network: networkLTC });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 2,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const privateAddress = getPrivateAddress({
             change: 0,
             index: 0,
-            privateMasterNode,
+            privateAccountNode,
             network: networkLTC,
         });
         expect(privateAddress).toBe(

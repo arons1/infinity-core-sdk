@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import {
-    getMasterNode,
+    getRootNode,
     getPrivateAddress,
     getPrivateMasterKey,
     getPublicAddress,
@@ -23,18 +23,18 @@ const network = {
 };
 describe('signTransactionEMV', () => {
     test('signTransaction(ETH)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddress({
             change: 0,
             index: 0,
-            publicMasterNode: privateMasterNode,
+            publicAccountNode: privateAccountNode,
         });
-        const privateAddress = getPrivateAddress({ privateMasterNode });
+        const privateAddress = getPrivateAddress({ privateAccountNode });
         const transaction = {
             value: '0x100000000',
             from: publicAddress,

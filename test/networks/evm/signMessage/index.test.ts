@@ -4,7 +4,7 @@ import {
     verifyMessage,
 } from '../../../../lib/commonjs/networks/evm/signMessage';
 import {
-    getMasterNode,
+    getRootNode,
     getPrivateMasterKey,
     getPrivateKey,
     getPublicAddress,
@@ -26,14 +26,14 @@ const network = {
 };
 describe('signMessageEVM', () => {
     test('signMessage(BSC)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const privateKey = getPrivateKey({
-            privateMasterNode,
+            privateAccountNode,
         });
         const { signature } = await signMessage({
             web3: web3BSC,
@@ -45,14 +45,14 @@ describe('signMessageEVM', () => {
         );
     });
     test('verifyMessage(BSC)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddress({
-            publicMasterNode,
+            publicAccountNode,
         });
         const signature =
             '0xc43ae069d67e364a0a539f20a2a598cbf9f2988e0b4c26ec79d9cfc42a3621c42fc5fe5887e991d0a45951e23799b6d58c6f8a8813e622398ca23219f88670aa1b';

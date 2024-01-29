@@ -1,5 +1,5 @@
 import {
-    getMasterNode,
+    getRootNode,
     getPublicMasterKey,
     getPublicAddress,
     getPrivateMasterKey,
@@ -25,52 +25,52 @@ const network = {
 };
 describe('generateAddressEVM', () => {
     test('generateExtendedPrivateKey(ETH)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
-        expect(privateMasterNode.toBase58()).toBe(
+        expect(privateAccountNode.toBase58()).toBe(
             'xprv9zWjyVjLs9BAAqgGXzAZX5CDboLFHywAuMcwxaKqgxYCah6rZ3XVD6Qz7B4chRp8rKURkypYgzYPnAn4k6SJfGj2o9BYhHwuoYu5B1QDGif',
         );
     });
     test('generateExtendedPublicKey(ETH)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
-        expect(publicMasterNode.toBase58()).toBe(
+        expect(publicAccountNode.toBase58()).toBe(
             'xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS',
         );
     });
     test('generatePrivateAddress(ETH)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const privateMasterNode = getPrivateMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const privateAddress = getPrivateAddress({
-            privateMasterNode,
+            privateAccountNode,
         });
         expect(privateAddress).toBe(
             '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
         );
     });
     test('generatePublicAddress(ETH)', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getPublicAddress({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
         });
         expect(publicAddress).toBe(
             '0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
@@ -78,16 +78,16 @@ describe('generateAddressEVM', () => {
     });
 
     test('generateXDCPublicAddress', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getXDCPublicAddress({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
         });
         expect(publicAddress).toBe(
             'xdc0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
@@ -95,16 +95,16 @@ describe('generateAddressEVM', () => {
     });
 
     test('generateHarmonyPublicAddress', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getHarmonyPublicAddress({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
         });
         expect(publicAddress).toBe(
             'one1pjrtg0vvzz8ttts9yxq90uxnz08ellth0d4hd0',
@@ -112,16 +112,16 @@ describe('generateAddressEVM', () => {
     });
 
     test('generateOKXPublicAddress', async () => {
-        const masterNode = getMasterNode({ mnemonic, network });
-        const publicMasterNode = getPublicMasterKey({
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 60,
             protocol: 44,
-            masterNode,
+            rootNode,
         });
         const publicAddress = getOKXPublicAddress({
             change: 0,
             index: 0,
-            publicMasterNode,
+            publicAccountNode,
         });
         expect(publicAddress).toBe('ex1pjrtg0vvzz8ttts9yxq90uxnz08ellthg9dn08');
     });

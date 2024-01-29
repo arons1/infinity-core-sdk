@@ -30,7 +30,6 @@ export type EstimateGasBridgeParams = {
     destination?: string;
     amount?: string;
     feeRatio: number;
-    priorityFee: string;
     chainId: number;
 };
 
@@ -59,5 +58,5 @@ export type CalculateGasPrice = {
     web3: any;
     chainId: number;
     feeRatio: number;
-    priorityFee: string;
+    priorityFee?: string;
 };

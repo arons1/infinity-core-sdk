@@ -26,8 +26,11 @@
 	},
 	"tsdoc":{
 		"source"		:"/trabajo/infinity-core-sdk/src/",
-		"destination"	:"/trabajo/infinity-core-sdk/src",
+		"destination"	:"/trabajo/infinity-core-sdk/docs",
+		"tutorials"		:"",
 		"systemName"	: "infinity-core-sdk",
+		"footer"		: "",
+		"copyright"		: "infinity-core-sdk Copyright © 2024 Haru.",
 		"outputSourceFiles" : true,
 		"commentsOnly": true
 	}
