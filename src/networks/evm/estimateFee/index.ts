@@ -149,7 +149,7 @@ const estimateTokenFee = async ({
 };
 
 
-const calculateGasPrice = async ({
+export const calculateGasPrice = async ({
     transaction,
     gasPrice,
     web3,
