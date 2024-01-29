@@ -6,7 +6,6 @@
  */
 
 import { BN } from '../../../../core';
-import { isHexString } from './util';
 import { Address } from './address';
 import { unpadBuffer, toBuffer, ToBufferInputTypes } from './bytes';
 

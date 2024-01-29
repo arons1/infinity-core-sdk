@@ -40,6 +40,4 @@ export * from './bytes';
  */
 export * from './types';
 
-export * as rlp from './rlp';
 
-export * from './util';

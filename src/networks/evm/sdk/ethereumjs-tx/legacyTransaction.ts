@@ -9,7 +9,6 @@ import {
     bnToHex,
     bnToUnpaddedBuffer,
     MAX_INTEGER,
-    rlp,
     rlphash,
     toBuffer,
     unpadBuffer,
@@ -19,6 +18,7 @@ import { TxData, JsonTx, TxValuesArray } from './types';
 import { BaseTransaction } from './baseTransaction';
 
 import { BN } from '../../../../core';
+import { rlp } from '../../../../core/base';
 
 const TRANSACTION_TYPE = 0;
 

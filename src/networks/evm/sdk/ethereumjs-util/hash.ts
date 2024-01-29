@@ -5,10 +5,10 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import * as rlp from './rlp';
 import { assertIsString } from './helpers';
 import { base } from '../../../../core';
 import { Buffer } from 'buffer';
+import { rlp } from '../../../../core/base';
 
 export const keccak = base.keccak;
 

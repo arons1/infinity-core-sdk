@@ -23,9 +23,9 @@ import {
     InvalidTokenContract,
     PriorityFeeError,
 } from '../../../errors/networks';
-import { validatePublicAddress } from '../address';
 import { isValidNumber } from '../../../utils';
 import { SupportedChains } from '../general/contants';
+import { isValidAddress } from '../sdk/ethereumjs-util/account';
 /* 
 estimateBridgeFee
     Returns BSC bridge to BC estimate cost
@@ -268,7 +268,7 @@ export const getGasLimit = async ({
     data: string;
     estimateGas: string;
 }> => {
-    if (!validatePublicAddress({ address: source })) throw  new Error(InvalidAddress);
+    if (!isValidAddress(source)) throw  new Error(InvalidAddress);
     if (!isValidNumber(amount)) throw new Error(InvalidAmount);
     const isBridge = destination.startsWith('bnb');
     if (isBridge) {
@@ -288,9 +288,9 @@ export const getGasLimit = async ({
             estimateGas,
         };
     } else {
-        if (!validatePublicAddress({ address: destination })) throw  new Error(InvalidAddress);
+        if (!isValidAddress(destination)) throw  new Error(InvalidAddress);
         if (isToken) {
-            if (!validatePublicAddress({ address: tokenContract as string })) throw  new Error(InvalidContractAddress);
+            if (!isValidAddress(tokenContract as string)) throw  new Error(InvalidContractAddress);
             if(!contract)   throw new Error(InvalidTokenContract)
             const nonce = await getNonce({ address: source, web3 });
             if(!nonce)   throw new Error(CannotGetNonce)
@@ -358,7 +358,7 @@ export const estimateFeeTransfer = async ({
     priorityFee,
 }: EstimateGasParams): Promise<ReturnEstimate> => {
     const isBridge = destination.startsWith('bnb');
-    if (!validatePublicAddress({ address: source })) throw  new Error(InvalidAddress);
+    if (!isValidAddress(source)) throw  new Error(InvalidAddress);
     if (!SupportedChains.includes(chainId)) throw  new Error(InvalidChainError);
     if (isBridge) {
         if (chainId != 56 && chainId != 96) throw new Error(InvalidChainError);
@@ -371,10 +371,10 @@ export const estimateFeeTransfer = async ({
             chainId,
         });
     } else {
-        if (!validatePublicAddress({ address: destination }))
+        if (!isValidAddress(destination))
             throw  new Error(InvalidAddress);
         if (tokenContract.length > 0) {
-            if (!validatePublicAddress({ address: tokenContract }))
+            if (!isValidAddress(tokenContract))
                 throw  new Error(InvalidContractAddress);
             return await estimateTokenFee({
                 web3,

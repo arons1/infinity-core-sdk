@@ -13,7 +13,7 @@ import { toType, TypeOutput } from './types';
 import { Buffer } from 'buffer';
 import { addHexPrefix, fromSigned, setLengthLeft, toUnsigned } from './bytes';
 import { padWithZeroes } from '../eth-sig-util';
-import { intToHex } from './util';
+import { intToHex } from '../../../../core/abi/bytes';
 /**
  * Returns the keccak-256 hash of `message`, prefixed with the header used by the `eth_sign` RPC call.
  * The output of this function can be fed into `ecsign` to produce the same signature as the `eth_sign`

@@ -5,7 +5,6 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import { isHexString } from './util';
 
 /**
  * Throws if a string is not hex prefixed

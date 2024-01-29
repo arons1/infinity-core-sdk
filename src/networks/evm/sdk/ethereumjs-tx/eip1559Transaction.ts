@@ -10,7 +10,6 @@ import {
     bnToUnpaddedBuffer,
     keccak256,
     MAX_INTEGER,
-    rlp,
     toBuffer,
     toType,
     TypeOutput,
@@ -28,6 +27,7 @@ import {
     JsonTx,
 } from './types';
 import { AccessLists } from './util';
+import { rlp } from '../../../../core/base';
 
 const TRANSACTION_TYPE = 2;
 const TRANSACTION_TYPE_BUFFER = Buffer.from(

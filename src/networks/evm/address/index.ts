@@ -1,6 +1,5 @@
 import { fromSeed } from '../../../core/bip32';
 import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
-import { publicToAddress, toChecksumAddress } from '../sdk/ethereumjs-util';
 import { HarmonyAddress } from '@harmony-js/crypto';
 import { bech32 } from '@scure/base';
 import { BIP32Interface } from '../../../core/bip32';
@@ -12,6 +11,7 @@ import {
     PublicAddressParams,
 } from './types';
 import { DerivePathError, GenPrivateKeyError, InvalidMnemonic } from '../../../errors/networks';
+import { publicToAddress, toChecksumAddress } from '../sdk/ethereumjs-util/account';
 
 /* 
 getRootNode
@@ -200,24 +200,4 @@ export const getXDCPublicAddress = ({
     }
     else throw new Error(DerivePathError)
 };
-/* 
-validatePublicAddress
-    Returns if the public address is valid
-    @param address: Public address
-*/
-export const validatePublicAddress = ({
-    address,
-}: {
-    address: string;
-}): boolean => {
-    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
-        return false;
-    } else if (
-        /^(0x)?[0-9a-f]{40}$/.test(address) ||
-        /^(0x)?[0-9A-F]{40}$/.test(address)
-    ) {
-        return true;
-    } else {
-        return true;
-    }
-};
+

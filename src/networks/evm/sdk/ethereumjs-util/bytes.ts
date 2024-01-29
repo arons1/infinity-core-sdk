@@ -6,7 +6,6 @@
  */
 
 import { base, BN } from '../../../../core';
-import { intToBuffer, padToEven, isHexString } from './util';
 import {
     PrefixedHexString,
     TransformableToArray,

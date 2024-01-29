@@ -6,6 +6,4 @@
  */
 
 import { BN} from '../../../../core';
-import * as rlp from './rlp';
 export { BN };
-export { rlp };
