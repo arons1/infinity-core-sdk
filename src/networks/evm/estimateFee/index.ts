@@ -29,7 +29,6 @@ estimateBridgeFee
     @param destination: destination account to receive (BC)
     @param chainId: chainId (56 or 97)
     @param feeRatio: ratio (between 0 and 1) to increase de fee
-    @param priorityFee: account index derivation
 */
 const estimateBridgeFee = async ({
     amount = '0',
