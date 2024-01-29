@@ -4,7 +4,18 @@ import { SupportedChains } from '../general/contants';
 import { TransactionEVM } from '../general/types';
 import { isValidAddress } from '../sdk/ethereumjs-util/account';
 import { BuildTransaction } from './types';
-
+/* 
+buildTransaction
+    Returns a transaction formatted to be sign and send
+    @param value: ammount to send (optional)
+    @param source: source account
+    @param destination: destination account
+    @param data: data of the transaction (optional)
+    @param chainId: The ID of the chain
+    @param feeRation: Between 0 and 1, default 0.5, its the range to increase or decrease de fee, 0.5 = use default gasPrice (optional)
+    @param priorityFee: Just for chainId, 1 or 137, it's used for calculating the fee
+    @param gasPrice: It's the gas price to use (optional). Place it just when you require a fixed gasPrice.
+*/
 export const buildTransaction = async ({
     value,
     source,
