@@ -253,7 +253,7 @@ getGasLimit
     @param tokenContract: token contract
     @param contract: Web3 contract
     @param isToken: If it's a token transfer
-    @param isToken: If it's a BSC to BC bridge
+    @param isBridge: If it's a BSC to BC bridge
 */
 export const getGasLimit = async ({
     destination,
