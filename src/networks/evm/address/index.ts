@@ -194,13 +194,16 @@ validatePublicAddress
     @param address: Public address
 */
 export const validatePublicAddress = ({
-    address
-}:{
-    address:string
+    address,
+}: {
+    address: string;
 }): boolean => {
     if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
         return false;
-    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+    } else if (
+        /^(0x)?[0-9a-f]{40}$/.test(address) ||
+        /^(0x)?[0-9A-F]{40}$/.test(address)
+    ) {
         return true;
     } else {
         return true;
