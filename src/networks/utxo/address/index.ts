@@ -28,7 +28,7 @@ const addressEncoding: Record<string, string> = {
     ypub: '049d7cb2',
     zpub: '04b24746',
     ypriv: '049d7878',
-    zpriv: '02aa7a99',
+    zpriv: '04b2430c',
 };
 const encodeGeneric = (dataAddress: string, type: string) => {
     var data = bs58check.decode(dataAddress);

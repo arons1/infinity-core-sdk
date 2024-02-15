@@ -30,8 +30,6 @@ export const getRootNode = ({
     mnemonic,
     network,
 }: RootNodeParams): BIP32Interface => {
-    console.log(mnemonic);
-    console.log(validateMnemonic(mnemonic));
     if (!validateMnemonic(mnemonic)) throw new Error(InvalidMnemonic);
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);

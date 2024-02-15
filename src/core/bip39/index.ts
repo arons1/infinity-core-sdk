@@ -1,10 +1,10 @@
 import { randomBytes, sha256 } from '../base';
 import { pbkdf2 } from '@noble/hashes/pbkdf2';
 
-import { _default as _DEFAULT_WORDLIST, wordlists } from './_wordlists';
+import { wordlists } from '../../utils/wordlist';
 import { sha512 } from '@noble/hashes/sha512';
 
-let DEFAULT_WORDLIST: string[] | undefined = _DEFAULT_WORDLIST;
+let DEFAULT_WORDLIST: string[] | undefined = wordlists['EN'];
 
 const INVALID_MNEMONIC = 'Invalid mnemonic';
 const INVALID_ENTROPY = 'Invalid entropy';
@@ -227,5 +227,3 @@ export function getDefaultWordlist(): string {
         );
     })[0];
 }
-
-export { wordlists } from './_wordlists';
