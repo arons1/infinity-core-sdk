@@ -6,6 +6,9 @@
  */
 
 import { base, BN } from '../../../../core';
+import { isHexString, padToEven } from '../../../../core/abi/internal';
+import { intToBuffer } from '../../../../core/abi/bytes';
+
 import {
     PrefixedHexString,
     TransformableToArray,

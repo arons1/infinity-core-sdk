@@ -5,7 +5,11 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import { bufferToHex, setLengthLeft, toBuffer } from '../ethereumjs-util';
+import {
+    bufferToHex,
+    setLengthLeft,
+    toBuffer,
+} from '../../../../core/abi/bytes';
 import {
     AccessList,
     AccessListBuffer,

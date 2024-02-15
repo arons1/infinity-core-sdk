@@ -11,7 +11,7 @@ export const signMessage = async ({
     web3,
     message,
     privateKey,
-}: SignMessageParams): Promise<string> => {
+}: SignMessageParams): Promise<any> => {
     return await web3.eth.accounts.sign(message, privateKey);
 };
 /* 

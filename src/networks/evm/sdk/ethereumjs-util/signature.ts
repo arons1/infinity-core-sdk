@@ -11,6 +11,8 @@ import { base, BN, signUtil } from '../../../../core';
 
 import { toType, TypeOutput } from './types';
 import { Buffer } from 'buffer';
+import { addHexPrefix } from '../../../../core/abi/bytes';
+
 import { padWithZeroes } from '../eth-sig-util';
 import {
     fromSigned,

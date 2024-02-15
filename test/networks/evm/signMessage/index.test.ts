@@ -59,7 +59,7 @@ describe('signMessageEVM', () => {
         const verify = await verifyMessage({
             web3: web3BSC,
             message: 'Some data',
-            address: publicAddress,
+            address: publicAddress as string,
             signature,
         });
         expect(verify).toBe(true);

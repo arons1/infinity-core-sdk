@@ -8,6 +8,7 @@
 import { BN } from '../../../../core';
 import { Address } from './address';
 import { unpadBuffer, toBuffer, ToBufferInputTypes } from './bytes';
+import { isHexString } from '../../../../core/abi/internal';
 
 /*
  * A type that represents a BNLike input that can be converted to a BN.

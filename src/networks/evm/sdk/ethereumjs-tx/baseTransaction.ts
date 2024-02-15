@@ -11,6 +11,8 @@ import {
     Address,
     ecdsaSign,
 } from '../ethereumjs-util';
+import { toBuffer } from '../../../../core/abi/bytes';
+import { bufferToHex } from '../../../../core/abi/bytes';
 
 import { BN } from '../../../../core';
 

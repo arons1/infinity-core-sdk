@@ -17,7 +17,8 @@ import { BaseTransaction } from './baseTransaction';
 
 import { BN } from '../../../../core';
 import { rlp } from '../../../../core/base';
-import { unpadBuffer } from '../../../../core/abi/bytes';
+
+import { unpadBuffer, toBuffer } from '../../../../core/abi/bytes';
 
 const TRANSACTION_TYPE = 0;
 

@@ -8,6 +8,8 @@
 
 export * from './sign-typed-data';
 export * from './encryption';
+import { toBuffer } from '../../../../core/abi/bytes';
+import { isHexString } from '../../../../core/abi/internal';
 
 /**
  * Pads the front of the given hex string with zeroes until it reaches the

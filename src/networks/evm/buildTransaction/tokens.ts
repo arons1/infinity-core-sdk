@@ -27,7 +27,7 @@ export const buildTokenTransaction = async ({
     feeRatio = 0.5,
     priorityFee,
     gasPrice,
-    tokenContract
+    tokenContract,
 }: BuildTokenTransaction): Promise<TransactionEVM> => {
     if (!isValidAddress(source)) throw new Error(InvalidAddress);
     if (!SupportedChains.includes(chainId)) throw new Error(InvalidChainError);
@@ -46,13 +46,13 @@ export const buildTokenTransaction = async ({
         destination,
         value,
         tokenContract,
-        web3
-    })
+        web3,
+    });
     var transaction = {
         from: source,
         nonce: nonce,
         to: tokenContract,
-        data
+        data,
     } as TransactionEVM;
     transaction = await calculateGasPrice({
         transaction,
@@ -70,27 +70,26 @@ const getDataTransfer = ({
     destination,
     value,
     tokenContract,
-    web3
+    web3,
 }: DataTransferType) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {
         from: source,
     });
     return contract.methods.transfer(destination, value).encodeABI();
-}
-
+};
 
 const getDataApprove = ({
     source,
     destination,
     value,
     tokenContract,
-    web3
+    web3,
 }: DataTransferType) => {
     var contract = new web3.eth.Contract(ERC20Abi, tokenContract, {
         from: source,
     });
     return contract.methods.approve(destination, value).encodeABI();
-}
+};
 /* 
 buildTokenApproveTransaction
     Returns a approve transaction formatted to be sign and send
@@ -112,7 +111,7 @@ export const buildTokenApproveTransaction = async ({
     feeRatio = 0.5,
     priorityFee,
     gasPrice,
-    tokenContract
+    tokenContract,
 }: BuildTokenTransaction): Promise<TransactionEVM> => {
     if (!isValidAddress(source)) throw new Error(InvalidAddress);
     if (!SupportedChains.includes(chainId)) throw new Error(InvalidChainError);
@@ -131,13 +130,13 @@ export const buildTokenApproveTransaction = async ({
         destination,
         value,
         tokenContract,
-        web3
-    })
+        web3,
+    });
     var transaction = {
         from: source,
         nonce: nonce,
         to: tokenContract,
-        data
+        data,
     } as TransactionEVM;
     transaction = await calculateGasPrice({
         transaction,

@@ -5,7 +5,7 @@
  * file LICENSE or https://opensource.org/license/mpl-2-0/.
  */
 
-import { toBuffer } from '../ethereumjs-util';
+import { toBuffer } from '../../../../core/abi/bytes';
 import { BN } from '../../../../core';
 
 import {

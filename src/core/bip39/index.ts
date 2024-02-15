@@ -195,6 +195,7 @@ export function validateMnemonic(
     try {
         mnemonicToEntropy(mnemonic, wordlist);
     } catch (e) {
+        console.error(e);
         return false;
     }
 

@@ -14,6 +14,7 @@ import {
     TypeOutput,
     validateNoLeadingZeroes,
 } from '../ethereumjs-util';
+import { toBuffer } from '../../../../core/abi/bytes';
 
 import { BN } from '../../../../core';
 

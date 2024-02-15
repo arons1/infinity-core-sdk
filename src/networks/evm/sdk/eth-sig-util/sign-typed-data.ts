@@ -6,12 +6,9 @@
  * file LICENSE or https://opensource.org/license/isc-license-txt/.
  */
 
-import {
-    bufferToHex,
-    isHexString,
-    keccak,
-    keccak256,
-} from '../ethereumjs-util';
+import { keccak, keccak256 } from '../ethereumjs-util';
+import { bufferToHex } from '../../../../core/abi/bytes';
+import { isHexString } from '../../../../core/abi/internal';
 
 import { legacyToBuffer } from './index';
 

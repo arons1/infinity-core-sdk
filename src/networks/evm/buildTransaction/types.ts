@@ -25,5 +25,5 @@ export type DataTransferType = {
     destination: string;
     value: string;
     tokenContract: string;
-    web3: any
-}
+    web3: any;
+};
