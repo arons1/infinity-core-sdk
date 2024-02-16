@@ -1,19 +1,16 @@
 import { SignTransactionParams } from './types';
+import { Transaction } from '../sdk';
 /* 
-signTransaction
-    Returns verify message
-    @param web3: web3 connector
+signLegacyTransaction
+    Sign Legacy Transaction
     @param transaction: TransactionEVM
-    @param privateAddress: private key address
+    @param privateKey: private key
 */
-export const signTransaction = async ({
-    web3,
+export const signLegacyTransaction = async ({
     transaction,
-    privateAddress,
+    privateKey,
 }: SignTransactionParams): Promise<string> => {
-    const signedTransaction = await web3.eth.accounts.signTransaction(
-        transaction,
-        privateAddress,
-    );
-    return signedTransaction?.rawTransaction;
+    const tr = new Transaction(transaction);
+    const signedTransaction = tr.sign(privateKey);
+    return '0x' + signedTransaction.serialize().toString('hex');
 };

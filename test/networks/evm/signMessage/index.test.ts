@@ -10,7 +10,6 @@ import {
     getPublicAddress,
     getPublicMasterKey,
 } from '../../../../lib/commonjs/networks/evm/address';
-import { web3BSC } from '../helper';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -35,8 +34,7 @@ describe('signMessageEVM', () => {
         const privateKey = getPrivateKey({
             privateAccountNode,
         });
-        const { signature } = await signMessage({
-            web3: web3BSC,
+        const signature = signMessage({
             message: 'Some data',
             privateKey: privateKey as Buffer,
         });
@@ -57,7 +55,6 @@ describe('signMessageEVM', () => {
         const signature =
             '0xc43ae069d67e364a0a539f20a2a598cbf9f2988e0b4c26ec79d9cfc42a3621c42fc5fe5887e991d0a45951e23799b6d58c6f8a8813e622398ca23219f88670aa1b';
         const verify = await verifyMessage({
-            web3: web3BSC,
             message: 'Some data',
             address: publicAddress as string,
             signature,
