@@ -4,9 +4,10 @@ import {
     getPrivateMasterKey,
     getPublicAddress,
 } from '../../../../lib/commonjs/networks/evm/address';
-import { TransactionEVM } from '../../../../lib/commonjs/networks/evm/general/types';
-import { getPrivateKey } from '../../../../src/networks/evm/address/index';
-import { signLegacyTransaction } from '../../../../src/networks/evm/signTransaction/index';
+import { getPrivateKey } from '../../../../lib/commonjs/networks/evm/address/index';
+import { signLegacyTransaction } from '../../../../lib/commonjs/networks/evm/signTransaction/index';
+import { TransactionLegacyEVM } from '../../../../src/networks/evm/general/types';
+import { signEIP1559Transaction } from '../../../../src/networks/evm/signTransaction/index';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -42,8 +43,8 @@ describe('signTransactionEMV', () => {
             maxFeePerGas: '9745321614',
             maxPriorityFeePerGas: '10909998',
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
-        } as TransactionEVM;
-        const rawTransaction = await signLegacyTransaction({
+        } as TransactionLegacyEVM;
+        const rawTransaction = await signEIP1559Transaction({
             transaction,
             privateKey,
         });
@@ -69,10 +70,9 @@ describe('signTransactionEMV', () => {
             from: publicAddress,
             nonce: '180',
             gasLimit: '21000',
-            maxFeePerGas: '9745321614',
-            maxPriorityFeePerGas: '10909998',
+            gasPrice: '9745321614',
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
-        } as TransactionEVM;
+        } as TransactionLegacyEVM;
         const rawTransaction = await signLegacyTransaction({
             transaction,
             privateKey,
