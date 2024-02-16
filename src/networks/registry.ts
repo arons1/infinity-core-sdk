@@ -17,5 +17,6 @@ export default {
     "avax":"evm",
     "xdc":"evm",
     "kcc":"evm",
-    "okc":"evm"
+    "okc":"evm",
+    "bsc":"evm"
 }
