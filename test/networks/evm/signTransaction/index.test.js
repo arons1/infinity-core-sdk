@@ -4,7 +4,7 @@ const globals_1 = require("@jest/globals");
 const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const index_1 = require("../../../../lib/commonjs/networks/evm/address/index");
 const index_2 = require("../../../../lib/commonjs/networks/evm/signTransaction/index");
-const index_3 = require("../../../../src/networks/evm/signTransaction/index");
+const index_3 = require("../../../../lib/commonjs/networks/evm/signTransaction/index");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
     messagePrefix: '\u0018Bitcoin Signed Message:\n',
@@ -34,17 +34,17 @@ const network = {
         const transaction = {
             value: '0x100000000',
             from: publicAddress,
-            nonce: '180',
-            gasLimit: '21000',
-            maxFeePerGas: '9745321614',
-            maxPriorityFeePerGas: '10909998',
+            nonce: '0xB4',
+            gasLimit: '0x5208',
+            maxFeePerGas: '0x244DDCE8E',
+            maxPriorityFeePerGas: '0xA6792E',
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
         };
         const rawTransaction = await (0, index_3.signEIP1559Transaction)({
             transaction,
             privateKey,
         });
-        (0, globals_1.expect)(rawTransaction).toBe('0x02f8700181b483a6792e850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df85010000000080c080a09743e72a2067cfe20c14fff205878761a613af73a732171555587f751d8a1963a04219f98d251e561a563794de5a002d733e76c79323594ebbc9bda5c6c5030022');
+        (0, globals_1.expect)(rawTransaction).toBe('0x02f8708081b483a6792e850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df85010000000080c001a045f2799d2fc372225cb6cc820391c9e5e5930b42eb4fbafd676ed0385364b4e0a0112f967c43260ef8eb99eac9c9ba77cff8d30cd10d47536271e700bdf5e9e19f');
     });
     (0, globals_1.test)('signTransaction(BSC)', async () => {
         const rootNode = (0, address_1.getRootNode)({ mnemonic, network });
@@ -62,15 +62,15 @@ const network = {
         const transaction = {
             value: '0x100000000',
             from: publicAddress,
-            nonce: '180',
-            gasLimit: '21000',
-            gasPrice: '9745321614',
+            nonce: '0xB4',
+            gasLimit: '0x5208',
+            gasPrice: '0x244DDCE8E',
             to: '0x1402066a3392FF3EA724Ae6ee64194c5D93090DF',
         };
         const rawTransaction = await (0, index_2.signLegacyTransaction)({
             transaction,
             privateKey,
         });
-        (0, globals_1.expect)(rawTransaction).toBe('0x02f8700181b483a6792e850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df85010000000080c080a09743e72a2067cfe20c14fff205878761a613af73a732171555587f751d8a1963a04219f98d251e561a563794de5a002d733e76c79323594ebbc9bda5c6c5030022');
+        (0, globals_1.expect)(rawTransaction).toBe('0xf86a81b4850244ddce8e825208941402066a3392ff3ea724ae6ee64194c5d93090df8501000000008023a01183852d7eb0ab5d4805beaed75f49cc56ae3c69fb87f07f23fb04e0bdd78740a05333e3cb944c1e2c5a5b5dbc93d3baf8e510b1c1c94bdfbff6fe5f0e59cb6ca8');
     });
 });
