@@ -1,118 +1,19 @@
-import { fromSeed } from '../../../core/bip32';
-import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
+
 import { HarmonyAddress } from '@harmony-js/crypto';
 import { bech32 } from '@scure/base';
-import { BIP32Interface } from '../../../core/bip32';
+
 
 import {
-    RootNodeParams,
-    MasterKeyParams,
-    AddressParams,
-    PublicAddressParams,
-} from './types';
-import {
-    DerivePathError,
-    GenPrivateKeyError,
-    InvalidMnemonic,
+    DerivePathError, GenPrivateKeyError
 } from '../../../errors/networks';
 import {
     publicToAddress,
     toChecksumAddress,
 } from '../sdk/ethereumjs-util/account';
+import { getPrivateKey, getPublicKey } from '../../getAddress';
+import { AddressParams, PublicAddressParams } from '../../types';
+import networks from '../../networks';
 
-/* 
-getRootNode
-    Returns root node
-    @param mnemonic: X words phrase
-    @param network: Network for this node
-*/
-export const getRootNode = ({
-    mnemonic,
-    network,
-}: RootNodeParams): BIP32Interface => {
-    if (!validateMnemonic(mnemonic)) throw new Error(InvalidMnemonic);
-    const seed = mnemonicToSeedSync(mnemonic);
-    return fromSeed(seed, network);
-};
-/* 
-getPublicMasterKey
-    Returns Account Extended Public Key
-    @param rootNode: Root node
-    @param bipIdCoin: Coin BIP32 ID
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
-export const getPublicMasterKey = ({
-    rootNode,
-    bipIdCoin,
-    protocol = 44,
-}: MasterKeyParams): BIP32Interface => {
-    return getPrivateMasterKey({
-        rootNode,
-        bipIdCoin,
-        protocol,
-    }).neutered();
-};
-/* 
-getPrivateMasterKey
-    Returns Account Extended Private Node
-    @param rootNode: Root node
-    @param bipIdCoin: Coin BIP32 ID
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
-export const getPrivateMasterKey = ({
-    rootNode,
-    bipIdCoin,
-    protocol = 44,
-}: MasterKeyParams): BIP32Interface => {
-    return rootNode
-        .deriveHardened(protocol)
-        .deriveHardened(bipIdCoin)
-        .deriveHardened(0);
-};
-/* 
-getPrivateKey
-    Returns Private key
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
-export const getPrivateKey = ({
-    privateAccountNode,
-    change = 0,
-    index = 0,
-}: AddressParams): Buffer | undefined => {
-    return privateAccountNode.derive(change).derive(index).privateKey;
-};
-/* 
-getPrivateAddress
-    Returns Private address
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
-export const getPrivateAddress = ({
-    privateAccountNode,
-    change = 0,
-    index = 0,
-}: AddressParams): string => {
-    const privateKey = getPrivateKey({ privateAccountNode, index, change });
-    if (!privateKey) throw new Error(GenPrivateKeyError);
-    return '0x' + privateKey?.toString('hex');
-};
-/* 
-getPublicKey
-    Returns Public address
-    @param publicAccountNode: Account Extended Public Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
-export const getPublicKey = ({
-    publicAccountNode,
-    change = 0,
-    index = 0,
-}: PublicAddressParams): Buffer | undefined => {
-    return publicAccountNode.derive(change).derive(index).publicKey;
-};
 /* 
 getPublicAddress
     Returns Public address
@@ -198,4 +99,22 @@ export const getXDCPublicAddress = ({
     if (pubKey) {
         return 'xdc' + pubKey.slice(2);
     } else throw new Error(DerivePathError);
+};
+
+
+/* 
+getPrivateAddress
+    Returns Private address
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
+export const getPrivateAddress = ({
+    privateAccountNode,
+    change = 0,
+    index = 0,
+}: AddressParams): string => {
+    const privateKey = getPrivateKey({ privateAccountNode, index, change, network:networks["eth"] });
+    if (!privateKey?.privateKey) throw new Error(GenPrivateKeyError);
+    return '0x' + privateKey.privateKey?.toString('hex');
 };

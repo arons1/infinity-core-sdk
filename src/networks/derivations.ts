@@ -219,4 +219,4 @@ export default {
         "bip44":60,
         "curve":"ecdsa"
     },
-}
+}as Record<string,any>

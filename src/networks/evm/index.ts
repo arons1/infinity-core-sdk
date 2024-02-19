@@ -5,4 +5,4 @@ export * from './signTransaction';
 export * from './signTransaction';
 export * from './transactionParser';
 
-export * as registry from './registry';
+export * as registry from '../derivations';
