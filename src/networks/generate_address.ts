@@ -1,7 +1,6 @@
 import {
     CoinNotSupported,
     CurveNotSupported,
-    DerivationTypeNotSupported,
     DerivePathError,
     NetworkNotSupported,
 } from '../errors/networks';
@@ -9,27 +8,10 @@ import networks from './networks';
 import derivations from './derivations';
 import { AddressResult, GenerateAddressesParams } from './types';
 
-import {
-    getPublicAddress as getPublicAddressEVM,
-    getPrivateAddress as getPrivateAddressEVM,
-    getHarmonyPublicAddress,
-    getOKXPublicAddress,
-    getXDCPublicAddress,
-    getBCPublicAddress,
-} from './evm';
-import {
-    getPublicAddressP2PKH as getPublicAddressUTXO,
-    getPrivateAddress as getPrivateAddressUTXO,
-    getPublicAddressP2WPKHP2S as getPublicAddressWrappedSegwit,
-    getPublicAddressSegwit as getPublicAddressSegwit,
-} from './utxo';
-import {
-    encodeGeneric,
-    getPrivateKey as getPrivateKeySecp256k1,
-    getPrivateMasterKey,
-    getPublicKey as getPublicKeySecp256k1,
-    getRootNode,
-} from '../utils/secp256k1';
+import { generateAddresses as generateAddressEVM } from './evm';
+import { generateAddresses as generateAddressUTXO } from './utxo';
+
+import { getPrivateMasterKey, getRootNode } from '../utils/secp256k1';
 
 const extractPath = (path: string) => {
     if (!path.startsWith('m/')) throw new Error(DerivePathError);
@@ -65,120 +47,24 @@ export const generateAddresses = ({
             bipIdCoin: path[1].number,
             protocol: path[0].number,
         });
-        const publicAccountNode = privateAccountNode.neutered();
-        const newAddress = {} as AddressResult;
-        if (coin.curve == 'ecdsa' || coin.curve == 'secp256k1') {
-            newAddress.extendedNode = privateAccountNode;
-            newAddress.extendedPrivateAddress = encodeGeneric(
-                privateAccountNode.toBase58(),
-                derivation.xprv,
-            );
-            newAddress.extendedPublicAddress = encodeGeneric(
-                publicAccountNode.toBase58(),
-                derivation.xpub,
-            );
-            newAddress.privateKey = getPrivateKeySecp256k1({
-                privateAccountNode,
-                network,
-            }).privateKey;
-            newAddress.publicKey = getPublicKeySecp256k1({ publicAccountNode });
-        }
         switch (coin.curve) {
             case 'ecdsa':
-                switch (derivation.name) {
-                    case 'legacy':
-                        newAddress.publicAddress = getPublicAddressEVM({
-                            publicAccountNode,
-                        });
-                        newAddress.privateAddress = getPrivateAddressEVM({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'bnb':
-                        newAddress.publicAddress = getBCPublicAddress({
-                            publicAccountNode,
-                        });
-                        newAddress.privateAddress = getPrivateAddressEVM({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'harmony':
-                        newAddress.publicAddress = getHarmonyPublicAddress({
-                            publicAccountNode,
-                        });
-                        newAddress.privateAddress = getPrivateAddressEVM({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'xdc':
-                        newAddress.publicAddress = getXDCPublicAddress({
-                            publicAccountNode,
-                        });
-                        newAddress.privateAddress = getPrivateAddressEVM({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'okx':
-                        newAddress.publicAddress = getOKXPublicAddress({
-                            publicAccountNode,
-                        });
-                        newAddress.privateAddress = getPrivateAddressEVM({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    default:
-                        throw new Error(DerivationTypeNotSupported);
-                }
+                results.push(
+                    generateAddressEVM({
+                        privateAccountNode,
+                        network,
+                        derivation: derivation.name,
+                    }),
+                );
                 break;
             case 'secp256k1':
-                switch (derivation.name) {
-                    case 'legacy':
-                        newAddress.publicAddress = getPublicAddressUTXO({
-                            publicAccountNode,
-                            network,
-                        });
-                        newAddress.privateAddress = getPrivateAddressUTXO({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'wrapped-segwit':
-                        newAddress.publicAddress =
-                            getPublicAddressWrappedSegwit({
-                                publicAccountNode,
-                                network,
-                            });
-                        newAddress.privateAddress = getPrivateAddressUTXO({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    case 'segwit':
-                        newAddress.publicAddress = getPublicAddressSegwit({
-                            publicAccountNode,
-                            network,
-                        });
-                        newAddress.privateAddress = getPrivateAddressUTXO({
-                            privateAccountNode,
-                            network,
-                        });
-                        results.push(newAddress);
-                        break;
-                    default:
-                        throw new Error(DerivationTypeNotSupported);
-                }
+                results.push(
+                    generateAddressUTXO({
+                        privateAccountNode,
+                        network,
+                        derivation: derivation.name,
+                    }),
+                );
                 break;
             default:
                 throw new Error(CurveNotSupported);

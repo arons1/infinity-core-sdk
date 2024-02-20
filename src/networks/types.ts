@@ -28,11 +28,17 @@ export type AddressParams = {
     privateAccountNode: BIP32Interface;
     change?: number;
     index?: number;
-    network: Network;
+    network?: Network;
 };
 export type PublicAddressParams = {
     publicAccountNode: BIP32Interface;
     change?: number;
     index?: number;
     network?: Network;
+};
+
+export type GenerateAddressParams = {
+    privateAccountNode: BIP32Interface;
+    network?: Network;
+    derivation: any;
 };

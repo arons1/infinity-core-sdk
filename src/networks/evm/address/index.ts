@@ -1,16 +1,29 @@
 import { HarmonyAddress } from '@harmony-js/crypto';
 import { bech32 } from '@scure/base';
 
-import { DerivePathError, GenPrivateKeyError } from '../../../errors/networks';
+import {
+    DerivationTypeNotSupported,
+    DerivePathError,
+    GenPrivateKeyError,
+} from '../../../errors/networks';
 import {
     publicToAddress,
     toChecksumAddress,
 } from '../sdk/ethereumjs-util/account';
-import { AddressParams, PublicAddressParams } from '../../types';
+import {
+    AddressParams,
+    AddressResult,
+    GenerateAddressParams,
+    PublicAddressParams,
+} from '../../types';
 import networks from '../../networks';
 import { ec } from '../../../core/elliptic';
 import { ab2hexstring, sha256ripemd160 } from '../../../core/elliptic/utils';
-import { getPrivateKey, getPublicKey } from '../../../utils/secp256k1';
+import {
+    encodeGeneric,
+    getPrivateKey,
+    getPublicKey,
+} from '../../../utils/secp256k1';
 
 /* 
 getPublicAddress
@@ -138,4 +151,62 @@ export const getBCPublicAddress = ({
         prefix: 'bnb',
     });
     return address;
+};
+
+export const generateAddresses = ({
+    privateAccountNode,
+    network,
+    derivation,
+}: GenerateAddressParams): AddressResult => {
+    const newAddress = {} as AddressResult;
+    newAddress.extendedNode = privateAccountNode;
+    newAddress.extendedPrivateAddress = encodeGeneric(
+        privateAccountNode.toBase58(),
+        derivation.xprv,
+    );
+    newAddress.extendedPublicAddress = encodeGeneric(
+        privateAccountNode.neutered().toBase58(),
+        derivation.xpub,
+    );
+    newAddress.privateKey = getPrivateKey({
+        privateAccountNode,
+        network,
+    }).privateKey;
+    newAddress.publicKey = getPublicKey({
+        publicAccountNode: privateAccountNode,
+    });
+    newAddress.privateAddress = getPrivateAddress({
+        privateAccountNode,
+        network,
+    });
+    switch (derivation.name) {
+        case 'legacy':
+            newAddress.publicAddress = getPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        case 'bnb':
+            newAddress.publicAddress = getBCPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        case 'harmony':
+            newAddress.publicAddress = getHarmonyPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        case 'xdc':
+            newAddress.publicAddress = getXDCPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        case 'okx':
+            newAddress.publicAddress = getOKXPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        default:
+            throw new Error(DerivationTypeNotSupported);
+    }
+    return newAddress;
 };

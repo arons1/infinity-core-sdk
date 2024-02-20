@@ -1,9 +1,21 @@
 import { Network, payments } from 'bitcoinjs-lib';
 import { BIP32Interface } from '../../../core/bip32';
 
-import { GenPrivateKeyError } from '../../../errors/networks';
-import { AddressParams, PublicAddressParams } from '../../types';
-import { getPrivateKey, getPublicKey } from '../../../utils/secp256k1';
+import {
+    DerivationTypeNotSupported,
+    GenPrivateKeyError,
+} from '../../../errors/networks';
+import {
+    AddressParams,
+    AddressResult,
+    GenerateAddressParams,
+    PublicAddressParams,
+} from '../../types';
+import {
+    encodeGeneric,
+    getPrivateKey,
+    getPublicKey,
+} from '../../../utils/secp256k1';
 
 /* 
 getPrivateAddress
@@ -84,4 +96,55 @@ export const getPublicAddressP2PKH = ({
 }: PublicAddressParams): string | undefined => {
     const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2pkh({ pubkey, network: network as Network }).address;
+};
+
+export const generateAddresses = ({
+    privateAccountNode,
+    network,
+    derivation,
+}: GenerateAddressParams): AddressResult => {
+    const newAddress = {} as AddressResult;
+    newAddress.extendedNode = privateAccountNode;
+    newAddress.extendedPrivateAddress = encodeGeneric(
+        privateAccountNode.toBase58(),
+        derivation.xprv,
+    );
+    newAddress.extendedPublicAddress = encodeGeneric(
+        privateAccountNode.neutered().toBase58(),
+        derivation.xpub,
+    );
+    newAddress.privateKey = getPrivateKey({
+        privateAccountNode,
+        network,
+    }).privateKey;
+    newAddress.publicKey = getPublicKey({
+        publicAccountNode: privateAccountNode,
+    });
+    newAddress.privateAddress = getPrivateAddress({
+        privateAccountNode,
+        network,
+    });
+    switch (derivation.name) {
+        case 'legacy':
+            newAddress.publicAddress = getPublicAddressP2PKH({
+                publicAccountNode: privateAccountNode,
+                network,
+            });
+            break;
+        case 'wrapped-segwit':
+            newAddress.publicAddress = getPublicAddressP2WPKHP2S({
+                publicAccountNode: privateAccountNode,
+                network,
+            });
+            break;
+        case 'segwit':
+            newAddress.publicAddress = getPublicAddressSegwit({
+                publicAccountNode: privateAccountNode,
+                network,
+            });
+            break;
+        default:
+            throw new Error(DerivationTypeNotSupported);
+    }
+    return newAddress;
 };
