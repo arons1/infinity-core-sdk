@@ -12,6 +12,7 @@ export type AddressResult = {
     privateAddress: string | undefined;
     publicKey: Buffer | undefined;
     publicAddress: string | undefined;
+    extendedNode:BIP32Interface
 };
 export type RootNodeParams = {
     mnemonic: string;

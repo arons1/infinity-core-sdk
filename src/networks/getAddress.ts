@@ -175,6 +175,7 @@ export const generateAddresses = ({
         });
         const publicAccountNode = privateAccountNode.neutered();
         const newAddress = {
+            extendedNode:privateAccountNode,
             extendedPrivateAddress: encodeGeneric(
                 privateAccountNode.toBase58(),
                 derivation.xprv,
