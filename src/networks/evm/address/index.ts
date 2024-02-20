@@ -19,11 +19,7 @@ import {
 import networks from '../../networks';
 import { ec } from '../../../core/elliptic';
 import { ab2hexstring, sha256ripemd160 } from '../../../core/elliptic/utils';
-import {
-    encodeGeneric,
-    getPrivateKey,
-    getPublicKey,
-} from '../../../utils/secp256k1';
+import { getPrivateKey, getPublicKey } from '../../../utils/secp256k1';
 
 /* 
 getPublicAddress
@@ -160,14 +156,6 @@ export const generateAddresses = ({
 }: GenerateAddressParams): AddressResult => {
     const newAddress = {} as AddressResult;
     newAddress.extendedNode = privateAccountNode;
-    newAddress.extendedPrivateAddress = encodeGeneric(
-        privateAccountNode.toBase58(),
-        derivation.xprv,
-    );
-    newAddress.extendedPublicAddress = encodeGeneric(
-        privateAccountNode.neutered().toBase58(),
-        derivation.xpub,
-    );
     newAddress.privateKey = getPrivateKey({
         privateAccountNode,
         network,

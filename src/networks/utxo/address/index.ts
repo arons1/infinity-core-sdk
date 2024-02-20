@@ -107,11 +107,11 @@ export const generateAddresses = ({
     newAddress.extendedNode = privateAccountNode;
     newAddress.extendedPrivateAddress = encodeGeneric(
         privateAccountNode.toBase58(),
-        derivation.xprv,
+        derivation.xprv as string,
     );
     newAddress.extendedPublicAddress = encodeGeneric(
         privateAccountNode.neutered().toBase58(),
-        derivation.xpub,
+        derivation.xpub as string,
     );
     newAddress.privateKey = getPrivateKey({
         privateAccountNode,

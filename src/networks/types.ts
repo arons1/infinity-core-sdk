@@ -40,5 +40,16 @@ export type PublicAddressParams = {
 export type GenerateAddressParams = {
     privateAccountNode: BIP32Interface;
     network?: Network;
-    derivation: any;
+    derivation: DerivationParams;
+};
+export type DerivationParams = {
+    name: string;
+    path: string;
+    xpub?: string;
+    xprv?: string;
+};
+export type Derivation = {
+    derivations: DerivationParams[];
+    bip44: number;
+    curve: string;
 };

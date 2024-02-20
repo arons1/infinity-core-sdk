@@ -1,3 +1,5 @@
+import { Derivation } from './types';
+
 export default {
     btc: {
         derivations: [
@@ -219,4 +221,4 @@ export default {
         bip44: 60,
         curve: 'ecdsa',
     },
-} as Record<string, any>;
+} as Record<string, Derivation>;
