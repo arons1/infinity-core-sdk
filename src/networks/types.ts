@@ -23,7 +23,15 @@ export type MasterKeyParams = {
     bipIdCoin: number;
     protocol: number;
 };
-
+export type Keys = {
+    key: Buffer;
+    chainCode: Buffer;
+};
+export type PublicKeyEd25519Params = {
+    secret: Buffer;
+    bipIdCoin: number;
+    protocol: number;
+};
 export type AddressParams = {
     privateAccountNode: BIP32Interface;
     change?: number;
