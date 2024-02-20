@@ -6,13 +6,13 @@ export type GenerateAddressesParams = {
 };
 
 export type AddressResult = {
-    extendedPrivateAddress: string;
-    extendedPublicAddress: string;
+    extendedPrivateAddress: string | undefined;
+    extendedPublicAddress: string | undefined;
     privateKey: Buffer | undefined;
     privateAddress: string | undefined;
     publicKey: Buffer | undefined;
     publicAddress: string | undefined;
-    extendedNode:BIP32Interface
+    extendedNode: BIP32Interface | undefined;
 };
 export type RootNodeParams = {
     mnemonic: string;
@@ -34,4 +34,5 @@ export type PublicAddressParams = {
     publicAccountNode: BIP32Interface;
     change?: number;
     index?: number;
+    network?: Network;
 };

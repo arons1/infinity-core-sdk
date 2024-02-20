@@ -6,11 +6,11 @@ import {
     publicToAddress,
     toChecksumAddress,
 } from '../sdk/ethereumjs-util/account';
-import { getPrivateKey, getPublicKey } from '../../getAddress';
 import { AddressParams, PublicAddressParams } from '../../types';
 import networks from '../../networks';
 import { ec } from '../../../core/elliptic';
 import { ab2hexstring, sha256ripemd160 } from '../../../core/elliptic/utils';
+import { getPrivateKey, getPublicKey } from '../../../utils/secp256k1';
 
 /* 
 getPublicAddress
