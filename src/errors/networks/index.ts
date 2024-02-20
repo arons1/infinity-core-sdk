@@ -5,6 +5,8 @@ export const SignTxError = 'sign tx error';
 export const SignMsgError = 'sign message error';
 export const UnsupportedCoinError = 'unsupported currency';
 export const GenPrivateKeyError = 'generate private key error';
+export const MissingExtendedParams =
+    'Missing extended key derivation parameters';
 export const GenMnemonicError = 'generate mnemonic error';
 export const InvalidChainError = 'invalid chain';
 export const PriorityFeeError = 'prioriy fee is required for current chain';

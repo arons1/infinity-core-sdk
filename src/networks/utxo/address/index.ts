@@ -4,6 +4,7 @@ import { BIP32Interface } from '../../../core/bip32';
 import {
     DerivationTypeNotSupported,
     GenPrivateKeyError,
+    MissingExtendedParams,
 } from '../../../errors/networks';
 import {
     AddressParams,
@@ -103,6 +104,8 @@ export const generateAddresses = ({
     network,
     derivation,
 }: GenerateAddressParams): AddressResult => {
+    if (derivation.xprv == undefined || derivation.xpub == undefined)
+        throw new Error(MissingExtendedParams);
     const newAddress = {} as AddressResult;
     newAddress.extendedNode = privateAccountNode;
     newAddress.extendedPrivateAddress = encodeGeneric(
