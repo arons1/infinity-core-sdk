@@ -7,10 +7,7 @@ import {
 } from '../errors/networks';
 import networks from './networks';
 import derivations from './derivations';
-import {
-    AddressResult,
-    GenerateAddressesParams
-} from './types';
+import { AddressResult, GenerateAddressesParams } from './types';
 
 import {
     getPublicAddress as getPublicAddressEVM,
@@ -26,7 +23,13 @@ import {
     getPublicAddressP2WPKHP2S as getPublicAddressWrappedSegwit,
     getPublicAddressSegwit as getPublicAddressSegwit,
 } from './utxo';
-import { encodeGeneric, getPrivateKey, getPrivateMasterKey, getPublicKey, getRootNode } from '../utils/secp256k1';
+import {
+    encodeGeneric,
+    getPrivateKey as getPrivateKeySecp256k1,
+    getPrivateMasterKey,
+    getPublicKey as getPublicKeySecp256k1,
+    getRootNode,
+} from '../utils/secp256k1';
 
 const extractPath = (path: string) => {
     if (!path.startsWith('m/')) throw new Error(DerivePathError);
@@ -64,7 +67,7 @@ export const generateAddresses = ({
         });
         const publicAccountNode = privateAccountNode.neutered();
         const newAddress = {} as AddressResult;
-        if(coin.curve == 'ecdsa' || coin.curve == "secp256k1"){
+        if (coin.curve == 'ecdsa' || coin.curve == 'secp256k1') {
             newAddress.extendedNode = privateAccountNode;
             newAddress.extendedPrivateAddress = encodeGeneric(
                 privateAccountNode.toBase58(),
@@ -74,11 +77,11 @@ export const generateAddresses = ({
                 publicAccountNode.toBase58(),
                 derivation.xpub,
             );
-            newAddress.privateKey = getPrivateKey({
+            newAddress.privateKey = getPrivateKeySecp256k1({
                 privateAccountNode,
                 network,
             }).privateKey;
-            newAddress.publicKey = getPublicKey({ publicAccountNode });
+            newAddress.publicKey = getPublicKeySecp256k1({ publicAccountNode });
         }
         switch (coin.curve) {
             case 'ecdsa':

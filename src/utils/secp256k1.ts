@@ -1,10 +1,13 @@
-
 import bs58check from 'bs58check';
 import { BIP32Interface, fromSeed } from '../core/bip32';
-import { AddressParams, MasterKeyParams, PublicAddressParams, RootNodeParams } from '../networks/types';
+import {
+    AddressParams,
+    MasterKeyParams,
+    PublicAddressParams,
+    RootNodeParams,
+} from '../networks/types';
 import { mnemonicToSeedSync, validateMnemonic } from '../core/bip39';
 import { InvalidMnemonic } from '../errors/networks';
-
 
 const addressEncoding: Record<string, string> = {
     ypub: '049d7cb2',
