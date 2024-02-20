@@ -53,7 +53,7 @@ export const generateAddresses = ({
                     generateAddressEVM({
                         privateAccountNode,
                         network,
-                        derivation: derivation.name,
+                        derivation,
                     }),
                 );
                 break;
@@ -62,7 +62,7 @@ export const generateAddresses = ({
                     generateAddressUTXO({
                         privateAccountNode,
                         network,
-                        derivation: derivation.name,
+                        derivation,
                     }),
                 );
                 break;
