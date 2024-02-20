@@ -1,222 +1,222 @@
 export default {
-    "btc":{
-        "derivations":[
+    btc: {
+        derivations: [
             {
-                "name": "segwit",
-                "path": "m/84'/0'/0'/0/0",
-                "xpub": "zpub",
-                "xprv": "zprv"
+                name: 'segwit',
+                path: "m/84'/0'/0'/0/0",
+                xpub: 'zpub',
+                xprv: 'zprv',
             },
             {
-                "name": "legacy",
-                "path": "m/49'/0'/0'/0/0",
-                "xpub": "ypub",
-                "xprv": "yprv"
-            }
+                name: 'wrapped-segwit',
+                path: "m/49'/0'/0'/0/0",
+                xpub: 'ypub',
+                xprv: 'yprv',
+            },
         ],
-        "bip44":0,
-        "curve":"secp256k1"
+        bip44: 0,
+        curve: 'secp256k1',
     },
-    "ltc":{
-        "derivations":[
+    ltc: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0",
-                "xpub": "xpub",
-                "xprv": "xprv"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+                xpub: 'xpub',
+                xprv: 'xprv',
+            },
         ],
-        "bip44":2,
-        "curve":"secp256k1"
+        bip44: 2,
+        curve: 'secp256k1',
     },
-    "doge":{
-        "derivations":[
+    doge: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0",
-                "xpub": "xpub",
-                "xprv": "xprv"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+                xpub: 'xpub',
+                xprv: 'xprv',
+            },
         ],
-        "bip44":3,
-        "curve":"secp256k1"
+        bip44: 3,
+        curve: 'secp256k1',
     },
-    "fio":{
-        "derivations":[
+    fio: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0",
-                "xpub": "xpub",
-                "xprv": "xprv"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+                xpub: 'xpub',
+                xprv: 'xprv',
+            },
         ],
-        "bip44":235,
-        "curve":"secp256k1"
+        bip44: 235,
+        curve: 'secp256k1',
     },
-    "stellar":{
-        "derivations":[
+    stellar: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'",
+            },
         ],
-        "bip44":148,
-        "curve":"ed25519"
+        bip44: 148,
+        curve: 'ed25519',
     },
-    "xrp":{
-        "derivations":[
+    xrp: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'",
+            },
         ],
-        "bip44":144,
-        "curve":"ed25519"
+        bip44: 144,
+        curve: 'ed25519',
     },
-    "eth":{
-        "derivations":[
+    eth: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/60'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/60'/0'/0'/0/0",
+            },
         ],
-        "bip44":235,
-        "curve":"ecdsa"
+        bip44: 235,
+        curve: 'ecdsa',
     },
-    "bnb":{
-        "derivations":[
+    bnb: {
+        derivations: [
             {
-                "name": "bnb",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'bnb',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":714,
-        "curve":"ecdsa"
+        bip44: 714,
+        curve: 'ecdsa',
     },
-    "matic":{
-        "derivations":[
+    matic: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "bsc":{
-        "derivations":[
+    bsc: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "groestlcoin":{
-        "derivations":[
+    groestlcoin: {
+        derivations: [
             {
-                "name": "segwit",
-                "path": "m/84'/0'/0'/0/0",
-                "xpub": "zpub",
-                "xprv": "zprv"
-            }
+                name: 'segwit',
+                path: "m/84'/0'/0'/0/0",
+                xpub: 'zpub',
+                xprv: 'zprv',
+            },
         ],
-        "bip44":17,
-        "curve":"secp256k1"
+        bip44: 17,
+        curve: 'secp256k1',
     },
-    "harmony":{
-        "derivations":[
+    harmony: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
             },
             {
-                "name":"harmony",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'harmony',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "cronos":{
-        "derivations":[
+    cronos: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "vechain":{
-        "derivations":[
+    vechain: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "solana":{
-        "derivations":[
+    solana: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'",
+            },
         ],
-        "bip44":501,
-        "curve":"ed25519"
+        bip44: 501,
+        curve: 'ed25519',
     },
-    "tezos":{
-        "derivations":[
+    tezos: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'",
+            },
         ],
-        "bip44":1729,
-        "curve":"ed25519"
+        bip44: 1729,
+        curve: 'ed25519',
     },
-    "avax":{
-        "derivations":[
+    avax: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "xdc":{
-        "derivations":[
+    xdc: {
+        derivations: [
             {
-                "name": "xdc",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'xdc',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "kcc":{
-        "derivations":[
+    kcc: {
+        derivations: [
             {
-                "name": "legacy",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'legacy',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-    "okc":{
-        "derivations":[
+    okc: {
+        derivations: [
             {
-                "name": "okx",
-                "path": "m/44'/0'/0'/0/0"
-            }
+                name: 'okx',
+                path: "m/44'/0'/0'/0/0",
+            },
         ],
-        "bip44":60,
-        "curve":"ecdsa"
+        bip44: 60,
+        curve: 'ecdsa',
     },
-}as Record<string,any>
+} as Record<string, any>;

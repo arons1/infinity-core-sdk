@@ -1,11 +1,7 @@
-
 import { Network, payments } from 'bitcoinjs-lib';
 import { BIP32Interface } from '../../../core/bip32';
 
-import {
-    AddressParams,
-    PublicAddressParams
-} from './types';
+import { AddressParams, PublicAddressParams } from './types';
 import { getPrivateKey, getPublicKey } from '../../getAddress';
 import { GenPrivateKeyError } from '../../../errors/networks';
 
@@ -29,9 +25,8 @@ export const getPrivateAddress = ({
         change,
         network,
     });
-    if(privateKey == undefined)
-        throw new Error(GenPrivateKeyError)
-    privateKey = privateKey as BIP32Interface
+    if (privateKey == undefined) throw new Error(GenPrivateKeyError);
+    privateKey = privateKey as BIP32Interface;
     return privateKey.toWIF();
 };
 

@@ -103,36 +103,37 @@ function intFromLE(bytes) {
     return new BN(bytes, 'hex', 'le');
 }
 utils.intFromLE = intFromLE;
-utils.ab2hexstring = (arr) => {
-    if (typeof arr !== "object") {
-      throw new Error("ab2hexstring expects an array")
+utils.ab2hexstring = arr => {
+    if (typeof arr !== 'object') {
+        throw new Error('ab2hexstring expects an array');
     }
-    let result = ""
+    let result = '';
     for (let i = 0; i < arr.length; i++) {
-      let str = arr[i].toString(16)
-      str = str.length === 0 ? "00" : str.length === 1 ? "0" + str : str
-      result += str
+        let str = arr[i].toString(16);
+        str = str.length === 0 ? '00' : str.length === 1 ? '0' + str : str;
+        result += str;
     }
-    return result
-}
-utils.ab2hexstring = (arr) => {
-    if (typeof arr !== "object") {
-      throw new Error("ab2hexstring expects an array")
+    return result;
+};
+utils.ab2hexstring = arr => {
+    if (typeof arr !== 'object') {
+        throw new Error('ab2hexstring expects an array');
     }
-    let result = ""
+    let result = '';
     for (let i = 0; i < arr.length; i++) {
-      let str = arr[i].toString(16)
-      str = str.length === 0 ? "00" : str.length === 1 ? "0" + str : str
-      result += str
+        let str = arr[i].toString(16);
+        str = str.length === 0 ? '00' : str.length === 1 ? '0' + str : str;
+        result += str;
     }
-    return result
-}
+    return result;
+};
 
-utils.sha256ripemd160 = (hex) => {
-    if (typeof hex !== "string")
-      throw new Error("sha256ripemd160 expects a string")
-    if (hex.length % 2 !== 0) throw new Error(`invalid hex string length: ${hex}`)
-    const hexEncoded = hexEncoding.parse(hex)
-    const ProgramSha256 = SHA256(hexEncoded)
-    return RIPEMD160(ProgramSha256).toString()
-  }
+utils.sha256ripemd160 = hex => {
+    if (typeof hex !== 'string')
+        throw new Error('sha256ripemd160 expects a string');
+    if (hex.length % 2 !== 0)
+        throw new Error(`invalid hex string length: ${hex}`);
+    const hexEncoded = hexEncoding.parse(hex);
+    const ProgramSha256 = SHA256(hexEncoded);
+    return RIPEMD160(ProgramSha256).toString();
+};
