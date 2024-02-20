@@ -13,6 +13,8 @@ import {
 import { getPrivateKey, getPublicKey } from '../../getAddress';
 import { AddressParams, PublicAddressParams } from '../../types';
 import networks from '../../networks';
+import { ec } from '../../../core/elliptic';
+import { ab2hexstring, sha256ripemd160 } from '../../../core/elliptic/utils';
 
 /* 
 getPublicAddress
@@ -118,3 +120,24 @@ export const getPrivateAddress = ({
     if (!privateKey?.privateKey) throw new Error(GenPrivateKeyError);
     return '0x' + privateKey.privateKey?.toString('hex');
 };
+
+/*
+get
+*/
+export const getBCPublicAddress = (
+    {
+        publicAccountNode
+    }:PublicAddressParams
+  ) => {
+    const publicKeyHex = getPublicKey({ publicAccountNode })?.toString('hex');
+    const pubKey = ec.keyFromPublic(publicKeyHex, "hex")
+    const pubPoint = pubKey.getPublic()
+    const compressed = pubPoint.encodeCompressed()
+    const hexed = ab2hexstring(compressed)
+    const hash = sha256ripemd160(hexed)
+    const address = encodeAddressToBech32({
+        address:hash,
+        prefix:"bnb"
+    })
+    return address
+  }

@@ -12,6 +12,7 @@ export const DerivePathError = 'derive hdPath error';
 export const InvalidAmount = 'invalid amount';
 export const NetworkNotSupported = 'network not supported'
 export const CoinNotSupported = 'coin not supported'
+export const CurveNotSupported  = 'curve not supported';
 export const InvalidAddress = 'invalid address';
 export const InvalidContractAddress = 'invalid token contract address';
 export const InvalidMnemonic = 'invalid mnemonic';

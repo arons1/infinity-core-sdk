@@ -1,11 +1,11 @@
-import { CoinNotSupported, DerivePathError, GenPrivateKeyError, InvalidMnemonic, NetworkNotSupported } from "../errors/networks"
+import { CoinNotSupported, CurveNotSupported, DerivePathError, GenPrivateKeyError, InvalidMnemonic, NetworkNotSupported } from "../errors/networks"
 import networks from "./networks"
 import derivations from "./derivations"
 import { AddressParams, AddressResult, GenerateAddressesParams, MasterKeyParams, PublicAddressParams, RootNodeParams } from "./types"
 import { BIP32Interface, fromSeed } from "../core/bip32"
 import { mnemonicToSeedSync, validateMnemonic } from "../core/bip39"
+import { getPublicAddress as getPublicAddressEVM, getPrivateAddress as getPrivateAddressEVM, getHarmonyPublicAddress, getOKXPublicAddress, getXDCPublicAddress, getBCPublicAddress } from "./evm"
 import bs58check from 'bs58check';
-import registry from "./registry"
 
 const extractPath = (path:string) => {
     if(!path.startsWith('m/'))
@@ -137,7 +137,6 @@ export const generateAddresses = ({
 }: GenerateAddressesParams) : AddressResult[] => {
     const network = networks[idCoin]
     const coin = derivations[idCoin]
-    const network_derivate = registry[idCoin]
     if(!network) throw new Error(NetworkNotSupported);
     if(!coin) throw new Error(CoinNotSupported);
     const rootNode = getRootNode({mnemonic,network})
@@ -150,11 +149,56 @@ export const generateAddresses = ({
             protocol:path[0].number
         })
         const publicAccountNode = privateAccountNode.neutered();
-        switch(network_derivate){
-            case "evm":
+        const extendedPublic = encodeGeneric(publicAccountNode.toBase58(),derivation.xpub)
+        const extendedPrivate = encodeGeneric(privateAccountNode.toBase58(),derivation.xprv)
+        const newAddress = {
+            extendedPrivateAddress:extendedPrivate,
+            extendedPublicAddress:extendedPublic,
+            privateKey:getPrivateKey({privateAccountNode,network}).privateKey,
+            publicKey:getPublicKey({publicAccountNode})
+        } as AddressResult
+        switch(coin.curve){
+            case "ecdsa":
+                switch(derivation.name){
+                    case "legacy":
+                        newAddress.publicAddress = getPublicAddressEVM({publicAccountNode})
+                        newAddress.privateAddress = getPrivateAddressEVM({privateAccountNode,network})
+                        results.push(newAddress)
+                        break;
+                    case "bnb":
+                        newAddress.publicAddress = getBCPublicAddress({publicAccountNode})
+                        newAddress.privateAddress = getPrivateAddressEVM({privateAccountNode,network})
+                        results.push(newAddress)
+                        break;
+                    case "harmony":
+                        newAddress.publicAddress = getHarmonyPublicAddress({publicAccountNode})
+                        newAddress.privateAddress = getPrivateAddressEVM({privateAccountNode,network})
+                        results.push(newAddress)
+                        break;
+                    case "xdc":
+                        newAddress.publicAddress = getHarmonyPublicAddress({publicAccountNode})
+                        newAddress.privateAddress = getPrivateAddressEVM({privateAccountNode,network})
+                        results.push(newAddress)
+                        break;
+                    case "okx":
+                        newAddress.publicAddress = getOKXPublicAddress({publicAccountNode})
+                        newAddress.privateAddress = getPrivateAddressEVM({privateAccountNode,network})
+                        results.push(newAddress)
+                        break;
+                    default:
+                        throw new Error(CurveNotSupported)
+                }
                 break;
-            case "utxo":
+            case "secp256k1":
+                switch(derivation.name){
+                    case "legacy":
+                        break;
+                    case "segwit":
+                        break;
+                }
                 break;
+            default:
+                throw new Error(CurveNotSupported)
         }
 
     }

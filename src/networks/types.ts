@@ -8,10 +8,10 @@ export type GenerateAddressesParams = {
 export type AddressResult = {
     extendedPrivateAddress:string;
     extendedPublicAddress:string;
-    privateKey:Buffer;
-    privateAddress:string;
-    publicKey:Buffer;
-    publicAddress:string
+    privateKey:Buffer | undefined;
+    privateAddress:string | undefined;
+    publicKey:Buffer | undefined;
+    publicAddress:string | undefined
 }
 export type RootNodeParams = {
     mnemonic: string;

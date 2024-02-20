@@ -19,4 +19,4 @@ export default {
     "kcc":"evm",
     "okc":"evm",
     "bsc":"evm"
-}
+} as Record<string,string>
