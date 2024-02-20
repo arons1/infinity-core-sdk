@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const secp256k1_1 = require("../../../../lib/commonjs/networks/utils/secp256k1");
 const address_1 = require("../../../../lib/commonjs/networks/utxo/address");
 const globals_1 = require("@jest/globals");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -27,26 +28,26 @@ const networkLTC = {
 };
 (0, globals_1.describe)('generateAddressUTXO', () => {
     (0, globals_1.test)('generateExtendedPrivateKeyBTC', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const privateAccountNode = (0, address_1.getPrivateMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
             bipIdCoin: 0,
             protocol: 49,
             rootNode,
         });
-        (0, globals_1.expect)((0, address_1.xprvToYprv)(privateAccountNode.toBase58())).toBe('yprvAHZLii61veRXpyD1b7vfCAUapNPfpoYCiVA78H5Ddn7uSFjBnXv8JtQpVgsgtudUwgCHHGFnGMTgETVjFNzu2j8SLZuR6ZK7Qiczin1QwWS');
+        (0, globals_1.expect)((0, secp256k1_1.xprvToYprv)(privateAccountNode.toBase58())).toBe('yprvAHZLii61veRXpyD1b7vfCAUapNPfpoYCiVA78H5Ddn7uSFjBnXv8JtQpVgsgtudUwgCHHGFnGMTgETVjFNzu2j8SLZuR6ZK7Qiczin1QwWS');
     });
     (0, globals_1.test)('generateExtendedPrivateKeySegwitBTC', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const privateAccountNode = (0, address_1.getPrivateMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
             bipIdCoin: 0,
             protocol: 84,
             rootNode,
         });
-        (0, globals_1.expect)((0, address_1.xprvToZprv)(privateAccountNode.toBase58())).toBe('zprvAcf4ncnUAESerj58XNSsX57U76UiqNwuRmqcgK2KksLtwaFCiP7P21EAifdWVN9dkByxZ2RZ58gLwiR1p1nky91CF83MSkt36tFfkcRGksM');
+        (0, globals_1.expect)((0, secp256k1_1.xprvToZprv)(privateAccountNode.toBase58())).toBe('zprvAcf4ncnUAESerj58XNSsX57U76UiqNwuRmqcgK2KksLtwaFCiP7P21EAifdWVN9dkByxZ2RZ58gLwiR1p1nky91CF83MSkt36tFfkcRGksM');
     });
     (0, globals_1.test)('generateExtendedPublicKeyBTC', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: 44,
             rootNode,
@@ -54,26 +55,26 @@ const networkLTC = {
         (0, globals_1.expect)(publicAccountNode.toBase58()).toBe('xpub6CRVjHtvvpPy5jpN9ppfjLA1ttbSYYZZfhrwyJEX1p2NYkx3xhvhNCiPJ9rjp3JDLTLsQAaesL8JLrUCbrxE4KKPRGqYLgvibRoC7a7gpww');
     });
     (0, globals_1.test)('xpubToYpub', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: 49,
             rootNode,
         });
-        (0, globals_1.expect)((0, address_1.xpubToYpub)(publicAccountNode.toBase58())).toBe('ypub6WYh8Dcum1yq3THUh9TfZJRKNQEAEGG45i5hvfUqC7etK44LL5ENrgjJLzkDQupjAKg7sAUo91YKqzJSXjH9AVHxmAgUaCjq9yhmawGm1xG');
+        (0, globals_1.expect)((0, secp256k1_1.xpubToYpub)(publicAccountNode.toBase58())).toBe('ypub6WYh8Dcum1yq3THUh9TfZJRKNQEAEGG45i5hvfUqC7etK44LL5ENrgjJLzkDQupjAKg7sAUo91YKqzJSXjH9AVHxmAgUaCjq9yhmawGm1xG');
     });
     (0, globals_1.test)('xpubToZpub', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: 84,
             rootNode,
         });
-        (0, globals_1.expect)((0, address_1.xpubToZpub)(publicAccountNode.toBase58())).toBe('zpub6qeRC8KMzbzx5D9bdPystD4Cf8KDEqfknzmDUhRwKCsspNaMFvRdZoYeZxUYVkWx8E274jeFk4EWKmWqvaZSR2KUNfHyppdVByAbE9GSTPM');
+        (0, globals_1.expect)((0, secp256k1_1.xpubToZpub)(publicAccountNode.toBase58())).toBe('zpub6qeRC8KMzbzx5D9bdPystD4Cf8KDEqfknzmDUhRwKCsspNaMFvRdZoYeZxUYVkWx8E274jeFk4EWKmWqvaZSR2KUNfHyppdVByAbE9GSTPM');
     });
     (0, globals_1.test)('getPublicAddressP2WPKHP2S', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: 49,
             rootNode,
@@ -87,8 +88,8 @@ const networkLTC = {
         (0, globals_1.expect)(publicAddress).toBe('32juhuebHD1h2nEkBeUN3LnrNAVVdfuB8m');
     });
     (0, globals_1.test)('getPublicAddressLTC', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkLTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkLTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 2,
             protocol: 44,
             rootNode,
@@ -102,8 +103,8 @@ const networkLTC = {
         (0, globals_1.expect)(publicAddress).toBe('LNiHyZY6wstYSJnkyE8dXTCGZRuBk7526m');
     });
     (0, globals_1.test)('getPublicAddressSegwit', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicAccountNode = (0, address_1.getPublicMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: 84,
             rootNode,
@@ -117,8 +118,8 @@ const networkLTC = {
         (0, globals_1.expect)(publicAddress).toBe('bc1qh493z9tmfegw2z4ly26whu8crh3ukwl4v4jkvj');
     });
     (0, globals_1.test)('getPrivateAddressLTC', async () => {
-        const rootNode = (0, address_1.getRootNode)({ mnemonic, network: networkLTC });
-        const privateAccountNode = (0, address_1.getPrivateMasterKey)({
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkLTC });
+        const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
             bipIdCoin: 2,
             protocol: 44,
             rootNode,

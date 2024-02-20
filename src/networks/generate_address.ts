@@ -11,7 +11,7 @@ import { AddressResult, GenerateAddressesParams } from './types';
 import { generateAddresses as generateAddressEVM } from './evm';
 import { generateAddresses as generateAddressUTXO } from './utxo';
 
-import { getPrivateMasterKey, getRootNode } from '../utils/secp256k1';
+import { getPrivateMasterKey, getRootNode } from './utils/secp256k1';
 
 const extractPath = (path: string) => {
     if (!path.startsWith('m/')) throw new Error(DerivePathError);

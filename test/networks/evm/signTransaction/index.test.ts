@@ -1,13 +1,13 @@
 import { describe, expect, test } from '@jest/globals';
-import {
-    getRootNode,
-    getPrivateMasterKey,
-    getPublicAddress,
-} from '../../../../lib/commonjs/networks/evm/address';
-import { getPrivateKey } from '../../../../lib/commonjs/networks/evm/address/index';
+import { getPublicAddress } from '../../../../lib/commonjs/networks/evm/address';
+import { getPrivateKey } from '../../../../lib/commonjs/networks/utils/secp256k1';
 import { signLegacyTransaction } from '../../../../lib/commonjs/networks/evm/signTransaction/index';
 import { TransactionLegacyEVM } from '../../../../lib/commonjs/networks/evm/general/types';
 import { signEIP1559Transaction } from '../../../../lib/commonjs/networks/evm/signTransaction/index';
+import {
+    getPrivateMasterKey,
+    getRootNode,
+} from '../../../../lib/commonjs/networks/utils/secp256k1';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -34,7 +34,8 @@ describe('signTransactionEMV', () => {
             index: 0,
             publicAccountNode: privateAccountNode,
         });
-        const privateKey = getPrivateKey({ privateAccountNode }) as Buffer;
+        const privateKey = getPrivateKey({ privateAccountNode })
+            ?.privateKey as Buffer;
         const transaction = {
             value: '0x100000000',
             from: publicAddress,
@@ -64,7 +65,8 @@ describe('signTransactionEMV', () => {
             index: 0,
             publicAccountNode: privateAccountNode,
         });
-        const privateKey = getPrivateKey({ privateAccountNode }) as Buffer;
+        const privateKey = getPrivateKey({ privateAccountNode })
+            ?.privateKey as Buffer;
         const transaction = {
             value: '0x100000000',
             from: publicAddress,

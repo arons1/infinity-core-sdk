@@ -1,14 +1,16 @@
 import {
-    getRootNode,
-    getPublicMasterKey,
     getPrivateMasterKey,
+    getPublicMasterKey,
+    getRootNode,
+    xprvToYprv,
+    xprvToZprv,
     xpubToYpub,
     xpubToZpub,
+} from '../../../../lib/commonjs/networks/utils/secp256k1';
+import {
     getPublicAddressP2WPKHP2S,
     getPublicAddressP2PKH,
     getPublicAddressSegwit,
-    xprvToZprv,
-    xprvToYprv,
     getPrivateAddress,
 } from '../../../../lib/commonjs/networks/utxo/address';
 import { describe, expect, test } from '@jest/globals';

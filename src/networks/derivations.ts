@@ -23,7 +23,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/2'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
             },
@@ -35,7 +35,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/3'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
             },
@@ -47,7 +47,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/235'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
             },
@@ -59,7 +59,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'",
+                path: "m/44'/148'/0'",
             },
         ],
         bip44: 148,
@@ -69,7 +69,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'",
+                path: "m/44'/144'/0'",
             },
         ],
         bip44: 144,
@@ -79,17 +79,17 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/60'/0'/0'/0/0",
+                path: "m/40'/60'/0'/0/0",
             },
         ],
-        bip44: 235,
+        bip44: 60,
         curve: 'ecdsa',
     },
     bnb: {
         derivations: [
             {
                 name: 'bnb',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/714'/0'/0/0",
             },
         ],
         bip44: 714,
@@ -99,7 +99,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -109,7 +109,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -131,11 +131,11 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
             {
                 name: 'harmony',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -145,7 +145,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -155,7 +155,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -165,7 +165,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'",
+                path: "m/44'/501'/0'",
             },
         ],
         bip44: 501,
@@ -175,7 +175,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'",
+                path: "m/44'/1729'/0'",
             },
         ],
         bip44: 1729,
@@ -185,7 +185,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -195,7 +195,7 @@ export default {
         derivations: [
             {
                 name: 'xdc',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -205,7 +205,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,
@@ -215,7 +215,7 @@ export default {
         derivations: [
             {
                 name: 'okx',
-                path: "m/44'/0'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
             },
         ],
         bip44: 60,

@@ -3,13 +3,13 @@ import {
     signMessage,
     verifyMessage,
 } from '../../../../lib/commonjs/networks/evm/signMessage';
+import { getPublicAddress } from '../../../../lib/commonjs/networks/evm/address';
 import {
-    getRootNode,
-    getPrivateMasterKey,
     getPrivateKey,
-    getPublicAddress,
+    getPrivateMasterKey,
+    getRootNode,
     getPublicMasterKey,
-} from '../../../../lib/commonjs/networks/evm/address';
+} from '../../../../lib/commonjs/networks/utils/secp256k1';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -33,7 +33,7 @@ describe('signMessageEVM', () => {
         });
         const privateKey = getPrivateKey({
             privateAccountNode,
-        });
+        }).privateKey;
         const signature = signMessage({
             message: 'Some data',
             privateKey: privateKey as Buffer,

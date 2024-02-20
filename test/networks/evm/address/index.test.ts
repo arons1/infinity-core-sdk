@@ -1,13 +1,16 @@
 import {
-    getRootNode,
-    getPublicMasterKey,
     getPublicAddress,
-    getPrivateMasterKey,
     getPrivateAddress,
     getHarmonyPublicAddress,
     getOKXPublicAddress,
     getXDCPublicAddress,
+    getBCPublicAddress,
 } from '../../../../lib/commonjs/networks/evm/address';
+import {
+    getPrivateMasterKey,
+    getPublicMasterKey,
+    getRootNode,
+} from '../../../../lib/commonjs/networks/utils/secp256k1';
 import { describe, expect, test } from '@jest/globals';
 
 const mnemonic =
@@ -74,6 +77,22 @@ describe('generateAddressEVM', () => {
         });
         expect(publicAddress).toBe(
             '0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
+        );
+    });
+    test('generatePublicAddress(BC)', async () => {
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
+            bipIdCoin: 714,
+            protocol: 44,
+            rootNode,
+        });
+        const publicAddress = getBCPublicAddress({
+            change: 0,
+            index: 0,
+            publicAccountNode,
+        });
+        expect(publicAddress).toBe(
+            'bnb1v6ugv2t5cahefksmduc9ypezm25453ez2p3e3k',
         );
     });
 
