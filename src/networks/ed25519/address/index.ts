@@ -16,7 +16,7 @@ import { b58cencode, base58 } from '../../../core/base/base58';
 import { StrKey } from '../../../core/ed25519/strkey';
 import { extractPath } from '../../../utils';
 import { fromSeed } from '../../../core/bip32';
-import { blake2 } from '../../../core/base';
+import { blake2b } from '@noble/hashes/blake2b';
 
 /* 
 getSecret
@@ -101,7 +101,7 @@ export const getKeyPair = ({
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
         if (coin == 1729) {
-            return nacl.sign.keyPair.fromSeed(keySecret.key.slice(0, 32));
+            return nacl.sign.keyPair.fromSeed(keySecret.key);
         }
         return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
@@ -114,7 +114,7 @@ export const getPublicKey = ({
     coinId: number;
 }) => {
     if (coinId == 1729) {
-        return blake2(keyPair.publicKey, 20, undefined);
+        return blake2b(keyPair.publicKey, { dkLen: 20 });
     }
     return keyPair.publicKey;
 };

@@ -1,13 +1,14 @@
 import { describe, expect, test } from '@jest/globals';
-import { getPublicKey } from '../../../../src/networks/ed25519/address/index';
 import {
     getSeed,
     getPublicStellarAddress,
     getPublicSolanaAddress,
     getPublicTezosAddress,
+    getPublicKey,
     getKeyPair,
     getPublicXRPAddress,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
+
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 
