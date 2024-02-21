@@ -17,10 +17,16 @@ import {
     PublicAddressParams,
 } from '../../types';
 import networks from '../../networks';
-import { getPrivateKey, getPublicKey } from '../../utils/secp256k1';
+import {
+    getPrivateKey,
+    getPrivateMasterKey,
+    getPublicKey,
+    getRootNode,
+} from '../../utils/secp256k1';
 import { ab2hexstring } from '../../../core/elliptic/utils';
 import { ec as elliptic } from '../../../core/elliptic';
 import { RIPEMD160, SHA256, enc } from 'crypto-js';
+import { extractPath } from '../../../utils';
 
 const ec = new elliptic('secp256k1');
 /* 
@@ -155,10 +161,16 @@ export const getBCPublicAddress = ({
 };
 
 export const generateAddresses = ({
-    privateAccountNode,
     network,
     derivation,
+    mnemonic,
 }: GenerateAddressParams): AddressResult => {
+    const path = extractPath(derivation.path);
+    const privateAccountNode = getPrivateMasterKey({
+        rootNode: getRootNode({ mnemonic, network }),
+        bipIdCoin: path[1].number,
+        protocol: path[0].number,
+    });
     const newAddress = {} as AddressResult;
     newAddress.extendedNode = privateAccountNode;
     newAddress.privateKey = getPrivateKey({

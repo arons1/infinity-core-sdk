@@ -1,7 +1,6 @@
 import {
     CoinNotSupported,
     CurveNotSupported,
-    DerivePathError,
     NetworkNotSupported,
 } from '../errors/networks';
 import networks from './networks';
@@ -10,21 +9,7 @@ import { AddressResult, GenerateAddressesParams } from './types';
 
 import { generateAddresses as generateAddressEVM } from './evm';
 import { generateAddresses as generateAddressUTXO } from './utxo';
-
-import { getPrivateMasterKey, getRootNode } from './utils/secp256k1';
-
-const extractPath = (path: string) => {
-    if (!path.startsWith('m/')) throw new Error(DerivePathError);
-    const parts = path.split('/');
-    if (parts.length != 6 && parts.length != 4)
-        throw new Error(DerivePathError);
-    return parts.slice(1).map(a => {
-        return {
-            number: parseInt(a.split("'")[0]),
-            hardened: a.includes("'"),
-        };
-    });
-};
+import { generateAddresses as generateAddressED25519 } from './ed25519';
 /* 
 generateAddresses
     Returns generated addresses
@@ -41,17 +26,11 @@ export const generateAddresses = ({
     if (!coin) throw new Error(CoinNotSupported);
     const results: AddressResult[] = [];
     for (let derivation of coin.derivations) {
-        const path = extractPath(derivation.path);
-        const privateAccountNode = getPrivateMasterKey({
-            rootNode: getRootNode({ mnemonic, network }),
-            bipIdCoin: path[1].number,
-            protocol: path[0].number,
-        });
         switch (coin.curve) {
             case 'ecdsa':
                 results.push(
                     generateAddressEVM({
-                        privateAccountNode,
+                        mnemonic,
                         network,
                         derivation,
                     }),
@@ -60,7 +39,16 @@ export const generateAddresses = ({
             case 'secp256k1':
                 results.push(
                     generateAddressUTXO({
-                        privateAccountNode,
+                        mnemonic,
+                        network,
+                        derivation,
+                    }),
+                );
+                break;
+            case 'ed25519':
+                results.push(
+                    generateAddressED25519({
+                        mnemonic,
                         network,
                         derivation,
                     }),

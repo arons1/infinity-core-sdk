@@ -1,5 +1,5 @@
-import createHmac from 'create-hmac'
-import * as nacl from 'tweetnacl'
+import createHmac from 'create-hmac';
+import * as nacl from 'tweetnacl';
 
 import { replaceDerive, pathRegex } from './utils';
 /*
@@ -36,9 +36,7 @@ export const CKDPriv = ({ key, chainCode }: Keys, index: number): Keys => {
 
     const data = Buffer.concat([Buffer.alloc(1, 0), key, indexBuffer]);
 
-    const I = createHmac('sha512', chainCode)
-        .update(data)
-        .digest();
+    const I = createHmac('sha512', chainCode).update(data).digest();
     const IL = I.slice(0, 32);
     const IR = I.slice(32);
     return {
@@ -47,13 +45,16 @@ export const CKDPriv = ({ key, chainCode }: Keys, index: number): Keys => {
     };
 };
 
-export const getPublicKey = (privateKey: Buffer, withZeroByte = true): Buffer => {
+export const getPublicKey = (
+    privateKey: Buffer,
+    withZeroByte = true,
+): Buffer => {
     const keyPair = nacl.sign.keyPair.fromSeed(privateKey);
     const signPk = keyPair.secretKey.subarray(32);
     const zero = Buffer.alloc(1, 0);
-    return withZeroByte ?
-        Buffer.concat([zero, Buffer.from(signPk)]) :
-        Buffer.from(signPk);
+    return withZeroByte
+        ? Buffer.concat([zero, Buffer.from(signPk)])
+        : Buffer.from(signPk);
 };
 
 export const isValidPath = (path: string): boolean => {
@@ -67,7 +68,11 @@ export const isValidPath = (path: string): boolean => {
         .some(isNaN as any /* ts T_T*/);
 };
 
-export const derivePath = (path: Path, seed: Hex, offset = HARDENED_OFFSET): Keys => {
+export const derivePath = (
+    path: Path,
+    seed: Hex,
+    offset = HARDENED_OFFSET,
+): Keys => {
     if (!isValidPath(path)) {
         throw new Error('Invalid derivation path');
     }

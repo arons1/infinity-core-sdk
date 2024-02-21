@@ -16,7 +16,7 @@ export type AddressResult = {
 };
 export type RootNodeParams = {
     mnemonic: string;
-    network: Network;
+    network?: Network;
 };
 export type MasterKeyParams = {
     rootNode: BIP32Interface;
@@ -28,7 +28,7 @@ export type Keys = {
     chainCode: Buffer;
 };
 export type PublicKeyEd25519Params = {
-    secret: Buffer;
+    seed: Buffer;
     bipIdCoin: number;
     protocol: number;
 };
@@ -46,8 +46,8 @@ export type PublicAddressParams = {
 };
 
 export type GenerateAddressParams = {
-    privateAccountNode: BIP32Interface;
-    network?: Network;
+    mnemonic: string;
+    network: Network;
     derivation: DerivationParams;
 };
 export type DerivationParams = {

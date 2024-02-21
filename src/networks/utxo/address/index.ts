@@ -14,8 +14,11 @@ import {
 import {
     encodeGeneric,
     getPrivateKey,
+    getPrivateMasterKey,
     getPublicKey,
+    getRootNode,
 } from '../../utils/secp256k1';
+import { extractPath } from '../../../utils';
 
 /* 
 getPrivateAddress
@@ -99,12 +102,18 @@ export const getPublicAddressP2PKH = ({
 };
 
 export const generateAddresses = ({
-    privateAccountNode,
+    mnemonic,
     network,
     derivation,
 }: GenerateAddressParams): AddressResult => {
     if (derivation.xprv == undefined || derivation.xpub == undefined)
         throw new Error(MissingExtendedParams);
+    const path = extractPath(derivation.path);
+    const privateAccountNode = getPrivateMasterKey({
+        rootNode: getRootNode({ mnemonic, network }),
+        bipIdCoin: path[1].number,
+        protocol: path[0].number,
+    });
     const newAddress = {} as AddressResult;
     newAddress.extendedNode = privateAccountNode;
     newAddress.extendedPrivateAddress = encodeGeneric(
