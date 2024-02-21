@@ -165,7 +165,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/501'/0'",
+                path: "m/44'/501'/0'/0'",
             },
         ],
         bip44: 501,

@@ -7,11 +7,19 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('generateStellarAddress', async () => {
         const seed = (0, index_1.getSeed)({ mnemonic });
         const publicKey = (0, index_1.getPublicKey)({
-            bipIdCoin: 148,
-            protocol: 44,
+            path: "m/44'/148'/0'",
             seed,
         });
         const publicAddress = (0, index_1.getPublicStellarAddress)({ publicKey });
-        (0, globals_1.expect)(publicAddress).toBe('GDQEWSVP7QQWXY5MSFEVRPEPD5NMJHK6ACW4RHZMZAGA6CK6HU7OESPK');
+        (0, globals_1.expect)(publicAddress).toBe('GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO');
+    });
+    (0, globals_1.test)('generateSolanaAddress', async () => {
+        const seed = (0, index_1.getSeed)({ mnemonic });
+        const publicKey = (0, index_1.getPublicKey)({
+            path: "m/44'/501'/0'/0'",
+            seed,
+        });
+        const publicAddress = (0, index_1.getPublicSolanaAddress)({ publicKey });
+        (0, globals_1.expect)(publicAddress).toBe('HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ');
     });
 });

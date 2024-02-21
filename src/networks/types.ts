@@ -29,8 +29,7 @@ export type Keys = {
 };
 export type PublicKeyEd25519Params = {
     seed: Buffer;
-    bipIdCoin: number;
-    protocol: number;
+    path: string;
 };
 export type AddressParams = {
     privateAccountNode: BIP32Interface;

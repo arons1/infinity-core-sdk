@@ -34,13 +34,9 @@ getPublicKey
 */
 export const getPublicKey = ({
     seed,
-    protocol,
-    bipIdCoin,
+    path,
 }: PublicKeyEd25519Params): Buffer => {
-    const keySecret = derivePath(
-        `m/${protocol}'/${bipIdCoin}'/0'`,
-        seed.toString('hex'),
-    );
+    const keySecret = derivePath(path, seed.toString('hex'));
     const naclKeys = nacl.sign.keyPair.fromSeed(keySecret.key);
     return Buffer.from(naclKeys.publicKey);
 };
@@ -57,7 +53,12 @@ export const getPublicSolanaAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
-    return StrKey.encodeEd25519PublicKey(publicKey);
+    const bytes = new Uint8Array(
+        publicKey.buffer,
+        publicKey.byteOffset,
+        publicKey.byteLength,
+    );
+    return base58.encode(bytes);
 };
 export const getPublicXRPAddress = ({
     publicKey,
@@ -82,13 +83,9 @@ getPublicKey
 */
 export const getSecretKey = ({
     seed,
-    protocol,
-    bipIdCoin,
+    path,
 }: PublicKeyEd25519Params): Uint8Array => {
-    const keySecret = derivePath(
-        `m/${protocol}'/${bipIdCoin}'/0'`,
-        seed.toString('hex'),
-    );
+    const keySecret = derivePath(path, seed.toString('hex'));
     const keyPair = nacl.sign.keyPair.fromSeed(keySecret.key);
     return keyPair.secretKey;
 };
@@ -100,7 +97,7 @@ export const getSecretAddress = ({
 }): string => {
     return base58.encode(secretKey);
 };
-//"GDQEWSVP7QQWXY5MSFEVRPEPD5NMJHK6ACW4RHZMZAGA6CK6HU7OESPK"
+//"HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ"
 export const generateAddresses = ({
     derivation,
     mnemonic,
@@ -111,8 +108,7 @@ export const generateAddresses = ({
     newAddress.privateKey = Buffer.from(
         getSecretKey({
             seed,
-            bipIdCoin: path[1].number,
-            protocol: path[0].number,
+            path: derivation.path,
         }),
     );
     newAddress.privateAddress = getSecretAddress({
@@ -122,8 +118,7 @@ export const generateAddresses = ({
         case 'legacy':
             newAddress.publicKey = getPublicKey({
                 seed,
-                bipIdCoin: path[1].number,
-                protocol: path[0].number,
+                path: derivation.path,
             });
             switch (path[1].number) {
                 case 148:
