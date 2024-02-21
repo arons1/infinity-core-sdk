@@ -13,7 +13,7 @@ export type AddressResult = {
     publicKey: any;
     publicAddress: string | undefined;
     extendedNode: BIP32Interface | undefined;
-    publicKeyHash?:string
+    publicKeyHash?: string;
 };
 export type RootNodeParams = {
     mnemonic: string;
