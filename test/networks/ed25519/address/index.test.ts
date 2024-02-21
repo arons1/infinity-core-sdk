@@ -4,6 +4,7 @@ import {
     getPublicKey,
     getPublicStellarAddress,
     getPublicSolanaAddress,
+    getPublicTezosAddress
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
 
 const mnemonic =
@@ -28,6 +29,17 @@ describe('generateAddressED25519', () => {
             seed,
         });
         const publicAddress = getPublicSolanaAddress({ publicKey });
+        expect(publicAddress).toBe(
+            'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
+        );
+    });
+    test('generateTezosAddress', async () => {
+        const seed = getSeed({ mnemonic });
+        const publicKey = getPublicKey({
+            path: "m/44'/1729'/0'/0'",
+            seed,
+        });
+        const publicAddress = getPublicTezosAddress({ publicKey });
         expect(publicAddress).toBe(
             'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
         );

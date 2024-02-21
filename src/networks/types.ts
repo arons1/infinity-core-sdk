@@ -8,11 +8,12 @@ export type GenerateAddressesParams = {
 export type AddressResult = {
     extendedPrivateAddress: string | undefined;
     extendedPublicAddress: string | undefined;
-    privateKey: Buffer | undefined;
+    privateKey: any;
     privateAddress: string | undefined;
-    publicKey: Buffer | undefined;
+    publicKey: any;
     publicAddress: string | undefined;
     extendedNode: BIP32Interface | undefined;
+    publicKeyHash?:string
 };
 export type RootNodeParams = {
     mnemonic: string;

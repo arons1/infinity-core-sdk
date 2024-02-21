@@ -69,7 +69,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/144'/0'",
+                path: "m/44'/144'/0'/0/0",
             },
         ],
         bip44: 144,
@@ -175,7 +175,7 @@ export default {
         derivations: [
             {
                 name: 'legacy',
-                path: "m/44'/1729'/0'",
+                path: "m/44'/1729'/0'/0'",
             },
         ],
         bip44: 1729,
