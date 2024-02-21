@@ -7,8 +7,7 @@ export const isValidNumber = (number: any) => {
 export const extractPath = (path: string) => {
     if (!path.startsWith('m/')) throw new Error(DerivePathError);
     const parts = path.split('/');
-    if (parts.length != 6 && parts.length != 4)
-        throw new Error(DerivePathError);
+    if (parts.length > 6 || parts.length < 4) throw new Error(DerivePathError);
     return parts.slice(1).map(a => {
         return {
             number: parseInt(a.split("'")[0]),

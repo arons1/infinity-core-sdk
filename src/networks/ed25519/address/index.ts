@@ -1,7 +1,6 @@
 import nacl from 'tweetnacl';
 import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
 import { derivePath } from '../../../core/ed25519';
-import sodium from 'libsodium-wrappers';
 import { deriveAddress } from 'ripple-keypairs';
 
 import {
@@ -18,6 +17,8 @@ import { base58 } from '../../../core/base/base58';
 import { StrKey } from '../../../core/ed25519/strkey';
 import { extractPath } from '../../../utils';
 import { fromSeed } from '../../../core/bip32';
+import { blake2 } from '../../../core/base';
+
 /* 
 getSecret
     Returns secret
@@ -93,13 +94,17 @@ export const getSecretAddress = ({
     }
 };
 
-export const getKeyPair = (coin: number, path: string, seed: Buffer): any => {
+export const getKeyPair = ({
+    path,
+    seed,
+}: {
+    path: string;
+    seed: Buffer;
+}): any => {
+    const coin = extractPath(path)[1].number;
     if (coin == 144) {
         const m = fromSeed(seed);
         return m.derivePath(path);
-    } else if (coin == 1729) {
-        const keySecret = derivePath(path, seed.toString('hex'));
-        return sodium.crypto_sign_seed_keypair(keySecret.key.slice(0, 32));
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
         return nacl.sign.keyPair.fromSeed(keySecret.key);
@@ -113,7 +118,7 @@ export const getPublicKey = ({
     coinId: number;
 }) => {
     if (coinId == 1729) {
-        return sodium.crypto_generichash(20, keyPair.publicKey);
+        return blake2(keyPair.publicKey, 20, undefined);
     }
     return keyPair.publicKey;
 };
@@ -123,7 +128,6 @@ export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
 export const getTezosPublicKeyHash = ({ keyPair }: { keyPair: any }) => {
     return 'edpk' + base58.encode(keyPair.publicKey);
 };
-//"HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ"
 export const generateAddresses = ({
     derivation,
     mnemonic,
@@ -131,7 +135,10 @@ export const generateAddresses = ({
     const path = extractPath(derivation.path);
     const seed = getSeed({ mnemonic });
     const newAddress = {} as AddressResult;
-    const keyPair = getKeyPair(path[1].number, derivation.path, seed);
+    const keyPair = getKeyPair({
+        path: derivation.path,
+        seed,
+    });
     newAddress.publicKey = getPublicKey({ keyPair, coinId: path[1].number });
     newAddress.privateKey = getPrivateKey({ keyPair });
     newAddress.privateAddress = getSecretAddress({

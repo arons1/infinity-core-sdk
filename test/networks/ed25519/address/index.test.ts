@@ -1,10 +1,10 @@
 import { describe, expect, test } from '@jest/globals';
 import {
     getSeed,
-    getPublicKey,
     getPublicStellarAddress,
     getPublicSolanaAddress,
     getPublicTezosAddress,
+    getKeyPair,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
 
 const mnemonic =
@@ -47,7 +47,7 @@ describe('generateAddressED25519', () => {
             publicKey: keyPair.publicKey,
         });
         expect(publicAddress).toBe(
-            'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
+            'tz17WMGhvG8jCzkaFtUNk6yrgcNDim9gmdPWGNw4Fjd19fb',
         );
     });
 });
