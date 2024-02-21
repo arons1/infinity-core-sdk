@@ -2,7 +2,6 @@ import nacl from 'tweetnacl';
 import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
 import { derivePath } from '../../../core/ed25519';
 import { deriveAddress } from 'ripple-keypairs';
-
 import {
     DerivationTypeNotSupported,
     InvalidMnemonic,
@@ -13,7 +12,7 @@ import {
     PublicKeyEd25519Params,
     RootNodeParams,
 } from '../../types';
-import { base58 } from '../../../core/base/base58';
+import { b58cencode, base58 } from '../../../core/base/base58';
 import { StrKey } from '../../../core/ed25519/strkey';
 import { extractPath } from '../../../utils';
 import { fromSeed } from '../../../core/bip32';
@@ -55,13 +54,7 @@ export const getPublicXRPAddress = ({
 }): string => {
     return deriveAddress(publicKey.toString('hex').toUpperCase());
 };
-export const getPublicTezosAddress = ({
-    publicKey,
-}: {
-    publicKey: Uint8Array;
-}): string => {
-    return 'tz1' + base58.encode(publicKey);
-};
+
 /* 
 getPublicKey
     Returns secret key
@@ -88,7 +81,7 @@ export const getSecretAddress = ({
     if (coinId == 148) {
         return '00' + secretKey.toString('hex')?.toUpperCase();
     } else if (coinId == 1729) {
-        return 'edsk' + base58.encode(secretKey);
+        return b58cencode(secretKey, new Uint8Array([43, 246, 78, 7]));
     } else {
         return base58.encode(secretKey);
     }
@@ -107,6 +100,9 @@ export const getKeyPair = ({
         return m.derivePath(path);
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
+        if (coin == 1729) {
+            return nacl.sign.keyPair.fromSeed(keySecret.key.slice(0, 32));
+        }
         return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
 };
@@ -126,7 +122,14 @@ export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
     return keyPair?.privateKey ?? keyPair?.privateKey;
 };
 export const getTezosPublicKeyHash = ({ keyPair }: { keyPair: any }) => {
-    return 'edpk' + base58.encode(keyPair.publicKey);
+    return b58cencode(keyPair.publicKey, new Uint8Array([13, 15, 37, 217]));
+};
+export const getPublicTezosAddress = ({
+    publicKey,
+}: {
+    publicKey: Uint8Array;
+}): string => {
+    return b58cencode(publicKey, new Uint8Array([6, 161, 159]));
 };
 export const generateAddresses = ({
     derivation,
