@@ -27,7 +27,11 @@ export const getSeed = ({ mnemonic }: RootNodeParams): Buffer => {
     if (!validateMnemonic(mnemonic)) throw new Error(InvalidMnemonic);
     return mnemonicToSeedSync(mnemonic);
 };
-
+/* 
+getPublicStellarAddress
+    Returns stellar public address
+    @param publicKey: public key
+*/
 export const getPublicStellarAddress = ({
     publicKey,
 }: {
@@ -35,6 +39,11 @@ export const getPublicStellarAddress = ({
 }): string => {
     return StrKey.encodeEd25519PublicKey(publicKey);
 };
+/* 
+getPublicSolanaAddress
+    Returns Solana public address
+    @param publicKey: public key
+*/
 export const getPublicSolanaAddress = ({
     publicKey,
 }: {
@@ -47,6 +56,11 @@ export const getPublicSolanaAddress = ({
     );
     return base58.encode(bytes);
 };
+/* 
+getPublicXRPAddress
+    Returns XRP public address
+    @param publicKey: public key
+*/
 export const getPublicXRPAddress = ({
     publicKey,
 }: {
