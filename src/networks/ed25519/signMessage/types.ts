@@ -1,5 +1,4 @@
-
 export type SignMessageParams = {
-    message:Buffer;
-    keyPair:any
-}
+    message: Buffer;
+    keyPair: any;
+};

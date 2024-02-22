@@ -1,4 +1,4 @@
 export type SignTransactionParams = {
-    transactionSerialized:Buffer
-    privateKey:Buffer
-}
+    transactionSerialized: Buffer;
+    privateKey: Buffer;
+};

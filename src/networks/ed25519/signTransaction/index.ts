@@ -3,7 +3,7 @@ import { SignTransactionParams } from './types';
 
 export const signTransaction = ({
     transactionSerialized,
-    privateKey
-}:SignTransactionParams) => {
+    privateKey,
+}: SignTransactionParams) => {
     return ed25519.sign(transactionSerialized, privateKey.slice(0, 32));
-}
+};
