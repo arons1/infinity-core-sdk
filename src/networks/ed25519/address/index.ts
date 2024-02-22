@@ -153,7 +153,7 @@ getPrivateKey
     @param keyPair: key pair
 */
 export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
-    return keyPair?.privateKey ?? keyPair?.privateKey;
+    return keyPair?.secretKey ?? keyPair?.privateKey;
 };
 /* 
 getTezosPublicKeyHash
