@@ -100,7 +100,12 @@ export const getPublicAddressP2PKH = ({
     const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2pkh({ pubkey, network: network as Network }).address;
 };
-
+/* 
+generateAddresses
+    Returns addresses and private keys
+    @param derivation: derivation object
+    @param mnemonic: mnemonic
+*/
 export const generateAddresses = ({
     mnemonic,
     network,

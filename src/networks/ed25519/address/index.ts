@@ -56,11 +56,10 @@ export const getPublicXRPAddress = ({
 };
 
 /* 
-getPublicKey
+getSecretKey
     Returns secret key
     @param seed: seed
-    @param protocol: protocol to derivate
-    @param bipIdCoin: coin id bip44
+    @param path: derivation path
 */
 export const getSecretKey = ({
     seed,
@@ -70,7 +69,12 @@ export const getSecretKey = ({
     const keyPair = nacl.sign.keyPair.fromSeed(keySecret.key);
     return keyPair.secretKey;
 };
-
+/* 
+getSecretAddress
+    Returns secret address
+    @param secretKey: secret key
+    @param coinId: bip44 coin id
+*/
 export const getSecretAddress = ({
     secretKey,
     coinId,
@@ -86,7 +90,12 @@ export const getSecretAddress = ({
         return base58.encode(secretKey);
     }
 };
-
+/* 
+getKeyPair
+    Returns key pair
+    @param path: derivation path
+    @param seed: seed
+*/
 export const getKeyPair = ({
     path,
     seed,
@@ -106,6 +115,12 @@ export const getKeyPair = ({
         return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
 };
+/* 
+getPublicKey
+    Returns public key
+    @param keyPair: key pair
+    @param coinId: bip44 coin id
+*/
 export const getPublicKey = ({
     keyPair,
     coinId,
@@ -118,12 +133,27 @@ export const getPublicKey = ({
     }
     return keyPair.publicKey;
 };
+/* 
+getPrivateKey
+    Returns private key
+    @param keyPair: key pair
+*/
 export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
     return keyPair?.privateKey ?? keyPair?.privateKey;
 };
+/* 
+getTezosPublicKeyHash
+    Returns tezos public key hash
+    @param keyPair: key pair
+*/
 export const getTezosPublicKeyHash = ({ keyPair }: { keyPair: any }) => {
     return b58cencode(keyPair.publicKey, new Uint8Array([13, 15, 37, 217]));
 };
+/* 
+getTezosPublicAddress
+    Returns tezos public address
+    @param publicKey: public key
+*/
 export const getPublicTezosAddress = ({
     publicKey,
 }: {
@@ -131,6 +161,12 @@ export const getPublicTezosAddress = ({
 }): string => {
     return b58cencode(publicKey, new Uint8Array([6, 161, 159]));
 };
+/* 
+generateAddresses
+    Returns addresses and private keys
+    @param derivation: derivation object
+    @param mnemonic: mnemonic
+*/
 export const generateAddresses = ({
     derivation,
     mnemonic,
@@ -158,7 +194,7 @@ export const generateAddresses = ({
                     break;
                 case 144:
                     newAddress.publicAddress = getPublicXRPAddress({
-                        publicKey: keyPair.publicKey,
+                        publicKey: newAddress.publicKey,
                     });
                     break;
                 case 501:

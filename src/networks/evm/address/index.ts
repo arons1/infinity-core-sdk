@@ -139,7 +139,9 @@ export const getPrivateAddress = ({
 };
 
 /*
-get
+getBCPublicAddress
+    Returns bc public address
+    @param publicAccountNode: Account Extended Public Node
 */
 export const getBCPublicAddress = ({
     publicAccountNode,
@@ -159,7 +161,13 @@ export const getBCPublicAddress = ({
         });
     } else throw new Error(DerivePathError);
 };
-
+/* 
+generateAddresses
+    Returns addresses and private keys
+    @param derivation: derivation object
+    @param mnemonic: mnemonic
+    @param network: network object
+*/
 export const generateAddresses = ({
     network,
     derivation,
