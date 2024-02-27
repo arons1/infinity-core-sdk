@@ -67,6 +67,8 @@ generatePublicAddresses
     Returns public generated addresses
     @param publicNode: Public secp256k1 node
     @param idCoin: Coin id
+    @param change: change derivation
+    @param index: index derivation
 */
 export const generatePublicAddresses = ({
     publicNode,
