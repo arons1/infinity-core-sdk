@@ -13,7 +13,6 @@ export const signTransaction = ({ transaction, keyPair, coinId }: SignTransactio
             return transaction.serialize()
         case "tezos":
             throw new Error("Use Taquito SDK to handle transaction send")
-            break;
         default:
             throw new Error("Coin not implemented")
     }
