@@ -9,6 +9,7 @@ import {
     AddressParams,
     AddressResult,
     GenerateAddressParams,
+    GeneratePublicAddressParams,
     PublicAddressParams,
 } from '../../types';
 import {
@@ -157,6 +158,63 @@ export const generateAddresses = ({
             newAddress.publicAddress = getPublicAddressSegwit({
                 publicAccountNode: privateAccountNode,
                 network,
+            });
+            break;
+        default:
+            throw new Error(DerivationTypeNotSupported);
+    }
+    return newAddress;
+};
+
+/* 
+generatePublicAddresses
+    Returns addresses and private keys
+    @param derivation: derivation object
+    @param publicNode: Public Extended Node derivation
+    @param change: change derivation
+    @param index: index derivation
+    @param network: Network
+*/
+export const generatePublicAddress = ({
+    publicNode,
+    network,
+    derivation,
+    change,
+    index
+}: GeneratePublicAddressParams): AddressResult => {
+    if (derivation.xprv == undefined || derivation.xpub == undefined)
+        throw new Error(MissingExtendedParams);
+    const newAddress = {} as AddressResult;
+    newAddress.extendedPublicAddress = encodeGeneric(
+        publicNode.neutered().toBase58(),
+        derivation.xpub as string,
+    );
+    newAddress.publicKey = getPublicKey({
+        publicAccountNode: publicNode,
+    });
+    switch (derivation.name) {
+        case 'legacy':
+            newAddress.publicAddress = getPublicAddressP2PKH({
+                publicAccountNode: publicNode,
+                network,
+                change,
+                index
+            });
+            break;
+        case 'wrapped-segwit':
+            newAddress.publicAddress = getPublicAddressP2WPKHP2S({
+                publicAccountNode: publicNode,
+                network,
+                change,
+                index
+            });
+            break;
+        case 'segwit':
+            newAddress.publicAddress = getPublicAddressSegwit({
+                publicAccountNode: publicNode,
+                network,
+                change,
+                index
             });
             break;
         default:
