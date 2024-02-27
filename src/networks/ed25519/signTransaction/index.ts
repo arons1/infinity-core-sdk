@@ -11,6 +11,9 @@ export const signTransaction = ({ transaction, keyPair, coinId }: SignTransactio
         case "solana":
             transaction.sign([keyPair])
             return transaction.serialize()
+        case "tezos":
+            throw new Error("Use Taquito SDK to handle transaction send")
+            break;
         default:
             throw new Error("Coin not implemented")
     }
