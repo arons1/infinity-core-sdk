@@ -1,5 +1,6 @@
 import lib from 'xrpl-accountlib';
 import { SignTransactionParams } from './types';
+import { CoinNotSupported } from '../../../errors/networks';
 
 export const signTransaction = ({
     transaction,
@@ -19,6 +20,6 @@ export const signTransaction = ({
             transaction.sign(keyPair);
             return transaction;
         default:
-            throw new Error('Coin not implemented');
+            throw new Error(CoinNotSupported);
     }
 };
