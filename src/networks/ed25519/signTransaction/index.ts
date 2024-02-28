@@ -16,8 +16,8 @@ export const signTransaction = ({
             transaction.sign([keyPair]);
             return transaction.serialize();
         case 'tezos':
-            transaction.sign(keyPair)
-            return transaction
+            transaction.sign(keyPair);
+            return transaction;
         default:
             throw new Error('Coin not implemented');
     }

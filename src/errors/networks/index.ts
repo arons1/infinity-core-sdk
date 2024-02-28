@@ -12,3 +12,5 @@ export const InvalidAddress = 'invalid address';
 export const InvalidContractAddress = 'invalid token contract address';
 export const InvalidMnemonic = 'invalid mnemonic';
 export const DerivePathError = 'derive hdPath error';
+export const CannotGetNonce = 'Cannot get nonce';
+export const InvalidTokenContract = 'Invalid token contract';
