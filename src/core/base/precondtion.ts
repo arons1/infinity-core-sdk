@@ -1,8 +1,10 @@
+import { ExpectedButOther, ExpectedButUndefined, InvalidStatment } from "../../errors";
+
 type ErrorType = undefined | string | Error;
 
 const check = (statement: any, orError?: ErrorType) => {
     if (!statement) {
-        orError = orError ? orError : 'Invalid statement';
+        orError = orError ? orError : InvalidStatment;
         orError = orError instanceof Error ? orError : new Error(orError);
 
         throw orError;
@@ -12,7 +14,7 @@ const check = (statement: any, orError?: ErrorType) => {
 const checkIsDefined = <T>(something?: T, orError?: ErrorType): T => {
     check(
         typeof something !== 'undefined',
-        orError || 'Expect defined but actually undefined',
+        orError || ExpectedButUndefined,
     );
     return something as T;
 };
@@ -20,7 +22,7 @@ const checkIsDefined = <T>(something?: T, orError?: ErrorType): T => {
 const checkIsUndefined = (something: any, orError?: ErrorType) => {
     check(
         typeof something === 'undefined',
-        orError || `Expect undefined but actually ${something}`,
+        orError || `${ExpectedButOther} ${something}`,
     );
 };
 
