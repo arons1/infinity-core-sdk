@@ -1,5 +1,7 @@
 export default {
-    btc: 'utxo',
+    btc: {
+        
+    },
     ltc: 'utxo',
     doge: 'utxo',
     fio: 'fio',
@@ -19,4 +21,4 @@ export default {
     kcc: 'evm',
     okc: 'evm',
     bsc: 'evm',
-} as Record<string, string>;
+} as Record<string, any>;
