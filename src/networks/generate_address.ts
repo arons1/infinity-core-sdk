@@ -5,10 +5,17 @@ import {
 } from '../errors/networks';
 import networks from './networks';
 import derivations from './derivations';
-import { AddressResult, GenerateAddressesParams, GeneratePublicAddressesParams } from './types';
+import {
+    AddressResult,
+    GenerateAddressesParams,
+    GeneratePublicAddressesParams,
+} from './types';
 
 import { generateAddresses as generateAddressEVM } from './evm';
-import { generateAddresses as generateAddressUTXO,generatePublicAddress } from './utxo';
+import {
+    generateAddresses as generateAddressUTXO,
+    generatePublicAddress,
+} from './utxo';
 import { generateAddresses as generateAddressED25519 } from './ed25519';
 import { DerivationTypeNotSupported } from '../errors/networks/index';
 /* 
@@ -74,13 +81,13 @@ export const generatePublicAddresses = ({
     publicNode,
     idCoin,
     change,
-    index
+    index,
 }: GeneratePublicAddressesParams): AddressResult[] => {
     const network = networks[idCoin];
     const coin = derivations[idCoin];
     if (!network) throw new Error(NetworkNotSupported);
     if (!coin) throw new Error(CoinNotSupported);
-    if(coin.curve != 'secp256k1') throw new Error(DerivationTypeNotSupported);
+    if (coin.curve != 'secp256k1') throw new Error(DerivationTypeNotSupported);
     const results: AddressResult[] = [];
     for (let derivation of coin.derivations) {
         results.push(
@@ -89,7 +96,7 @@ export const generatePublicAddresses = ({
                 network,
                 derivation,
                 change,
-                index
+                index,
             }),
         );
     }

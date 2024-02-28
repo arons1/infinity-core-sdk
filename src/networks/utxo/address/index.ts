@@ -180,7 +180,7 @@ export const generatePublicAddress = ({
     network,
     derivation,
     change,
-    index
+    index,
 }: GeneratePublicAddressParams): AddressResult => {
     if (derivation.xprv == undefined || derivation.xpub == undefined)
         throw new Error(MissingExtendedParams);
@@ -198,7 +198,7 @@ export const generatePublicAddress = ({
                 publicAccountNode: publicNode,
                 network,
                 change,
-                index
+                index,
             });
             break;
         case 'wrapped-segwit':
@@ -206,7 +206,7 @@ export const generatePublicAddress = ({
                 publicAccountNode: publicNode,
                 network,
                 change,
-                index
+                index,
             });
             break;
         case 'segwit':
@@ -214,7 +214,7 @@ export const generatePublicAddress = ({
                 publicAccountNode: publicNode,
                 network,
                 change,
-                index
+                index,
             });
             break;
         default:

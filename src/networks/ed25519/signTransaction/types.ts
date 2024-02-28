@@ -1,5 +1,5 @@
 export type SignTransactionParams = {
-    transaction:any
-    keyPair:any
-    coinId:string
-}
+    transaction: any;
+    keyPair: any;
+    coinId: string;
+};

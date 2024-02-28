@@ -1,4 +1,8 @@
-import { ExpectedButOther, ExpectedButUndefined, InvalidStatment } from "../../errors";
+import {
+    ExpectedButOther,
+    ExpectedButUndefined,
+    InvalidStatment,
+} from '../../errors';
 
 type ErrorType = undefined | string | Error;
 
@@ -12,10 +16,7 @@ const check = (statement: any, orError?: ErrorType) => {
 };
 
 const checkIsDefined = <T>(something?: T, orError?: ErrorType): T => {
-    check(
-        typeof something !== 'undefined',
-        orError || ExpectedButUndefined,
-    );
+    check(typeof something !== 'undefined', orError || ExpectedButUndefined);
     return something as T;
 };
 

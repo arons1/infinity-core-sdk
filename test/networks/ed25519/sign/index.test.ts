@@ -3,7 +3,7 @@ import {
     getKeyPair,
     getSeed,
     signMessage,
-    getPrivateKey
+    getPrivateKey,
 } from '../../../../lib/commonjs/networks/ed25519';
 
 const mnemonic =
@@ -17,7 +17,7 @@ describe('signMessageED25519', () => {
             seed,
         });
         const signedMessage = signMessage({
-            privateKey:getPrivateKey({keyPair}),
+            privateKey: getPrivateKey({ keyPair }),
             message: Buffer.from('Message to sign', 'utf-8'),
         });
         expect(Buffer.from(signedMessage).toString('hex')).toBe(

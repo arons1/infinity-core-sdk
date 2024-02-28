@@ -1,6 +1,19 @@
 import * as base from '../base';
 import { base58check } from '@scure/base';
 import { sha256 } from '../base/hash';
+import {
+    ExpectedMasterGotChild,
+    InvalidBufferLength,
+    InvalidFingerPrint,
+    InvalidIndex,
+    InvalidNetworkVersion,
+    InvalidPrivateKey,
+    MissingPrivateKey,
+    PointIsNotOnCurse,
+    PrivateKeyOnRange,
+    SeedLenghtErrorMinimum,
+    SeedMaxLengthError,
+} from '../../errors';
 const bytesCoder = base58check(sha256);
 
 const api = require('./api');
@@ -237,7 +250,7 @@ class BIP32 implements BIP32Interface {
     }
 
     toWIF(): string {
-        if (!this.privateKey) throw new TypeError('Missing private key');
+        if (!this.privateKey) throw new TypeError(MissingPrivateKey);
         return wif.encode(this.network.wif, this.privateKey, true);
     }
 
@@ -250,10 +263,7 @@ class BIP32 implements BIP32Interface {
 
         // Hardened child
         if (isHardened) {
-            if (this.isNeutered())
-                throw new TypeError(
-                    'Missing private key for hardened child key',
-                );
+            if (this.isNeutered()) throw new TypeError(MissingPrivateKey);
 
             // data = 0x00 || ser256(kpar) || ser32(index)
             data[0] = 0x00;
@@ -328,7 +338,7 @@ class BIP32 implements BIP32Interface {
         let splitPath = path.split('/');
         if (splitPath[0] === 'm') {
             if (this.parentFingerprint)
-                throw new TypeError('Expected master, got child');
+                throw new TypeError(ExpectedMasterGotChild);
 
             splitPath = splitPath.slice(1);
         }
@@ -346,7 +356,7 @@ class BIP32 implements BIP32Interface {
     }
 
     sign(hash: Buffer): Buffer {
-        if (!this.privateKey) throw new Error('Missing private key');
+        if (!this.privateKey) throw new Error(MissingPrivateKey);
         return ecc.sign(hash, this.privateKey);
     }
 
@@ -360,13 +370,13 @@ export function fromBase58(
     network?: Network,
 ): BIP32Interface {
     const buffer = Buffer.from(bytesCoder.decode(inString));
-    if (buffer.length !== 78) throw new TypeError('Invalid buffer length');
+    if (buffer.length !== 78) throw new TypeError(InvalidBufferLength);
     network = network || BITCOIN;
 
     // 4 bytes: version bytes
     const version = buffer.readUInt32BE(0);
     if (version !== network.bip32.private && version !== network.bip32.public)
-        throw new TypeError('Invalid network version');
+        throw new TypeError(InvalidNetworkVersion);
 
     // 1 byte: depth: 0x00 for master nodes, 0x01 for level-1 descendants, ...
     const depth = buffer[4];
@@ -375,13 +385,13 @@ export function fromBase58(
     const parentFingerprint = buffer.readUInt32BE(5);
     if (depth === 0) {
         if (parentFingerprint !== 0x00000000)
-            throw new TypeError('Invalid parent fingerprint');
+            throw new TypeError(InvalidFingerPrint);
     }
 
     // 4 bytes: child number. This is the number i in xi = xpar/i, with xi the key being serialized.
     // This is encoded in MSB order. (0x00000000 if master key)
     const index = buffer.readUInt32BE(9);
-    if (depth === 0 && index !== 0) throw new TypeError('Invalid index');
+    if (depth === 0 && index !== 0) throw new TypeError(InvalidIndex);
 
     // 32 bytes: the chain code
     const chainCode = buffer.slice(13, 45);
@@ -390,7 +400,7 @@ export function fromBase58(
     // 33 bytes: private key data (0x00 + k)
     if (version === network.bip32.private) {
         if (buffer.readUInt8(45) !== 0x00)
-            throw new TypeError('Invalid private key');
+            throw new TypeError(InvalidPrivateKey);
         const k = buffer.slice(46, 78);
 
         hd = fromPrivateKeyLocal(
@@ -444,8 +454,7 @@ function fromPrivateKeyLocal(
     );
     network = network || BITCOIN;
 
-    if (!ecc.isPrivate(privateKey))
-        throw new TypeError('Private key not in range [1, n)');
+    if (!ecc.isPrivate(privateKey)) throw new TypeError(PrivateKeyOnRange);
     return new BIP32(
         privateKey,
         undefined,
@@ -483,8 +492,7 @@ function fromPublicKeyLocal(
     network = network || BITCOIN;
 
     // verify the X coordinate is a point on the curve
-    if (!ecc.isPoint(publicKey))
-        throw new TypeError('Point is not on the curve');
+    if (!ecc.isPoint(publicKey)) throw new TypeError(PointIsNotOnCurse);
     return new BIP32(
         undefined,
         publicKey,
@@ -498,10 +506,8 @@ function fromPublicKeyLocal(
 
 export function fromSeed(seed: Buffer, network?: Network): BIP32Interface {
     typeforce(typeforce.Buffer, seed);
-    if (seed.length < 16)
-        throw new TypeError('Seed should be at least 128 bits');
-    if (seed.length > 64)
-        throw new TypeError('Seed should be at most 512 bits');
+    if (seed.length < 16) throw new TypeError(SeedLenghtErrorMinimum);
+    if (seed.length > 64) throw new TypeError(SeedMaxLengthError);
     network = network || BITCOIN;
 
     const I = base.hmacSHA512(Buffer.from('Bitcoin seed', 'utf8'), seed);

@@ -1,7 +1,5 @@
 export default {
-    btc: {
-        
-    },
+    btc: {},
     ltc: 'utxo',
     doge: 'utxo',
     fio: 'fio',

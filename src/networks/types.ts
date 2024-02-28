@@ -5,18 +5,18 @@ export type GenerateAddressesParams = {
     idCoin: string;
 };
 export type GeneratePublicAddressParams = {
-    publicNode:BIP32Interface;
-    change:number;
-    index:number;
+    publicNode: BIP32Interface;
+    change: number;
+    index: number;
     network: Network;
     derivation: DerivationParams;
-}
+};
 export type GeneratePublicAddressesParams = {
-    publicNode:BIP32Interface;
+    publicNode: BIP32Interface;
     idCoin: string;
-    change:number;
-    index:number;
-}
+    change: number;
+    index: number;
+};
 export type AddressResult = {
     extendedPrivateAddress: string | undefined;
     extendedPublicAddress: string | undefined;
