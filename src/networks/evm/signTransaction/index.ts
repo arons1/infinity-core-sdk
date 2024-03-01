@@ -22,3 +22,4 @@ export const signEIP1559Transaction = async ({
     const signedTransaction = tr.sign(privateKey);
     return '0x' + signedTransaction.serialize().toString('hex');
 };
+export * from './types'

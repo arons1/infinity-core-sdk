@@ -69,3 +69,5 @@ export const verifyMessage = async ({
         '0x' + publicToAddress(publicKey, true).toString('hex');
     return publicAddress == address.toLowerCase();
 };
+
+export * from './types'
