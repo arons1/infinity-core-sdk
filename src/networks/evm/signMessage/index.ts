@@ -1,4 +1,4 @@
-import { SignMessageParams, VerifyMessageParams } from './types';
+import { RSV, SignMessageParams, VerifyMessageParams } from './types';
 import { InvalidAddress } from '../../../errors/networks';
 import {
     ecdsaSign,
@@ -27,11 +27,7 @@ export const signMessage = ({
 
 const extractRSV = (
     sig: string,
-): {
-    r: string;
-    s: string;
-    v: string;
-} => {
+): RSV => {
     const r = '0x' + sig.substring(2).substring(0, 64);
     const s = '0x' + sig.substring(2).substring(64, 128);
     const v = '0x' + sig.substring(2).substring(128, 130);

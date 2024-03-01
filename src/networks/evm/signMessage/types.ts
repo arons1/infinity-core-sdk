@@ -9,3 +9,9 @@ export type VerifyMessageParams = {
     signature: string;
     chainId?: number;
 };
+
+export type RSV = {
+    r: string;
+    s: string;
+    v: string;
+}
