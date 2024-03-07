@@ -56,7 +56,12 @@ export type PublicAddressParams = {
     index?: number;
     network?: Network;
 };
-
+export type RedemParams = {
+    publicKey: Buffer;
+    change?: number;
+    index?: number;
+    network?: Network;
+};
 export type GenerateAddressParams = {
     mnemonic: string;
     network: Network;

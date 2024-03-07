@@ -11,6 +11,7 @@ import {
     GenerateAddressParams,
     GeneratePublicAddressParams,
     PublicAddressParams,
+    RedemParams,
 } from '../../types';
 import {
     encodeGeneric,
@@ -63,6 +64,13 @@ export const getPublicAddressSegwit = ({
     const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2wpkh({ pubkey, network: network as Network }).address;
 };
+export const getRedeemP2WPKH = ({
+    publicKey,
+    network,
+}: RedemParams): Buffer | undefined => {
+    const redeem = payments.p2wpkh({ pubkey:publicKey, network: network as Network });
+    return redeem.output
+}
 /* 
 getPublicAddressP2WPKHP2S
     Returns Public P2WPKHP2S address
