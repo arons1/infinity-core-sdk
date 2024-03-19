@@ -19,8 +19,7 @@ export { BN };
 import BigNumber from 'bignumber.js';
 export { BigNumber };
 
-import safeBuffer from 'safe-buffer';
-export { safeBuffer };
+
 
 const typeforce = require('typeforce');
 export { typeforce };
