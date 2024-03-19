@@ -2,8 +2,8 @@
   "name": "infinity-core-sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "main": "./lib/commonjs/index.js",
+  "types": "./lib/commonjs/index.d.ts",
   "directories": {
     "doc": "docs",
     "test": "tests"

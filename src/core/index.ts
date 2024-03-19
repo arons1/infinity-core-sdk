@@ -19,8 +19,6 @@ export { BN };
 import BigNumber from 'bignumber.js';
 export { BigNumber };
 
-
-
 const typeforce = require('typeforce');
 export { typeforce };
 
