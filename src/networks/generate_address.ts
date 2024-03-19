@@ -9,6 +9,7 @@ import {
     AddressResult,
     GenerateAddressesParams,
     GeneratePublicAddressesParams,
+    PublicAddressResult,
 } from './types';
 
 import { generateAddresses as generateAddressEVM } from './evm';
@@ -82,23 +83,20 @@ export const generatePublicAddresses = ({
     idCoin,
     change,
     index,
-}: GeneratePublicAddressesParams): AddressResult[] => {
+    derivation = 'legacy',
+}: GeneratePublicAddressesParams): PublicAddressResult => {
     const network = networks[idCoin];
     const coin = derivations[idCoin];
     if (!network) throw new Error(NetworkNotSupported);
     if (!coin) throw new Error(CoinNotSupported);
     if (coin.curve != 'secp256k1') throw new Error(DerivationTypeNotSupported);
-    const results: AddressResult[] = [];
-    for (let derivation of coin.derivations) {
-        results.push(
-            generatePublicAddress({
-                publicNode,
-                network,
-                derivation,
-                change,
-                index,
-            }),
-        );
-    }
-    return results;
+    if (coin.derivations.find(a => a.name == derivation) == undefined)
+        throw new Error(DerivationTypeNotSupported);
+    return generatePublicAddress({
+        publicNode,
+        network,
+        change,
+        index,
+        derivation,
+    });
 };

@@ -25,9 +25,7 @@ export const signMessage = ({
     return makeSignature(v, r, s);
 };
 
-const extractRSV = (
-    sig: string,
-): RSV => {
+const extractRSV = (sig: string): RSV => {
     const r = '0x' + sig.substring(2).substring(0, 64);
     const s = '0x' + sig.substring(2).substring(64, 128);
     const v = '0x' + sig.substring(2).substring(128, 130);
@@ -66,4 +64,4 @@ export const verifyMessage = async ({
     return publicAddress == address.toLowerCase();
 };
 
-export * from './types'
+export * from './types';

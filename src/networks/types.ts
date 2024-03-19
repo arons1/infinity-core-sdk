@@ -9,13 +9,14 @@ export type GeneratePublicAddressParams = {
     change: number;
     index: number;
     network: Network;
-    derivation: DerivationParams;
+    derivation: string;
 };
 export type GeneratePublicAddressesParams = {
     publicNode: BIP32Interface;
     idCoin: string;
     change: number;
     index: number;
+    derivation: string;
 };
 export type AddressResult = {
     extendedPrivateAddress: string | undefined;
@@ -26,6 +27,10 @@ export type AddressResult = {
     publicAddress: string | undefined;
     extendedNode: BIP32Interface | undefined;
     publicKeyHash?: string;
+};
+export type PublicAddressResult = {
+    publicKey: any;
+    publicAddress: string | undefined;
 };
 export type RootNodeParams = {
     mnemonic: string;

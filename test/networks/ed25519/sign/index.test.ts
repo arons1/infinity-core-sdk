@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import {
     getKeyPair,
     getSeed,
-    signMessage,
+    sign,
     getPrivateKey,
 } from '../../../../lib/commonjs/networks/ed25519';
 
@@ -16,7 +16,7 @@ describe('signMessageED25519', () => {
             path: "m/44'/148'/0'",
             seed,
         });
-        const signedMessage = signMessage({
+        const signedMessage = sign({
             privateKey: getPrivateKey({ keyPair }),
             message: Buffer.from('Message to sign', 'utf-8'),
         });

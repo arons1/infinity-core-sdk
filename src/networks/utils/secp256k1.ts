@@ -19,6 +19,7 @@ export const encodeGeneric = (dataAddress: string, type: string) => {
     var data = bs58check.decode(dataAddress);
     data = data.slice(4);
     const encodeCode = addressEncoding[type];
+    console.log(type);
     data = Buffer.concat([Buffer.from(encodeCode, 'hex'), data]);
     return bs58check.encode(data);
 };

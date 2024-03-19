@@ -14,4 +14,4 @@ export type RSV = {
     r: string;
     s: string;
     v: string;
-}
+};

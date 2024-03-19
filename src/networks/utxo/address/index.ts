@@ -11,6 +11,7 @@ import {
     GenerateAddressParams,
     GeneratePublicAddressParams,
     PublicAddressParams,
+    PublicAddressResult,
     RedemParams,
 } from '../../types';
 import {
@@ -68,9 +69,12 @@ export const getRedeemP2WPKH = ({
     publicKey,
     network,
 }: RedemParams): Buffer | undefined => {
-    const redeem = payments.p2wpkh({ pubkey:publicKey, network: network as Network });
-    return redeem.output
-}
+    const redeem = payments.p2wpkh({
+        pubkey: publicKey,
+        network: network as Network,
+    });
+    return redeem.output;
+};
 /* 
 getPublicAddressP2WPKHP2S
     Returns Public P2WPKHP2S address
@@ -186,21 +190,15 @@ generatePublicAddresses
 export const generatePublicAddress = ({
     publicNode,
     network,
-    derivation,
     change,
     index,
-}: GeneratePublicAddressParams): AddressResult => {
-    if (derivation.xprv == undefined || derivation.xpub == undefined)
-        throw new Error(MissingExtendedParams);
-    const newAddress = {} as AddressResult;
-    newAddress.extendedPublicAddress = encodeGeneric(
-        publicNode.neutered().toBase58(),
-        derivation.xpub as string,
-    );
+    derivation,
+}: GeneratePublicAddressParams): PublicAddressResult => {
+    const newAddress = {} as PublicAddressResult;
     newAddress.publicKey = getPublicKey({
         publicAccountNode: publicNode,
     });
-    switch (derivation.name) {
+    switch (derivation) {
         case 'legacy':
             newAddress.publicAddress = getPublicAddressP2PKH({
                 publicAccountNode: publicNode,
