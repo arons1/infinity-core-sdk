@@ -31,8 +31,9 @@ export const generateAddresses = ({
 }: GenerateAddressesParams): AddressResult[] => {
     const network = networks[idCoin];
     const coin = derivations[idCoin];
-    if (!network) throw new Error(NetworkNotSupported);
     if (!coin) throw new Error(CoinNotSupported);
+    if (!network && coin.curve != 'ed25519')
+        throw new Error(NetworkNotSupported);
     const results: AddressResult[] = [];
     for (let derivation of coin.derivations) {
         switch (coin.curve) {
@@ -77,6 +78,7 @@ generatePublicAddresses
     @param idCoin: Coin id
     @param change: change derivation
     @param index: index derivation
+    @param derivation: derivation name
 */
 export const generatePublicAddresses = ({
     publicNode,
@@ -87,8 +89,8 @@ export const generatePublicAddresses = ({
 }: GeneratePublicAddressesParams): PublicAddressResult => {
     const network = networks[idCoin];
     const coin = derivations[idCoin];
-    if (!network) throw new Error(NetworkNotSupported);
     if (!coin) throw new Error(CoinNotSupported);
+    if (!network) throw new Error(NetworkNotSupported);
     if (coin.curve != 'secp256k1') throw new Error(DerivationTypeNotSupported);
     if (coin.derivations.find(a => a.name == derivation) == undefined)
         throw new Error(DerivationTypeNotSupported);
