@@ -1,6 +1,6 @@
 export type TransactionEVM = {
     from: string;
-    nonce: string;
+    nonce?: string;
     to: string;
     data?: string;
     value?: string;

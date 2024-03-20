@@ -16,6 +16,9 @@ export * as math from './math';
 import BN from 'bn.js';
 export { BN };
 
+import bitcoinjs from 'bitcoinjs-lib';
+export { bitcoinjs };
+
 import BigNumber from 'bignumber.js';
 export { BigNumber };
 

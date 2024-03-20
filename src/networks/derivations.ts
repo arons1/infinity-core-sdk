@@ -1,16 +1,17 @@
+import { DerivationName } from './constants';
 import { Derivation } from './types';
 
 export default {
     btc: {
         derivations: [
             {
-                name: 'segwit',
+                name: DerivationName.SEGWIT,
                 path: "m/84'/0'/0'/0/0",
                 xpub: 'zpub',
                 xprv: 'zpriv',
             },
             {
-                name: 'wrapped-segwit',
+                name: DerivationName.WRAPPED_SEGWIT,
                 path: "m/49'/0'/0'/0/0",
                 xpub: 'ypub',
                 xprv: 'ypriv',
@@ -22,7 +23,7 @@ export default {
     ltc: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/2'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
@@ -34,7 +35,7 @@ export default {
     doge: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/3'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
@@ -46,7 +47,7 @@ export default {
     fio: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/235'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
@@ -58,7 +59,7 @@ export default {
     stellar: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/148'/0'",
             },
         ],
@@ -68,7 +69,7 @@ export default {
     xrp: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/144'/0'/0/0",
             },
         ],
@@ -78,7 +79,7 @@ export default {
     eth: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/40'/60'/0'/0/0",
             },
         ],
@@ -98,7 +99,7 @@ export default {
     matic: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -108,7 +109,7 @@ export default {
     bsc: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -118,7 +119,7 @@ export default {
     groestlcoin: {
         derivations: [
             {
-                name: 'segwit',
+                name: DerivationName.SEGWIT,
                 path: "m/84'/0'/0'/0/0",
                 xpub: 'zpub',
                 xprv: 'zpriv',
@@ -130,11 +131,11 @@ export default {
     harmony: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
             {
-                name: 'harmony',
+                name: DerivationName.HARMONY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -144,7 +145,7 @@ export default {
     cronos: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -154,7 +155,7 @@ export default {
     vechain: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -164,7 +165,7 @@ export default {
     solana: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/501'/0'/0'",
             },
         ],
@@ -174,7 +175,7 @@ export default {
     tezos: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/1729'/0'/0'",
             },
         ],
@@ -184,7 +185,7 @@ export default {
     avax: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -194,7 +195,7 @@ export default {
     xdc: {
         derivations: [
             {
-                name: 'xdc',
+                name: DerivationName.XDC,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -204,7 +205,7 @@ export default {
     kcc: {
         derivations: [
             {
-                name: 'legacy',
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
@@ -214,7 +215,7 @@ export default {
     okc: {
         derivations: [
             {
-                name: 'okx',
+                name: DerivationName.OKX,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
