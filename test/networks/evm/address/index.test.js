@@ -100,6 +100,21 @@ const network = {
         });
         (0, globals_1.expect)(publicAddress).toBe('FIO7ADFZaxbEnzS3pLrk1KWYBprsKr8AekNs1ovbqgPKW44CmwxBx');
     });
+    (0, globals_1.test)('generateFIOPublicAddress', async () => {
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const publicAddress = (0, address_1.getFIOPublicAddress)({
+            change: 0,
+            index: 0,
+            publicAccountNode,
+        });
+        const accountFio = (0, address_1.getFIOAccount)(publicAddress);
+        (0, globals_1.expect)(accountFio).toBe('frz4ibrszbfi');
+    });
     (0, globals_1.test)('generateXDCPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({

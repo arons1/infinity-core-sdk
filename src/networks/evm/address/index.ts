@@ -5,6 +5,7 @@ import {
     DerivationTypeNotSupported,
     DerivePathError,
     GenPrivateKeyError,
+    InvalidAddress,
 } from '../../../errors/networks';
 import {
     publicToAddress,
@@ -28,6 +29,7 @@ import { ec as elliptic } from '../../../core/elliptic';
 import { RIPEMD160, SHA256, enc } from 'crypto-js';
 import { extractPath } from '../../../utils';
 import { createHash } from 'crypto';
+import { shortenKey, stringFromUInt64T } from '../../../core/math/integers';
 
 const ec = new elliptic('secp256k1');
 /* 
@@ -204,6 +206,17 @@ export const getFIOPublicAddress = ({
             base58.encode(Buffer.concat([Buffer.from(hexed, 'hex'), checksum]))
         );
     } else throw new Error(DerivePathError);
+};
+
+export const getFIOAccount = (publicAddress: string) => {
+    if (!publicAddress.startsWith('FIO')) throw new Error(InvalidAddress);
+    const pubkey = publicAddress.substring('FIO'.length, publicAddress.length);
+
+    const decoded58 = base58.decode(pubkey);
+    const long = shortenKey(decoded58);
+
+    const output = stringFromUInt64T(long);
+    return output;
 };
 /*
 getBCPublicAddress

@@ -1,5 +1,6 @@
 /* eslint-disable no-bitwise */
 import BN from 'bn.js';
+import Long from 'long';
 
 const uint64MaxValue = new BN('18446744073709551615', 10, 'be');
 
@@ -257,4 +258,51 @@ export class Uint64 implements Integer, WithByteConverters {
     public toNumber(): number {
         return this.data.toNumber();
     }
+}
+
+export function shortenKey(key: Uint8Array): Long {
+    var res = Long.fromValue(0, true);
+    var temp = Long.fromValue(0, true);
+    var toShift = 0;
+    var i = 1;
+    var len = 0;
+
+    while (len <= 12) {
+        //assert(i < 33, "Means the key has > 20 bytes with trailing zeroes...")
+        temp = Long.fromValue(key[i], true).and(len == 12 ? 0x0f : 0x1f);
+        if (temp == Long.fromInt(0)) {
+            i += 1;
+            continue;
+        }
+        if (len == 12) {
+            toShift = 0;
+        } else {
+            toShift = 5 * (12 - len) - 1;
+        }
+        temp = Long.fromValue(temp, true).shiftLeft(toShift);
+
+        res = Long.fromValue(res, true).or(temp);
+        len += 1;
+        i += 1;
+    }
+
+    return res;
+}
+export function stringFromUInt64T(temp: Long): string {
+    var charmap = '.12345abcdefghijklmnopqrstuvwxyz'.split('');
+
+    var str = new Array(13);
+    str[12] = charmap[Long.fromValue(temp, true).and(0x0f).toInt()];
+
+    temp = Long.fromValue(temp, true).shiftRight(4);
+    for (var i = 1; i <= 12; i++) {
+        var c = charmap[Long.fromValue(temp, true).and(0x1f).toInt()];
+        str[12 - i] = c;
+        temp = Long.fromValue(temp, true).shiftRight(5);
+    }
+    var result = str.join('');
+    if (result.length > 12) {
+        result = result.substring(0, 12);
+    }
+    return result;
 }

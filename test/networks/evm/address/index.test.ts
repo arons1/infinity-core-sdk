@@ -7,6 +7,7 @@ import {
     getBCPublicAddress,
     getFIOPublicAddress,
     getFIOPrivateAddress,
+    getFIOAccount,
 } from '../../../../lib/commonjs/networks/evm/address';
 import {
     getPrivateMasterKey,
@@ -126,6 +127,21 @@ describe('generateAddressEVM', () => {
         expect(publicAddress).toBe(
             'FIO7ADFZaxbEnzS3pLrk1KWYBprsKr8AekNs1ovbqgPKW44CmwxBx',
         );
+    });
+    test('generateFIOPublicAddress', async () => {
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const publicAddress = getFIOPublicAddress({
+            change: 0,
+            index: 0,
+            publicAccountNode,
+        });
+        const accountFio = getFIOAccount(publicAddress);
+        expect(accountFio).toBe('frz4ibrszbfi');
     });
     test('generateXDCPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
