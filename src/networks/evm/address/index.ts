@@ -268,10 +268,19 @@ export const generateAddresses = ({
     newAddress.publicKey = getPublicKey({
         publicAccountNode: privateAccountNode,
     });
-    newAddress.privateAddress = getPrivateAddress({
-        privateAccountNode,
-        network,
-    });
+    if(derivation.name == "fio"){
+        newAddress.privateAddress = getFIOPrivateAddress({
+            privateAccountNode,
+            network,
+        });
+    }
+    else{
+        newAddress.privateAddress = getPrivateAddress({
+            privateAccountNode,
+            network,
+        });
+    }
+    
     switch (derivation.name) {
         case 'legacy':
             newAddress.publicAddress = getPublicAddress({
@@ -302,6 +311,7 @@ export const generateAddresses = ({
             newAddress.publicAddress = getFIOPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
+            newAddress.account = getFIOAccount(newAddress.publicAddress);
             break;
         default:
             throw new Error(DerivationTypeNotSupported);
