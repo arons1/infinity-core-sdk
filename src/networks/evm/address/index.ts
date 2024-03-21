@@ -165,25 +165,6 @@ export const getPrivateAddress = ({
     return '0x' + privateKey.toString('hex');
 };
 /*
-function toString(pubkey_prefix = 'FIO') {
-      return pubkey_prefix + keyUtils.checkEncode(toBuffer())
-    }
-function checkEncode(keyBuffer, keyType = null) {
-    assert(Buffer.isBuffer(keyBuffer), 'expecting keyBuffer<Buffer>')
-    if(keyType === 'sha256x2') { // legacy
-      const checksum = hash.sha256(hash.sha256(keyBuffer)).slice(0, 4)
-      return base58.encode(Buffer.concat([keyBuffer, checksum]))
-    } else {
-      const check = [keyBuffer]
-      if(keyType) {
-          check.push(Buffer.from(keyType))
-      }
-      const checksum = hash.ripemd160(Buffer.concat(check)).slice(0, 4)
-      return base58.encode(Buffer.concat([keyBuffer, checksum]))
-    }
-  }
-  */
-/*
 getFIOPublicAddress
     Returns FIO public address
     @param publicAccountNode: Account Extended Public Node
@@ -268,19 +249,18 @@ export const generateAddresses = ({
     newAddress.publicKey = getPublicKey({
         publicAccountNode: privateAccountNode,
     });
-    if(derivation.name == "fio"){
+    if (derivation.name == 'fio') {
         newAddress.privateAddress = getFIOPrivateAddress({
             privateAccountNode,
             network,
         });
-    }
-    else{
+    } else {
         newAddress.privateAddress = getPrivateAddress({
             privateAccountNode,
             network,
         });
     }
-    
+
     switch (derivation.name) {
         case 'legacy':
             newAddress.publicAddress = getPublicAddress({

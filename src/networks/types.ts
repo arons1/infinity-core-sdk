@@ -27,7 +27,7 @@ export type AddressResult = {
     publicAddress: string | undefined;
     extendedNode: BIP32Interface | undefined;
     publicKeyHash?: string;
-    account?:string;
+    account?: string;
 };
 export type PublicAddressResult = {
     publicKey: any;
