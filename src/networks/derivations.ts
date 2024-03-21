@@ -47,14 +47,14 @@ export default {
     fio: {
         derivations: [
             {
-                name: DerivationName.LEGACY,
+                name: DerivationName.FIO,
                 path: "m/44'/235'/0'/0/0",
                 xpub: 'xpub',
                 xprv: 'xprv',
             },
         ],
         bip44: 235,
-        curve: 'secp256k1',
+        curve: 'ecdsa',
     },
     stellar: {
         derivations: [

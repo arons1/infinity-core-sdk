@@ -46,6 +46,18 @@ const network = {
         });
         (0, globals_1.expect)(privateAddress).toBe('0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93');
     });
+    (0, globals_1.test)('generatePrivateAddress(FIO)', async () => {
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
+        const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const privateAddress = (0, address_1.getFIOPrivateAddress)({
+            privateAccountNode,
+        });
+        (0, globals_1.expect)(privateAddress).toBe('5KCYRtCo7sza6RdBRaBHD5ERvrW415iVdZ9e6KCd34jmVDfkoay');
+    });
     (0, globals_1.test)('generatePublicAddress(ETH)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
@@ -73,6 +85,20 @@ const network = {
             publicAccountNode,
         });
         (0, globals_1.expect)(publicAddress).toBe('bnb1v6ugv2t5cahefksmduc9ypezm25453ez2p3e3k');
+    });
+    (0, globals_1.test)('generateFIOPublicAddress', async () => {
+        const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const publicAddress = (0, address_1.getFIOPublicAddress)({
+            change: 0,
+            index: 0,
+            publicAccountNode,
+        });
+        (0, globals_1.expect)(publicAddress).toBe('FIO7ADFZaxbEnzS3pLrk1KWYBprsKr8AekNs1ovbqgPKW44CmwxBx');
     });
     (0, globals_1.test)('generateXDCPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });

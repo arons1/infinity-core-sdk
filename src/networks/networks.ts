@@ -144,4 +144,14 @@ export default {
         scriptHash: 5,
         wif: 128,
     },
+    fio: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
 } as Record<string, Network>;

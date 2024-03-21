@@ -1,5 +1,5 @@
 import { HarmonyAddress } from '@harmony-js/crypto';
-import { bech32 } from '@scure/base';
+import { base58, bech32 } from '@scure/base';
 
 import {
     DerivationTypeNotSupported,
@@ -27,6 +27,7 @@ import { ab2hexstring } from '../../../core/elliptic/utils';
 import { ec as elliptic } from '../../../core/elliptic';
 import { RIPEMD160, SHA256, enc } from 'crypto-js';
 import { extractPath } from '../../../utils';
+import { createHash } from 'crypto';
 
 const ec = new elliptic('secp256k1');
 /* 
@@ -123,6 +124,30 @@ getPrivateAddress
     @param change: account change derivation
     @param index: account index derivation
 */
+export const getFIOPrivateAddress = ({
+    privateAccountNode,
+    change = 0,
+    index = 0,
+}: AddressParams): string => {
+    const privateKey = getPrivateKey({
+        privateAccountNode,
+        index,
+        change,
+        network: networks['fio'],
+    })?.privateKey;
+    if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
+    const private_key = Buffer.concat([new Buffer([0x80]), privateKey]);
+    const sha256 = (data: Buffer) => createHash('sha256').update(data).digest();
+    const checksum = sha256(sha256(private_key)).slice(0, 4);
+    return base58.encode(Buffer.concat([private_key, checksum]));
+};
+/* 
+getPrivateAddress
+    Returns Private address
+    @param privateAccountNode: Account Extended Private Node
+    @param change: account change derivation
+    @param index: account index derivation
+*/
 export const getPrivateAddress = ({
     privateAccountNode,
     change = 0,
@@ -137,7 +162,49 @@ export const getPrivateAddress = ({
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     return '0x' + privateKey.toString('hex');
 };
-
+/*
+function toString(pubkey_prefix = 'FIO') {
+      return pubkey_prefix + keyUtils.checkEncode(toBuffer())
+    }
+function checkEncode(keyBuffer, keyType = null) {
+    assert(Buffer.isBuffer(keyBuffer), 'expecting keyBuffer<Buffer>')
+    if(keyType === 'sha256x2') { // legacy
+      const checksum = hash.sha256(hash.sha256(keyBuffer)).slice(0, 4)
+      return base58.encode(Buffer.concat([keyBuffer, checksum]))
+    } else {
+      const check = [keyBuffer]
+      if(keyType) {
+          check.push(Buffer.from(keyType))
+      }
+      const checksum = hash.ripemd160(Buffer.concat(check)).slice(0, 4)
+      return base58.encode(Buffer.concat([keyBuffer, checksum]))
+    }
+  }
+  */
+/*
+getFIOPublicAddress
+    Returns FIO public address
+    @param publicAccountNode: Account Extended Public Node
+*/
+export const getFIOPublicAddress = ({
+    publicAccountNode,
+}: PublicAddressParams) => {
+    const pubKey = getPublicKey({ publicAccountNode });
+    if (pubKey) {
+        const pubKeyEC = ec.keyFromPublic(pubKey.toString('hex'), 'hex');
+        const pubPoint = pubKeyEC.getPublic();
+        const compressed = pubPoint.encodeCompressed();
+        const hexed = ab2hexstring(compressed);
+        const checksum = createHash('ripemd160')
+            .update(Buffer.from(hexed, 'hex'))
+            .digest()
+            .slice(0, 4);
+        return (
+            'FIO' +
+            base58.encode(Buffer.concat([Buffer.from(hexed, 'hex'), checksum]))
+        );
+    } else throw new Error(DerivePathError);
+};
 /*
 getBCPublicAddress
     Returns bc public address
@@ -215,6 +282,11 @@ export const generateAddresses = ({
             break;
         case 'okx':
             newAddress.publicAddress = getOKXPublicAddress({
+                publicAccountNode: privateAccountNode,
+            });
+            break;
+        case 'fio':
+            newAddress.publicAddress = getFIOPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;

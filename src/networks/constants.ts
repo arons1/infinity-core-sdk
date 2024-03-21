@@ -6,4 +6,5 @@ export const DerivationName = {
     BNB: 'bnb',
     XDC: 'xdc',
     OKX: 'okx',
+    FIO: 'fio',
 };

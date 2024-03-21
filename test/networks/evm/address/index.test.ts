@@ -5,6 +5,8 @@ import {
     getOKXPublicAddress,
     getXDCPublicAddress,
     getBCPublicAddress,
+    getFIOPublicAddress,
+    getFIOPrivateAddress,
 } from '../../../../lib/commonjs/networks/evm/address';
 import {
     getPrivateMasterKey,
@@ -63,6 +65,20 @@ describe('generateAddressEVM', () => {
             '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
         );
     });
+    test('generatePrivateAddress(FIO)', async () => {
+        const rootNode = getRootNode({ mnemonic, network });
+        const privateAccountNode = getPrivateMasterKey({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const privateAddress = getFIOPrivateAddress({
+            privateAccountNode,
+        });
+        expect(privateAddress).toBe(
+            '5KCYRtCo7sza6RdBRaBHD5ERvrW415iVdZ9e6KCd34jmVDfkoay',
+        );
+    });
     test('generatePublicAddress(ETH)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
@@ -95,7 +111,22 @@ describe('generateAddressEVM', () => {
             'bnb1v6ugv2t5cahefksmduc9ypezm25453ez2p3e3k',
         );
     });
-
+    test('generateFIOPublicAddress', async () => {
+        const rootNode = getRootNode({ mnemonic, network });
+        const publicAccountNode = getPublicMasterKey({
+            bipIdCoin: 235,
+            protocol: 44,
+            rootNode,
+        });
+        const publicAddress = getFIOPublicAddress({
+            change: 0,
+            index: 0,
+            publicAccountNode,
+        });
+        expect(publicAddress).toBe(
+            'FIO7ADFZaxbEnzS3pLrk1KWYBprsKr8AekNs1ovbqgPKW44CmwxBx',
+        );
+    });
     test('generateXDCPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
