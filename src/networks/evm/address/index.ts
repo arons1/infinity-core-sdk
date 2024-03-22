@@ -127,14 +127,10 @@ getPrivateAddress
     @param index: account index derivation
 */
 export const getFIOPrivateAddress = ({
-    privateAccountNode,
-    change = 0,
-    index = 0,
+    privateAccountNode
 }: AddressParams): string => {
     const privateKey = getPrivateKey({
         privateAccountNode,
-        index,
-        change,
         network: networks['fio'],
     })?.privateKey;
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);

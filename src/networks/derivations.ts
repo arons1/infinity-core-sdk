@@ -59,17 +59,37 @@ export default {
     stellar: {
         derivations: [
             {
-                name: DerivationName.LEGACY,
+                name: DerivationName.STELLAR,
                 path: "m/44'/148'/0'",
             },
         ],
         bip44: 148,
         curve: 'ed25519',
     },
+    solana: {
+        derivations: [
+            {
+                name: DerivationName.SOLANA,
+                path: "m/44'/501'/0'/0'",
+            },
+        ],
+        bip44: 501,
+        curve: 'ed25519',
+    },
+    tezos: {
+        derivations: [
+            {
+                name: DerivationName.TEZOS,
+                path: "m/44'/1729'/0'/0'",
+            },
+        ],
+        bip44: 1729,
+        curve: 'ed25519',
+    },
     xrp: {
         derivations: [
             {
-                name: DerivationName.LEGACY,
+                name: DerivationName.XRP,
                 path: "m/44'/144'/0'/0/0",
             },
         ],
@@ -161,26 +181,6 @@ export default {
         ],
         bip44: 60,
         curve: 'ecdsa',
-    },
-    solana: {
-        derivations: [
-            {
-                name: DerivationName.LEGACY,
-                path: "m/44'/501'/0'/0'",
-            },
-        ],
-        bip44: 501,
-        curve: 'ed25519',
-    },
-    tezos: {
-        derivations: [
-            {
-                name: DerivationName.LEGACY,
-                path: "m/44'/1729'/0'/0'",
-            },
-        ],
-        bip44: 1729,
-        curve: 'ed25519',
     },
     avax: {
         derivations: [

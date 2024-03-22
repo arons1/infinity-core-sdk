@@ -199,35 +199,28 @@ export const generateAddresses = ({
         coinId: path[1].number,
     });
     switch (derivation.name) {
-        case 'legacy':
-            switch (path[1].number) {
-                case 148:
-                    newAddress.publicAddress = getPublicStellarAddress({
-                        publicKey: newAddress.publicKey,
-                    });
-                    break;
-                case 144:
-                    newAddress.publicAddress = getPublicXRPAddress({
-                        publicKey: newAddress.publicKey,
-                    });
-                    break;
-                case 501:
-                    newAddress.publicAddress = getPublicSolanaAddress({
-                        publicKey: newAddress.publicKey,
-                    });
-                    break;
-                case 1729:
-                    newAddress.publicAddress = getPublicTezosAddress({
-                        publicKey: newAddress.publicKey,
-                    });
-                    newAddress.publicKeyHash = getTezosPublicKeyHash({
-                        keyPair,
-                    });
-                    break;
-                default:
-                    throw new Error(DerivationTypeNotSupported);
-            }
-
+        case 'stellar':
+            newAddress.publicAddress = getPublicStellarAddress({
+                publicKey: newAddress.publicKey,
+            });
+            break;
+        case 'xrp':
+            newAddress.publicAddress = getPublicXRPAddress({
+                publicKey: newAddress.publicKey,
+            });
+            break;
+        case 'solana':
+            newAddress.publicAddress = getPublicSolanaAddress({
+                publicKey: newAddress.publicKey,
+            });
+            break;
+        case 'tezos':
+            newAddress.publicAddress = getPublicTezosAddress({
+                publicKey: newAddress.publicKey,
+            });
+            newAddress.publicKeyHash = getTezosPublicKeyHash({
+                keyPair,
+            });
             break;
         default:
             throw new Error(DerivationTypeNotSupported);
