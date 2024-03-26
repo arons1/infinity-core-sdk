@@ -1,5 +1,6 @@
 import { ExtendedPoint } from '@noble/ed25519';
 import { base58 } from '@scure/base';
+import { BN } from 'bn.js';
 export const isValidMemo = (memo: string) => {
     if (typeof memo != 'string') return false;
     return /^[a-zA-Z0-9]{0,283}$/.test(memo);

@@ -4,18 +4,33 @@ const isValidPublicKey = (pubkey: string) => {
         pubkey &&
         pubkey.length >= 1 &&
         pubkey.length <= 62 &&
-        /^FIO\\w+$/.test(pubkey)
+        new RegExp('^FIO\\w+$').test(pubkey)
+    );
+};
+const isValidPublicAddress = (address: string) => {
+    if (typeof address != 'string') return false;
+    return (
+        address &&
+        address.length >= 1 &&
+        address.length <= 128 &&
+        new RegExp('^\\w+$').test(address)
+    );
+};
+const isValidFioAddress = (address: string) => {
+    if (typeof address != 'string') return false;
+    return (
+        address &&
+        address.length >= 3 &&
+        address.length <= 64 &&
+        new RegExp(
+            '^(?:(?=.{3,64}$)[a-zA-Z0-9]{1}(?:(?:(?!-{2,}))[a-zA-Z0-9-]*[a-zA-Z0-9]+){0,1}@[a-zA-Z0-9]{1}(?:(?:(?!-{2,}))[a-zA-Z0-9-]*[a-zA-Z0-9]+){0,1}$)',
+            'gim',
+        ).test(address)
     );
 };
 export const isValidAddress = (address: string) => {
     if (typeof address != 'string') return false;
     if (address.startsWith('FIO')) return isValidPublicKey(address);
-    return (
-        address &&
-        address.length >= 3 &&
-        address.length <= 64 &&
-        /^(?:(?=.{3,64}$)[a-zA-Z0-9]{1}(?:(?:(?!-{2,}))[a-zA-Z0-9-]*[a-zA-Z0-9]+){0,1}@[a-zA-Z0-9]{1}(?:(?:(?!-{2,}))[a-zA-Z0-9-]*[a-zA-Z0-9]+){0,1}$)/.test(
-            address,
-        )
-    );
+    if (address.includes('@')) return isValidFioAddress(address);
+    return isValidPublicAddress(address);
 };
