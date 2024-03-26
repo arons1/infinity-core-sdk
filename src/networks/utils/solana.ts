@@ -1,15 +1,16 @@
-import { ExtendedPoint } from '@noble/ed25519';
-import { base58 } from '@scure/base';
+import { ed25519 } from '@noble/curves/ed25519';
 import { BN } from 'bn.js';
+import { base58 } from '../../core/base/base58';
 export const isValidMemo = (memo: string) => {
     if (typeof memo != 'string') return false;
     return /^[a-zA-Z0-9]{0,283}$/.test(memo);
 };
 function isOnCurve(publicKey: Uint8Array): boolean {
     try {
-        ExtendedPoint.fromHex(publicKey);
+        ed25519.ExtendedPoint.fromHex(publicKey);
         return true;
-    } catch {
+    } catch (e) {
+        console.error(e);
         return false;
     }
 }

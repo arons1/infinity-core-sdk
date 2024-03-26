@@ -1,4 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
+import { isValidAddress } from '../../../../lib/commonjs/networks/utils/solana';
+import { isValidAddress as isValidAddressStellar } from '../../../../lib/commonjs/networks/utils/stellar';
+import { isValidAddress as isValidAddressTezos } from '../../../../lib/commonjs/networks/utils/tezos';
+import { getTezosPublicKeyHash } from '../../../../src/networks/ed25519/address/index';
+
 import {
     getSeed,
     getPublicStellarAddress,
@@ -8,6 +13,7 @@ import {
     getKeyPair,
     getPublicXRPAddress,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
+import { isValidPublicKey } from '../../../../src/networks/utils/tezos';
 
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -25,6 +31,7 @@ describe('generateAddressED25519', () => {
         expect(publicAddress).toBe(
             'GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO',
         );
+        expect(isValidAddressStellar(publicAddress)).toBe(true);
     });
     test('generateSolanaAddress', async () => {
         const seed = getSeed({ mnemonic });
@@ -38,6 +45,7 @@ describe('generateAddressED25519', () => {
         expect(publicAddress).toBe(
             'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
         );
+        expect(isValidAddress(publicAddress)).toBe(true);
     });
     test('generateTezosAddress', async () => {
         const seed = getSeed({ mnemonic });
@@ -48,7 +56,13 @@ describe('generateAddressED25519', () => {
         const publicAddress = getPublicTezosAddress({
             publicKey: getPublicKey({ keyPair, coinId: 1729 }),
         });
+        const publicHash = getTezosPublicKeyHash({
+            keyPair
+        })
         expect(publicAddress).toBe('tz1bHaVSz1e9GeRMV7MUkS5wZmMH5qf8m8Ym');
+        expect(isValidAddressTezos(publicAddress)).toBe(true);
+        expect(isValidPublicKey(publicHash)).toBe(true);
+
     });
     test('generateXRPAddress', async () => {
         const seed = getSeed({ mnemonic });

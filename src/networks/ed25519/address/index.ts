@@ -18,6 +18,7 @@ import { extractPath } from '../../../utils';
 import { fromSeed } from '../../../core/bip32';
 import { blake2b } from '@noble/hashes/blake2b';
 import { Keypair } from 'stellar-sdk';
+import { Prefix, prefix } from '../../utils/tezos';
 
 /* 
 getSecret
@@ -109,7 +110,7 @@ export const getSecretAddress = ({
     } else if (coinId == 148) {
         return StrKey.encodeEd25519SecretSeed(secretKey);
     } else if (coinId == 1729) {
-        return b58cencode(secretKey, new Uint8Array([43, 246, 78, 7]));
+        return b58cencode(secretKey, prefix[Prefix.EDSK]);
     } else {
         return base58.encode(secretKey);
     }
@@ -169,7 +170,7 @@ getTezosPublicKeyHash
     @param keyPair: key pair
 */
 export const getTezosPublicKeyHash = ({ keyPair }: { keyPair: any }) => {
-    return b58cencode(keyPair.publicKey, new Uint8Array([13, 15, 37, 217]));
+    return b58cencode(keyPair.publicKey, prefix[Prefix.EDPK]);
 };
 /* 
 getTezosPublicAddress
@@ -181,7 +182,7 @@ export const getPublicTezosAddress = ({
 }: {
     publicKey: Uint8Array;
 }): string => {
-    return b58cencode(publicKey, new Uint8Array([6, 161, 159]));
+    return b58cencode(publicKey, prefix[Prefix.TZ1]);
 };
 /* 
 generateAddresses

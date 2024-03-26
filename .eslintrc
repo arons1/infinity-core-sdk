@@ -9,7 +9,7 @@
         "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-  
+        "no-control-regex": 0,
         "no-var": 0,
         "no-constant-condition":0,
         "arrow-body-style": "off",
