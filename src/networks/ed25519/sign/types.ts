@@ -1,4 +1,4 @@
 export type SignMessageParams = {
     message: Buffer;
-    privateKey: any;
+    secretKey: Buffer | Uint8Array;
 };

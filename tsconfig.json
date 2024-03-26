@@ -3,6 +3,7 @@
     "target": "ES2020",
     "module": "commonjs",
     "outDir": "./lib/commonjs",
+    "skipLibCheck": true,
     "declaration": true,
     "rootDir": "./src",
     "types": [

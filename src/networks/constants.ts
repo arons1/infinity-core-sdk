@@ -8,7 +8,7 @@ export const DerivationName = {
     OKX: 'okx',
     FIO: 'fio',
     SOLANA: 'solana',
-    XRP:'xrp',
-    STELLAR:'stellar',
-    TEZOS:'tezos'
+    XRP: 'xrp',
+    STELLAR: 'stellar',
+    TEZOS: 'tezos',
 };

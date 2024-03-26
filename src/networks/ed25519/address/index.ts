@@ -17,6 +17,7 @@ import { StrKey } from '../../../core/ed25519/strkey';
 import { extractPath } from '../../../utils';
 import { fromSeed } from '../../../core/bip32';
 import { blake2b } from '@noble/hashes/blake2b';
+import { Keypair } from 'stellar-sdk';
 
 /* 
 getSecret
@@ -78,8 +79,15 @@ getSecretKey
 export const getSecretKey = ({
     seed,
     path,
-}: PublicKeyEd25519Params): Uint8Array => {
+}: PublicKeyEd25519Params): Uint8Array | Buffer => {
     const keySecret = derivePath(path, seed.toString('hex'));
+    if (path.includes("/148'/")) {
+        const keyPairSecret = Keypair.fromRawEd25519Seed(keySecret.key);
+        return Buffer.concat([
+            keyPairSecret.rawSecretKey(),
+            keyPairSecret.rawPublicKey(),
+        ]);
+    }
     const keyPair = nacl.sign.keyPair.fromSeed(keySecret.key);
     return keyPair.secretKey;
 };
@@ -96,8 +104,10 @@ export const getSecretAddress = ({
     secretKey: Buffer;
     coinId: number;
 }): string => {
-    if (coinId == 148) {
-        return '00' + secretKey.toString('hex')?.toUpperCase();
+    if (coinId == 144) {
+        return '00' + secretKey.toString('hex').toUpperCase();
+    } else if (coinId == 148) {
+        return StrKey.encodeEd25519SecretSeed(secretKey);
     } else if (coinId == 1729) {
         return b58cencode(secretKey, new Uint8Array([43, 246, 78, 7]));
     } else {
@@ -123,10 +133,8 @@ export const getKeyPair = ({
         return m.derivePath(path);
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
-        if (coin == 1729) {
-            return nacl.sign.keyPair.fromSeed(keySecret.key);
-        }
-        return nacl.sign.keyPair.fromSeed(keySecret.key);
+        if (coin == 148) return Keypair.fromRawEd25519Seed(keySecret.key);
+        else return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
 };
 /* 
@@ -144,7 +152,7 @@ export const getPublicKey = ({
 }) => {
     if (coinId == 1729) {
         return blake2b(keyPair.publicKey, { dkLen: 20 });
-    }
+    } else if (coinId == 148) return keyPair.rawPublicKey();
     return keyPair.publicKey;
 };
 /* 
@@ -153,7 +161,7 @@ getPrivateKey
     @param keyPair: key pair
 */
 export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
-    return keyPair?.secretKey ?? keyPair?.privateKey;
+    return keyPair?.secretKey ?? keyPair?.privateKey ?? keyPair.rawSecretKey();
 };
 /* 
 getTezosPublicKeyHash

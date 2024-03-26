@@ -1,6 +1,6 @@
 import nacl from 'tweetnacl';
 import { SignMessageParams } from './types';
 
-export const sign = ({ message, privateKey }: SignMessageParams) => {
-    return nacl.sign.detached(message, privateKey);
+export const sign = ({ message, secretKey }: SignMessageParams) => {
+    return nacl.sign.detached(message, secretKey);
 };

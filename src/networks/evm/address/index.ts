@@ -127,7 +127,7 @@ getPrivateAddress
     @param index: account index derivation
 */
 export const getFIOPrivateAddress = ({
-    privateAccountNode
+    privateAccountNode,
 }: AddressParams): string => {
     const privateKey = getPrivateKey({
         privateAccountNode,
