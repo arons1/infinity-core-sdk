@@ -2,8 +2,8 @@ import { describe, expect, test } from '@jest/globals';
 import { isValidAddress } from '../../../../lib/commonjs/networks/utils/solana';
 import { isValidAddress as isValidAddressStellar } from '../../../../lib/commonjs/networks/utils/stellar';
 import { isValidAddress as isValidAddressTezos } from '../../../../lib/commonjs/networks/utils/tezos';
-import { getTezosPublicKeyHash } from '../../../../src/networks/ed25519/address/index';
-
+import { getTezosPublicKeyHash } from '../../../../lib/commonjs/networks/ed25519/address/index';
+import { isValidAddress as isValidAddressXRP } from '../../../../lib/commonjs/networks/utils/xrp';
 import {
     getSeed,
     getPublicStellarAddress,
@@ -13,7 +13,7 @@ import {
     getKeyPair,
     getPublicXRPAddress,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
-import { isValidPublicKey } from '../../../../src/networks/utils/tezos';
+import { isValidPublicKey } from '../../../../lib/commonjs/networks/utils/tezos';
 
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -57,12 +57,11 @@ describe('generateAddressED25519', () => {
             publicKey: getPublicKey({ keyPair, coinId: 1729 }),
         });
         const publicHash = getTezosPublicKeyHash({
-            keyPair
-        })
+            keyPair,
+        });
         expect(publicAddress).toBe('tz1bHaVSz1e9GeRMV7MUkS5wZmMH5qf8m8Ym');
         expect(isValidAddressTezos(publicAddress)).toBe(true);
         expect(isValidPublicKey(publicHash)).toBe(true);
-
     });
     test('generateXRPAddress', async () => {
         const seed = getSeed({ mnemonic });
@@ -74,5 +73,6 @@ describe('generateAddressED25519', () => {
             publicKey: getPublicKey({ keyPair, coinId: 144 }),
         });
         expect(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
+        expect(isValidAddressXRP(publicAddress)).toBe(true);
     });
 });

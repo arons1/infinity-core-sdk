@@ -4,9 +4,10 @@ const globals_1 = require("@jest/globals");
 const solana_1 = require("../../../../lib/commonjs/networks/utils/solana");
 const stellar_1 = require("../../../../lib/commonjs/networks/utils/stellar");
 const tezos_1 = require("../../../../lib/commonjs/networks/utils/tezos");
-const index_1 = require("../../../../src/networks/ed25519/address/index");
+const index_1 = require("../../../../lib/commonjs/networks/ed25519/address/index");
+const xrp_1 = require("../../../../lib/commonjs/networks/utils/xrp");
 const index_2 = require("../../../../lib/commonjs/networks/ed25519/address/index");
-const tezos_2 = require("../../../../src/networks/utils/tezos");
+const tezos_2 = require("../../../../lib/commonjs/networks/utils/tezos");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 (0, globals_1.describe)('generateAddressED25519', () => {
     (0, globals_1.test)('generateStellarAddress', async () => {
@@ -43,7 +44,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 1729 }),
         });
         const publicHash = (0, index_1.getTezosPublicKeyHash)({
-            keyPair
+            keyPair,
         });
         (0, globals_1.expect)(publicAddress).toBe('tz1bHaVSz1e9GeRMV7MUkS5wZmMH5qf8m8Ym');
         (0, globals_1.expect)((0, tezos_1.isValidAddress)(publicAddress)).toBe(true);
@@ -59,5 +60,6 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 144 }),
         });
         (0, globals_1.expect)(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
+        (0, globals_1.expect)((0, xrp_1.isValidAddress)(publicAddress)).toBe(true);
     });
 });
