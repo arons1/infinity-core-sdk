@@ -16,8 +16,7 @@ const addressEncoding: Record<string, string> = {
     zpriv: '04b2430c',
 };
 export const encodeGeneric = (dataAddress: string, type: string) => {
-    if(type == "xpub")
-        return dataAddress
+    if (type == 'xpub') return dataAddress;
     var data = bs58check.decode(dataAddress);
     data = data.slice(4);
     const encodeCode = addressEncoding[type];
