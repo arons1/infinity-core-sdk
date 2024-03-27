@@ -1,5 +1,5 @@
 export type GeneralApiParams = {
-    chainId: number;
+    chainId: Chains;
     apiKey: string;
     address: string;
     page: number;
