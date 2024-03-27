@@ -200,7 +200,7 @@ export const generatePublicAddress = ({
         publicAccountNode: publicNode,
     });
     switch (derivation) {
-        case 'legacy':
+        case DerivationName.LEGACY:
             newAddress.publicAddress = getPublicAddressP2PKH({
                 publicAccountNode: publicNode,
                 network,
@@ -208,7 +208,7 @@ export const generatePublicAddress = ({
                 index,
             });
             break;
-        case 'wrapped-segwit':
+        case DerivationName.WRAPPED_SEGWIT:
             newAddress.publicAddress = getPublicAddressP2WPKHP2S({
                 publicAccountNode: publicNode,
                 network,
@@ -216,7 +216,7 @@ export const generatePublicAddress = ({
                 index,
             });
             break;
-        case 'segwit':
+        case DerivationName.SEGWIT:
             newAddress.publicAddress = getPublicAddressSegwit({
                 publicAccountNode: publicNode,
                 network,
