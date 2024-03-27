@@ -154,7 +154,8 @@ export const getKeyPair = ({ path, seed }: GetKeyPairParams): any => {
         return m.derivePath(path);
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
-        if (coin == CoinIds.STELLAR) return Keypair.fromRawEd25519Seed(keySecret.key);
+        if (coin == CoinIds.STELLAR)
+            return Keypair.fromRawEd25519Seed(keySecret.key);
         else return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
 };

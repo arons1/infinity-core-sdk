@@ -4,6 +4,8 @@ import {
     sign,
     getSecretKey,
 } from '../../../../lib/commonjs/networks/ed25519';
+import derivations from '../../../../lib/commonjs/networks/derivations';
+import { Coins } from '../../../../lib/commonjs/networks/registry';
 
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -12,7 +14,7 @@ describe('signMessageED25519', () => {
     test('signMessageStellar', async () => {
         const seed = getSeed({ mnemonic });
         const secretKey = getSecretKey({
-            path: "m/44'/148'/0'",
+            path: derivations[Coins.STELLAR].derivations[0].path,
             seed,
         });
         const signedMessage = sign({
@@ -26,7 +28,7 @@ describe('signMessageED25519', () => {
     test('signMessageSolana', async () => {
         const seed = getSeed({ mnemonic });
         const secretKey = getSecretKey({
-            path: "m/44'/501'/0'",
+            path: derivations[Coins.SOLANA].derivations[0].path,
             seed,
         });
         const signedMessage = sign({

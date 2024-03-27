@@ -8,6 +8,8 @@ import {
     getPublicMasterKey,
     getRootNode,
 } from '../../../lib/commonjs/networks/utils/secp256k1';
+import { Coins, Protocol } from '../../../lib/commonjs/networks/registry';
+import { DerivationName } from '../../../lib/commonjs/networks/constants';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const networkBTC = {
@@ -23,7 +25,7 @@ const networkBTC = {
 };
 describe('generateAddresses', () => {
     test('generateAddressesPrivateBTC', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: 'btc' });
+        const addresses = generateAddresses({ mnemonic, idCoin: Coins.BTC });
         expect(addresses[0].privateAddress).toBe(
             'L3ErgHszidgB6NfmZ7vbUNZjdqT8kHFeMWiWkAZMPPfFr3L4ini5',
         );
@@ -41,22 +43,22 @@ describe('generateAddresses', () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicNode = getPublicMasterKey({
             bipIdCoin: 0,
-            protocol: 49,
+            protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         const addresses = generatePublicAddresses({
-            idCoin: 'btc',
+            idCoin: Coins.BTC,
             publicNode,
             change: 1,
             index: 1,
-            derivation: 'wrapped-segwit',
+            derivation: DerivationName.WRAPPED_SEGWIT,
         });
         expect(addresses.publicAddress).toBe(
             '3BcSzvLjiayamMJRVZsXfmNo6YLYgPE1U2',
         );
     });
     test('generateAddressesPrivateSolana', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: 'solana' });
+        const addresses = generateAddresses({ mnemonic, idCoin: Coins.SOLANA });
         expect(addresses[0].privateAddress).toBe(
             'rvHpYF2K2vj1A129LKpmy7bXwcL72ADCSwH71K9EBiW61ajyU3wegrHZUoHZc3sVykGtFVgFi37dK3RbLLp9ipm',
         );
@@ -65,7 +67,7 @@ describe('generateAddresses', () => {
         );
     });
     test('generateAddressesPrivateETH', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: 'eth' });
+        const addresses = generateAddresses({ mnemonic, idCoin: Coins.ETH });
         expect(addresses[0].privateAddress).toBe(
             '0x1abc3d096fdefb6de18821a75dafa7aec4245d91a4019c23d8ca6d979947e088',
         );

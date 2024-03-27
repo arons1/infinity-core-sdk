@@ -8,6 +8,7 @@ const index_1 = require("../../../../lib/commonjs/networks/ed25519/address/index
 const xrp_1 = require("../../../../lib/commonjs/networks/utils/xrp");
 const index_2 = require("../../../../lib/commonjs/networks/ed25519/address/index");
 const tezos_2 = require("../../../../lib/commonjs/networks/utils/tezos");
+const registry_1 = require("../../../../lib/commonjs/networks/registry");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 (0, globals_1.describe)('generateAddressED25519', () => {
     (0, globals_1.test)('generateStellarAddress', async () => {
@@ -17,7 +18,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicStellarAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 148 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.STELLAR }),
         });
         (0, globals_1.expect)(publicAddress).toBe('GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO');
         (0, globals_1.expect)((0, stellar_1.isValidAddress)(publicAddress)).toBe(true);
@@ -29,7 +30,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicSolanaAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 501 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.SOLANA }),
         });
         (0, globals_1.expect)(publicAddress).toBe('HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ');
         (0, globals_1.expect)((0, solana_1.isValidAddress)(publicAddress)).toBe(true);
@@ -41,7 +42,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicTezosAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 1729 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.TEZOS }),
         });
         const publicHash = (0, index_1.getTezosPublicKeyHash)({
             keyPair,
@@ -57,7 +58,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicXRPAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 144 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.XRP }),
         });
         (0, globals_1.expect)(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         (0, globals_1.expect)((0, xrp_1.isValidAddress)(publicAddress)).toBe(true);

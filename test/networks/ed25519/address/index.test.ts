@@ -14,7 +14,8 @@ import {
     getPublicXRPAddress,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
 import { isValidPublicKey } from '../../../../lib/commonjs/networks/utils/tezos';
-
+import { CoinIds, Coins } from '../../../../lib/commonjs/networks/registry';
+import derivations from '../../../../lib/commonjs/networks/derivations';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 
@@ -22,11 +23,11 @@ describe('generateAddressED25519', () => {
     test('generateStellarAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: "m/44'/148'/0'",
+            path: derivations[Coins.STELLAR].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicStellarAddress({
-            publicKey: getPublicKey({ keyPair, bipIdCoin: 148 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.STELLAR }),
         });
         expect(publicAddress).toBe(
             'GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO',
@@ -36,11 +37,11 @@ describe('generateAddressED25519', () => {
     test('generateSolanaAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: "m/44'/501'/0'/0'",
+            path: derivations[Coins.SOLANA].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicSolanaAddress({
-            publicKey: getPublicKey({ keyPair, bipIdCoin: 501 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.SOLANA }),
         });
         expect(publicAddress).toBe(
             'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
@@ -50,11 +51,11 @@ describe('generateAddressED25519', () => {
     test('generateTezosAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: "m/44'/1729'/0'/0'",
+            path: derivations[Coins.TEZOS].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicTezosAddress({
-            publicKey: getPublicKey({ keyPair, bipIdCoin: 1729 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.TEZOS }),
         });
         const publicHash = getTezosPublicKeyHash({
             keyPair,
@@ -66,11 +67,11 @@ describe('generateAddressED25519', () => {
     test('generateXRPAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: "m/44'/144'/0'/0/0",
+            path: derivations[Coins.XRP].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicXRPAddress({
-            publicKey: getPublicKey({ keyPair, bipIdCoin: 144 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.XRP }),
         });
         expect(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         expect(isValidAddressXRP(publicAddress)).toBe(true);
