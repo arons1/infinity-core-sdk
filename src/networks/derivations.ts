@@ -214,10 +214,40 @@ export default {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
     },
-    [Coins.OKC]: {
+    [Coins.OKX]: {
         derivations: [
             {
                 name: DerivationName.OKX,
+                path: "m/44'/60'/0'/0/0",
+            },
+        ],
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
+    },
+    [Coins.ARB]: {
+        derivations: [
+            {
+                name: DerivationName.LEGACY,
+                path: "m/44'/60'/0'/0/0",
+            },
+        ],
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
+    },
+    [Coins.BSC_TESTNET]: {
+        derivations: [
+            {
+                name: DerivationName.LEGACY,
+                path: "m/44'/60'/0'/0/0",
+            },
+        ],
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
+    },
+    [Coins.ETH_TESTNET]: {
+        derivations: [
+            {
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],

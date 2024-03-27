@@ -125,7 +125,7 @@ export default {
         scriptHash: 5,
         wif: 128,
     },
-    [Coins.OKC]: {
+    [Coins.OKX]: {
         messagePrefix: '\u0018Bitcoin Signed Message:\n',
         bip32: {
             public: 76067358,

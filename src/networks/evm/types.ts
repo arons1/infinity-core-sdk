@@ -1,3 +1,5 @@
+import { Chains } from './general';
+
 export type GeneralApiParams = {
     chainId: Chains;
     apiKey: string;

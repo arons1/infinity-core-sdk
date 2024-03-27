@@ -17,10 +17,12 @@ export enum Coins {
     AVAX = 'avax',
     XDC = 'xdc',
     KCC = 'kcc',
-    OKC = 'okx',
+    OKX = 'okx',
     BSC = 'bsc',
+    ARB = 'arb',
+    ETH_TESTNET = 'eth_testnet',
+    BSC_TESTNET = 'bsc_testnet',
 }
-
 export enum CoinIds {
     BTC = 0,
     LTC = 2,

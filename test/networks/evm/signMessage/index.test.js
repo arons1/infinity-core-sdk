@@ -22,7 +22,7 @@ const network = {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
             bipIdCoin: registry_1.CoinIds.ETH,
-            protocol: 44,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const privateKey = (0, secp256k1_1.getPrivateKey)({
@@ -38,7 +38,7 @@ const network = {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: registry_1.CoinIds.ETH,
-            protocol: 44,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
