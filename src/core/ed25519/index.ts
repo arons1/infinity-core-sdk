@@ -1,7 +1,8 @@
 import createHmac from 'create-hmac';
 import * as nacl from 'tweetnacl';
+import { extractPath } from '../../utils';
+import { isValidPath } from '../../networks/utils/secp256k1';
 
-import { replaceDerive, pathRegex } from './utils';
 /*
 interface Nacl {
     crypto_sign_seed_keypair: (
@@ -57,16 +58,7 @@ export const getPublicKey = (
         : Buffer.from(signPk);
 };
 
-export const isValidPath = (path: string): boolean => {
-    if (!pathRegex.test(path)) {
-        return false;
-    }
-    return !path
-        .split('/')
-        .slice(1)
-        .map(replaceDerive)
-        .some(isNaN as any /* ts T_T*/);
-};
+
 
 export const derivePath = (
     path: Path,
@@ -76,16 +68,11 @@ export const derivePath = (
     if (!isValidPath(path)) {
         throw new Error('Invalid derivation path');
     }
-
     const { key, chainCode } = getMasterKeyFromSeed(seed);
-    const segments = path
-        .split('/')
-        .slice(1)
-        .map(replaceDerive)
-        .map(el => parseInt(el, 10));
+    const segments = extractPath(path);
 
     return segments.reduce(
-        (parentKeys, segment) => CKDPriv(parentKeys, segment + offset),
+        (parentKeys, segment) => CKDPriv(parentKeys, segment.number + offset),
         { key, chainCode },
     );
 };

@@ -3,8 +3,13 @@ import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
 import { derivePath } from '../../../core/ed25519';
 import { deriveAddress } from 'ripple-keypairs';
 import {
+    CoinNotSupported,
     DerivationTypeNotSupported,
+    DerivePathError,
     InvalidMnemonic,
+    InvalidPublicKey,
+    InvalidSecret,
+    InvalidSeed,
 } from '../../../errors/networks';
 import {
     AddressResult,
@@ -19,6 +24,11 @@ import { fromSeed } from '../../../core/bip32';
 import { blake2b } from '@noble/hashes/blake2b';
 import { Keypair } from 'stellar-sdk';
 import { Prefix, prefix } from '../../utils/tezos';
+import { GetKeyPairParams, GetPrivateKeyParams, GetPublicKeyParams, GetTezosPublicKeyParams } from './types';
+import { isValidPath } from '../../utils/secp256k1';
+import { SupportedNetworks } from '../general';
+import { DerivationName } from '../../constants';
+import { CoinIds } from '../../registry';
 
 /* 
 getSecret
@@ -39,6 +49,8 @@ export const getPublicStellarAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
+    if(!Buffer.isBuffer(publicKey))
+        throw new Error(InvalidPublicKey)
     return StrKey.encodeEd25519PublicKey(publicKey);
 };
 /* 
@@ -51,6 +63,8 @@ export const getPublicSolanaAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
+    if(!Buffer.isBuffer(publicKey))
+        throw new Error(InvalidPublicKey)
     const bytes = new Uint8Array(
         publicKey.buffer,
         publicKey.byteOffset,
@@ -68,6 +82,8 @@ export const getPublicXRPAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
+    if(!Buffer.isBuffer(publicKey))
+        throw new Error(InvalidPublicKey)
     return deriveAddress(publicKey.toString('hex').toUpperCase());
 };
 
@@ -81,6 +97,10 @@ export const getSecretKey = ({
     seed,
     path,
 }: PublicKeyEd25519Params): Uint8Array | Buffer => {
+    if(!isValidPath(path))
+        throw new Error(DerivePathError)
+    if(!Buffer.isBuffer(seed))
+        throw new Error(InvalidSeed)
     const keySecret = derivePath(path, seed.toString('hex'));
     if (path.includes("/148'/")) {
         const keyPairSecret = Keypair.fromRawEd25519Seed(keySecret.key);
@@ -100,16 +120,20 @@ getSecretAddress
 */
 export const getSecretAddress = ({
     secretKey,
-    coinId,
+    bipIdCoin,
 }: {
     secretKey: Buffer;
-    coinId: number;
+    bipIdCoin: CoinIds;
 }): string => {
-    if (coinId == 144) {
+    if(!Buffer.isBuffer(secretKey))
+        throw new Error(InvalidSecret)
+    if(SupportedNetworks.find(a => a==bipIdCoin) == undefined)
+        throw new Error(CoinNotSupported)
+    if (bipIdCoin == 144) {
         return '00' + secretKey.toString('hex').toUpperCase();
-    } else if (coinId == 148) {
+    } else if (bipIdCoin == 148) {
         return StrKey.encodeEd25519SecretSeed(secretKey);
-    } else if (coinId == 1729) {
+    } else if (bipIdCoin == 1729) {
         return b58cencode(secretKey, prefix[Prefix.EDSK]);
     } else {
         return base58.encode(secretKey);
@@ -124,11 +148,12 @@ getKeyPair
 export const getKeyPair = ({
     path,
     seed,
-}: {
-    path: string;
-    seed: Buffer;
-}): any => {
+}: GetKeyPairParams): any => {
+    if(!isValidPath(path))
+        throw new Error(DerivationTypeNotSupported)
     const coin = extractPath(path)[1].number;
+    if(SupportedNetworks.find(a => a==coin) == undefined)
+        throw new Error(CoinNotSupported)
     if (coin == 144) {
         const m = fromSeed(seed);
         return m.derivePath(path);
@@ -146,14 +171,13 @@ getPublicKey
 */
 export const getPublicKey = ({
     keyPair,
-    coinId,
-}: {
-    keyPair: any;
-    coinId: number;
-}) => {
-    if (coinId == 1729) {
+    bipIdCoin,
+}: GetPublicKeyParams) => {
+    if(SupportedNetworks.find(a => a==bipIdCoin) == undefined)
+        throw new Error(CoinNotSupported)
+    if (bipIdCoin == 1729) {
         return blake2b(keyPair.publicKey, { dkLen: 20 });
-    } else if (coinId == 148) return keyPair.rawPublicKey();
+    } else if (bipIdCoin == 148) return keyPair.rawPublicKey();
     return keyPair.publicKey;
 };
 /* 
@@ -161,7 +185,7 @@ getPrivateKey
     Returns private key
     @param keyPair: key pair
 */
-export const getPrivateKey = ({ keyPair }: { keyPair: any }) => {
+export const getPrivateKey = ({ keyPair }: GetPrivateKeyParams) => {
     return keyPair?.secretKey ?? keyPair?.privateKey ?? keyPair.rawSecretKey();
 };
 /* 
@@ -169,7 +193,7 @@ getTezosPublicKeyHash
     Returns tezos public key hash
     @param keyPair: key pair
 */
-export const getTezosPublicKeyHash = ({ keyPair }: { keyPair: any }) => {
+export const getTezosPublicKeyHash = ({ keyPair }: GetTezosPublicKeyParams) => {
     return b58cencode(keyPair.publicKey, prefix[Prefix.EDPK]);
 };
 /* 
@@ -194,36 +218,40 @@ export const generateAddresses = ({
     derivation,
     mnemonic,
 }: GenerateAddressParams): AddressResult => {
+    if(!isValidPath(derivation.path))
+        throw new Error(DerivationTypeNotSupported)
     const path = extractPath(derivation.path);
+    if(SupportedNetworks.find(a => a==path[1].number) == undefined)
+        throw new Error(CoinNotSupported)
     const seed = getSeed({ mnemonic });
     const newAddress = {} as AddressResult;
     const keyPair = getKeyPair({
         path: derivation.path,
         seed,
     });
-    newAddress.publicKey = getPublicKey({ keyPair, coinId: path[1].number });
+    newAddress.publicKey = getPublicKey({ keyPair, bipIdCoin: path[1].number });
     newAddress.privateKey = getPrivateKey({ keyPair });
     newAddress.privateAddress = getSecretAddress({
         secretKey: newAddress.privateKey,
-        coinId: path[1].number,
+        bipIdCoin: path[1].number,
     });
     switch (derivation.name) {
-        case 'stellar':
+        case DerivationName.STELLAR:
             newAddress.publicAddress = getPublicStellarAddress({
                 publicKey: newAddress.publicKey,
             });
             break;
-        case 'xrp':
+        case DerivationName.XRP:
             newAddress.publicAddress = getPublicXRPAddress({
                 publicKey: newAddress.publicKey,
             });
             break;
-        case 'solana':
+        case DerivationName.SOLANA:
             newAddress.publicAddress = getPublicSolanaAddress({
                 publicKey: newAddress.publicKey,
             });
             break;
-        case 'tezos':
+        case DerivationName.TEZOS:
             newAddress.publicAddress = getPublicTezosAddress({
                 publicKey: newAddress.publicKey,
             });

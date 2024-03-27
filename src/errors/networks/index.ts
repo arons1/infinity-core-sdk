@@ -7,3 +7,6 @@ export const DerivationTypeNotSupported = 'ERR_DERIVATION_TYPE_NOT_SUPPORTED';
 export const InvalidAddress = 'ERR_INVALID_ADDRESS';
 export const InvalidMnemonic = 'ERR_INVALID_MNEMONIC';
 export const DerivePathError = 'ERR_INVALID_DERIVATE_PATH';
+export const InvalidSeed = "ERR_INVALID_SEED"
+export const InvalidPublicKey = "ERR_INVALID_PUBLIC_KEY"
+export const InvalidSecret = "ERR_INVALID_SECRET_KEY"

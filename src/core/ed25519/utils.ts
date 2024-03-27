@@ -1,6 +1,5 @@
-export const pathRegex = new RegExp("^m(\\/[0-9]+')+$");
 
-export const replaceDerive = (val: string): string => val.replace("'", '');
+
 export function verifyChecksum(expected: Uint8Array, actual: Uint8Array) {
     if (expected.length !== actual.length) {
         return false;

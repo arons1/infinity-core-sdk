@@ -3,17 +3,18 @@ import { CoinNotSupported } from '../../../errors/networks';
 import { Keypair } from 'stellar-sdk';
 import { sign } from 'ripple-keypairs';
 import { encode, encodeForSigning } from 'xrpl-binary-codec-prerelease';
+import { Coins } from '../../registry';
 export const signTransaction = ({
     transaction,
     keyPair,
     coinId,
 }: SignTransactionParams) => {
     switch (coinId) {
-        case 'stellar':
+        case Coins.STELLAR:
             const key_pair = Keypair.fromSecret(keyPair.secret());
             transaction.sign(key_pair);
             return transaction.toEnvelope().toXDR('base64');
-        case 'xrp':
+        case Coins.XRP:
             const tx = transaction;
             tx.SigningPubKey = keyPair.publicKey.toString('hex').toUpperCase();
             tx.TxnSignature = sign(
@@ -22,10 +23,10 @@ export const signTransaction = ({
             );
             const serialized = encode(tx);
             return serialized;
-        case 'solana':
+        case Coins.SOLANA:
             transaction.sign([keyPair]);
             return transaction.serialize();
-        case 'tezos':
+        case Coins.TEZOS:
             transaction.sign(keyPair);
             return transaction;
         default:

@@ -15,6 +15,18 @@ const addressEncoding: Record<string, string> = {
     ypriv: '049d7878',
     zpriv: '04b2430c',
 };
+const pathRegex = new RegExp("^m(\\/[0-9]+')+$");
+const replaceDerive = (val: string): string => val.replace("'", '');
+export const isValidPath = (path:string) => {
+    if (!pathRegex.test(path)) {
+        return false;
+    }
+    return !path
+        .split('/')
+        .slice(1)
+        .map(replaceDerive)
+        .some(isNaN as any /* ts T_T*/);
+}
 export const encodeGeneric = (dataAddress: string, type: string) => {
     if (type == 'xpub') return dataAddress;
     var data = bs58check.decode(dataAddress);

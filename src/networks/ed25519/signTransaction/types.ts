@@ -1,5 +1,7 @@
+import { Coins } from "../../registry";
+
 export type SignTransactionParams = {
     transaction: any;
     keyPair: any;
-    coinId: string;
+    coinId: Coins;
 };
