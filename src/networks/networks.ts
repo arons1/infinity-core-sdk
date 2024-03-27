@@ -155,4 +155,4 @@ export default {
         scriptHash: 5,
         wif: 128,
     },
-} as Record<string, Network>;
+} as Record<Coins, Network>;

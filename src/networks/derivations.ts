@@ -224,4 +224,4 @@ export default {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
     },
-} as Record<string, Derivation>;
+} as Record<Coins, Derivation>;

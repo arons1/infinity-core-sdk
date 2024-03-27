@@ -33,7 +33,7 @@ export const generateAddresses = ({
     const network = networks[idCoin];
     const coin = derivations[idCoin];
     if (!coin) throw new Error(CoinNotSupported);
-    if (!network && coin.curve != 'ed25519')
+    if (!network && coin.curve != Curve.ED25519)
         throw new Error(NetworkNotSupported);
     const results: AddressResult[] = [];
     for (let derivation of coin.derivations) {

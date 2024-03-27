@@ -8,7 +8,7 @@ import {
     getPrivateMasterKey,
     getRootNode,
 } from '../../../../lib/commonjs/networks/utils/secp256k1';
-import { CoinIds } from '../../../../lib/commonjs/networks/registry';
+import { CoinIds, Protocol } from '../../../../lib/commonjs/networks/registry';
 
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -28,7 +28,7 @@ describe('signTransactionEMV', () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: CoinIds.ETH,
-            protocol: 44,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getPublicAddress({
@@ -59,7 +59,7 @@ describe('signTransactionEMV', () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
             bipIdCoin: CoinIds.ETH,
-            protocol: 44,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getPublicAddress({
