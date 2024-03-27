@@ -24,7 +24,12 @@ import { fromSeed } from '../../../core/bip32';
 import { blake2b } from '@noble/hashes/blake2b';
 import { Keypair } from 'stellar-sdk';
 import { Prefix, prefix } from '../../utils/tezos';
-import { GetKeyPairParams, GetPrivateKeyParams, GetPublicKeyParams, GetTezosPublicKeyParams } from './types';
+import {
+    GetKeyPairParams,
+    GetPrivateKeyParams,
+    GetPublicKeyParams,
+    GetTezosPublicKeyParams,
+} from './types';
 import { isValidPath } from '../../utils/secp256k1';
 import { SupportedNetworks } from '../general';
 import { DerivationName } from '../../constants';
@@ -49,8 +54,7 @@ export const getPublicStellarAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
-    if(!Buffer.isBuffer(publicKey))
-        throw new Error(InvalidPublicKey)
+    if (!Buffer.isBuffer(publicKey)) throw new Error(InvalidPublicKey);
     return StrKey.encodeEd25519PublicKey(publicKey);
 };
 /* 
@@ -63,8 +67,7 @@ export const getPublicSolanaAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
-    if(!Buffer.isBuffer(publicKey))
-        throw new Error(InvalidPublicKey)
+    if (!Buffer.isBuffer(publicKey)) throw new Error(InvalidPublicKey);
     const bytes = new Uint8Array(
         publicKey.buffer,
         publicKey.byteOffset,
@@ -82,8 +85,7 @@ export const getPublicXRPAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
-    if(!Buffer.isBuffer(publicKey))
-        throw new Error(InvalidPublicKey)
+    if (!Buffer.isBuffer(publicKey)) throw new Error(InvalidPublicKey);
     return deriveAddress(publicKey.toString('hex').toUpperCase());
 };
 
@@ -97,10 +99,8 @@ export const getSecretKey = ({
     seed,
     path,
 }: PublicKeyEd25519Params): Uint8Array | Buffer => {
-    if(!isValidPath(path))
-        throw new Error(DerivePathError)
-    if(!Buffer.isBuffer(seed))
-        throw new Error(InvalidSeed)
+    if (!isValidPath(path)) throw new Error(DerivePathError);
+    if (!Buffer.isBuffer(seed)) throw new Error(InvalidSeed);
     const keySecret = derivePath(path, seed.toString('hex'));
     if (path.includes("/148'/")) {
         const keyPairSecret = Keypair.fromRawEd25519Seed(keySecret.key);
@@ -125,15 +125,14 @@ export const getSecretAddress = ({
     secretKey: Buffer;
     bipIdCoin: CoinIds;
 }): string => {
-    if(!Buffer.isBuffer(secretKey))
-        throw new Error(InvalidSecret)
-    if(SupportedNetworks.find(a => a==bipIdCoin) == undefined)
-        throw new Error(CoinNotSupported)
-    if (bipIdCoin == 144) {
+    if (!Buffer.isBuffer(secretKey)) throw new Error(InvalidSecret);
+    if (SupportedNetworks.find(a => a == bipIdCoin) == undefined)
+        throw new Error(CoinNotSupported);
+    if (bipIdCoin == CoinIds.XRP) {
         return '00' + secretKey.toString('hex').toUpperCase();
-    } else if (bipIdCoin == 148) {
+    } else if (bipIdCoin == CoinIds.STELLAR) {
         return StrKey.encodeEd25519SecretSeed(secretKey);
-    } else if (bipIdCoin == 1729) {
+    } else if (bipIdCoin == CoinIds.TEZOS) {
         return b58cencode(secretKey, prefix[Prefix.EDSK]);
     } else {
         return base58.encode(secretKey);
@@ -145,21 +144,17 @@ getKeyPair
     @param path: derivation path
     @param seed: seed
 */
-export const getKeyPair = ({
-    path,
-    seed,
-}: GetKeyPairParams): any => {
-    if(!isValidPath(path))
-        throw new Error(DerivationTypeNotSupported)
+export const getKeyPair = ({ path, seed }: GetKeyPairParams): any => {
+    if (!isValidPath(path)) throw new Error(DerivationTypeNotSupported);
     const coin = extractPath(path)[1].number;
-    if(SupportedNetworks.find(a => a==coin) == undefined)
-        throw new Error(CoinNotSupported)
-    if (coin == 144) {
+    if (SupportedNetworks.find(a => a == coin) == undefined)
+        throw new Error(CoinNotSupported);
+    if (coin == CoinIds.XRP) {
         const m = fromSeed(seed);
         return m.derivePath(path);
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
-        if (coin == 148) return Keypair.fromRawEd25519Seed(keySecret.key);
+        if (coin == CoinIds.STELLAR) return Keypair.fromRawEd25519Seed(keySecret.key);
         else return nacl.sign.keyPair.fromSeed(keySecret.key);
     }
 };
@@ -169,13 +164,10 @@ getPublicKey
     @param keyPair: key pair
     @param coinId: bip44 coin id
 */
-export const getPublicKey = ({
-    keyPair,
-    bipIdCoin,
-}: GetPublicKeyParams) => {
-    if(SupportedNetworks.find(a => a==bipIdCoin) == undefined)
-        throw new Error(CoinNotSupported)
-    if (bipIdCoin == 1729) {
+export const getPublicKey = ({ keyPair, bipIdCoin }: GetPublicKeyParams) => {
+    if (SupportedNetworks.find(a => a == bipIdCoin) == undefined)
+        throw new Error(CoinNotSupported);
+    if (bipIdCoin == CoinIds.TEZOS) {
         return blake2b(keyPair.publicKey, { dkLen: 20 });
     } else if (bipIdCoin == 148) return keyPair.rawPublicKey();
     return keyPair.publicKey;
@@ -218,11 +210,11 @@ export const generateAddresses = ({
     derivation,
     mnemonic,
 }: GenerateAddressParams): AddressResult => {
-    if(!isValidPath(derivation.path))
-        throw new Error(DerivationTypeNotSupported)
+    if (!isValidPath(derivation.path))
+        throw new Error(DerivationTypeNotSupported);
     const path = extractPath(derivation.path);
-    if(SupportedNetworks.find(a => a==path[1].number) == undefined)
-        throw new Error(CoinNotSupported)
+    if (SupportedNetworks.find(a => a == path[1].number) == undefined)
+        throw new Error(CoinNotSupported);
     const seed = getSeed({ mnemonic });
     const newAddress = {} as AddressResult;
     const keyPair = getKeyPair({

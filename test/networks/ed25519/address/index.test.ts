@@ -26,7 +26,7 @@ describe('generateAddressED25519', () => {
             seed,
         });
         const publicAddress = getPublicStellarAddress({
-            publicKey: getPublicKey({ keyPair, coinId: 148 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: 148 }),
         });
         expect(publicAddress).toBe(
             'GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO',
@@ -40,7 +40,7 @@ describe('generateAddressED25519', () => {
             seed,
         });
         const publicAddress = getPublicSolanaAddress({
-            publicKey: getPublicKey({ keyPair, coinId: 501 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: 501 }),
         });
         expect(publicAddress).toBe(
             'HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ',
@@ -54,7 +54,7 @@ describe('generateAddressED25519', () => {
             seed,
         });
         const publicAddress = getPublicTezosAddress({
-            publicKey: getPublicKey({ keyPair, coinId: 1729 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: 1729 }),
         });
         const publicHash = getTezosPublicKeyHash({
             keyPair,
@@ -70,7 +70,7 @@ describe('generateAddressED25519', () => {
             seed,
         });
         const publicAddress = getPublicXRPAddress({
-            publicKey: getPublicKey({ keyPair, coinId: 144 }),
+            publicKey: getPublicKey({ keyPair, bipIdCoin: 144 }),
         });
         expect(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         expect(isValidAddressXRP(publicAddress)).toBe(true);

@@ -58,8 +58,6 @@ export const getPublicKey = (
         : Buffer.from(signPk);
 };
 
-
-
 export const derivePath = (
     path: Path,
     seed: Hex,

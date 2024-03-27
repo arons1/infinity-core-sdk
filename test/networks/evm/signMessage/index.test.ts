@@ -10,6 +10,8 @@ import {
     getRootNode,
     getPublicMasterKey,
 } from '../../../../lib/commonjs/networks/utils/secp256k1';
+import { CoinIds } from '../../../../lib/commonjs/networks/registry';
+
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -27,7 +29,7 @@ describe('signMessageEVM', () => {
     test('signMessage(BSC)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 60,
+            bipIdCoin: CoinIds.ETH,
             protocol: 44,
             rootNode,
         });
@@ -45,7 +47,7 @@ describe('signMessageEVM', () => {
     test('verifyMessage(BSC)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
+            bipIdCoin: CoinIds.ETH,
             protocol: 44,
             rootNode,
         });

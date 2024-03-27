@@ -8,6 +8,7 @@ import {
 } from '../types';
 import { mnemonicToSeedSync, validateMnemonic } from '../../core/bip39';
 import { InvalidMnemonic } from '../../errors/networks';
+import { Protocol } from '../registry';
 
 const addressEncoding: Record<string, string> = {
     ypub: '049d7cb2',
@@ -17,7 +18,7 @@ const addressEncoding: Record<string, string> = {
 };
 const pathRegex = new RegExp("^m(\\/[0-9]+')+$");
 const replaceDerive = (val: string): string => val.replace("'", '');
-export const isValidPath = (path:string) => {
+export const isValidPath = (path: string) => {
     if (!pathRegex.test(path)) {
         return false;
     }
@@ -26,7 +27,7 @@ export const isValidPath = (path:string) => {
         .slice(1)
         .map(replaceDerive)
         .some(isNaN as any /* ts T_T*/);
-}
+};
 export const encodeGeneric = (dataAddress: string, type: string) => {
     if (type == 'xpub') return dataAddress;
     var data = bs58check.decode(dataAddress);
@@ -72,7 +73,7 @@ getPublicMasterKey
 export const getPublicMasterKey = ({
     rootNode,
     bipIdCoin,
-    protocol = 44,
+    protocol = Protocol.LEGACY,
 }: MasterKeyParams): BIP32Interface => {
     return getPrivateMasterKey({
         rootNode,

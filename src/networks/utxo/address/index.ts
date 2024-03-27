@@ -22,6 +22,7 @@ import {
     getRootNode,
 } from '../../utils/secp256k1';
 import { extractPath } from '../../../utils';
+import { DerivationName } from '../../constants';
 
 /* 
 getPrivateAddress
@@ -154,19 +155,19 @@ export const generateAddresses = ({
         network,
     });
     switch (derivation.name) {
-        case 'legacy':
+        case DerivationName.LEGACY:
             newAddress.publicAddress = getPublicAddressP2PKH({
                 publicAccountNode: privateAccountNode,
                 network,
             });
             break;
-        case 'wrapped-segwit':
+        case DerivationName.WRAPPED_SEGWIT:
             newAddress.publicAddress = getPublicAddressP2WPKHP2S({
                 publicAccountNode: privateAccountNode,
                 network,
             });
             break;
-        case 'segwit':
+        case DerivationName.SEGWIT:
             newAddress.publicAddress = getPublicAddressSegwit({
                 publicAccountNode: privateAccountNode,
                 network,

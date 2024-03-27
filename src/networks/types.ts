@@ -1,10 +1,10 @@
 import { BIP32Interface, Network } from '../core/bip32';
 import { DerivationName } from './constants';
-import { CoinIds } from './registry';
+import { CoinIds, Protocol, Coins } from './registry';
 
 export type GenerateAddressesParams = {
     mnemonic: string;
-    idCoin: string;
+    idCoin: Coins;
 };
 export type GeneratePublicAddressParams = {
     publicNode: BIP32Interface;
@@ -15,7 +15,7 @@ export type GeneratePublicAddressParams = {
 };
 export type GeneratePublicAddressesParams = {
     publicNode: BIP32Interface;
-    idCoin: string;
+    idCoin: Coins;
     change: number;
     index: number;
     derivation: string;
@@ -42,7 +42,7 @@ export type RootNodeParams = {
 export type MasterKeyParams = {
     rootNode: BIP32Interface;
     bipIdCoin: CoinIds;
-    protocol: number;
+    protocol: Protocol;
 };
 export type Keys = {
     key: Buffer;

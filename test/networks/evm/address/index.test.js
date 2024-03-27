@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const secp256k1_1 = require("../../../../lib/commonjs/networks/utils/secp256k1");
 const globals_1 = require("@jest/globals");
+const registry_1 = require("../../../../lib/commonjs/networks/registry");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
     messagePrefix: '\u0018Bitcoin Signed Message:\n',
@@ -19,8 +20,8 @@ const network = {
     (0, globals_1.test)('generateExtendedPrivateKey(ETH)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         (0, globals_1.expect)(privateAccountNode.toBase58()).toBe('xprv9zWjyVjLs9BAAqgGXzAZX5CDboLFHywAuMcwxaKqgxYCah6rZ3XVD6Qz7B4chRp8rKURkypYgzYPnAn4k6SJfGj2o9BYhHwuoYu5B1QDGif');
@@ -28,8 +29,8 @@ const network = {
     (0, globals_1.test)('generateExtendedPublicKey(ETH)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         (0, globals_1.expect)(publicAccountNode.toBase58()).toBe('xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS');
@@ -37,8 +38,8 @@ const network = {
     (0, globals_1.test)('generatePrivateAddress(ETH)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const privateAddress = (0, address_1.getPrivateAddress)({
@@ -49,8 +50,8 @@ const network = {
     (0, globals_1.test)('generatePrivateAddress(FIO)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.FIO,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const privateAddress = (0, address_1.getFIOPrivateAddress)({
@@ -61,8 +62,8 @@ const network = {
     (0, globals_1.test)('generatePublicAddress(ETH)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
@@ -75,8 +76,8 @@ const network = {
     (0, globals_1.test)('generatePublicAddress(BC)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 714,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.BNB,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getBCPublicAddress)({
@@ -89,8 +90,8 @@ const network = {
     (0, globals_1.test)('generateFIOPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.FIO,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getFIOPublicAddress)({
@@ -103,8 +104,8 @@ const network = {
     (0, globals_1.test)('generateFIOPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.FIO,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getFIOPublicAddress)({
@@ -118,8 +119,8 @@ const network = {
     (0, globals_1.test)('generateXDCPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getXDCPublicAddress)({
@@ -132,8 +133,8 @@ const network = {
     (0, globals_1.test)('generateHarmonyPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getHarmonyPublicAddress)({
@@ -146,8 +147,8 @@ const network = {
     (0, globals_1.test)('generateOKXPublicAddress', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: registry_1.CoinIds.ETH,
+            protocol: registry_1.Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = (0, address_1.getOKXPublicAddress)({

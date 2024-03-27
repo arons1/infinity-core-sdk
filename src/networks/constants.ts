@@ -11,4 +11,4 @@ export enum DerivationName {
     XRP = 'xrp',
     STELLAR = 'stellar',
     TEZOS = 'tezos',
-};
+}

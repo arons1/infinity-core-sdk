@@ -1,4 +1,4 @@
-import { Coins } from "../../registry";
+import { Coins } from '../../registry';
 
 export type SignTransactionParams = {
     transaction: any;

@@ -6,7 +6,7 @@ export const isValidNumber = (number: any) => {
     return !new BigNumber(number).isNaN();
 };
 export const extractPath = (path: string) => {
-    if(!isValidPath(path)) throw new Error(DerivePathError);
+    if (!isValidPath(path)) throw new Error(DerivePathError);
     const parts = path.split('/');
     return parts.slice(1).map(a => {
         return {

@@ -15,7 +15,7 @@ import {
     getRootNode,
 } from '../../../../lib/commonjs/networks/utils/secp256k1';
 import { describe, expect, test } from '@jest/globals';
-
+import { CoinIds, Protocol } from '../../../../lib/commonjs/networks/registry';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
@@ -33,8 +33,8 @@ describe('generateAddressEVM', () => {
     test('generateExtendedPrivateKey(ETH)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         expect(privateAccountNode.toBase58()).toBe(
@@ -44,8 +44,8 @@ describe('generateAddressEVM', () => {
     test('generateExtendedPublicKey(ETH)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         expect(publicAccountNode.toBase58()).toBe(
@@ -55,8 +55,8 @@ describe('generateAddressEVM', () => {
     test('generatePrivateAddress(ETH)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const privateAddress = getPrivateAddress({
@@ -69,8 +69,8 @@ describe('generateAddressEVM', () => {
     test('generatePrivateAddress(FIO)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: CoinIds.FIO,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const privateAddress = getFIOPrivateAddress({
@@ -83,8 +83,8 @@ describe('generateAddressEVM', () => {
     test('generatePublicAddress(ETH)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getPublicAddress({
@@ -99,8 +99,8 @@ describe('generateAddressEVM', () => {
     test('generatePublicAddress(BC)', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 714,
-            protocol: 44,
+            bipIdCoin: CoinIds.BNB,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getBCPublicAddress({
@@ -115,8 +115,8 @@ describe('generateAddressEVM', () => {
     test('generateFIOPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: CoinIds.FIO,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getFIOPublicAddress({
@@ -131,8 +131,8 @@ describe('generateAddressEVM', () => {
     test('generateFIOPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 235,
-            protocol: 44,
+            bipIdCoin: CoinIds.FIO,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getFIOPublicAddress({
@@ -146,8 +146,8 @@ describe('generateAddressEVM', () => {
     test('generateXDCPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getXDCPublicAddress({
@@ -163,8 +163,8 @@ describe('generateAddressEVM', () => {
     test('generateHarmonyPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getHarmonyPublicAddress({
@@ -180,8 +180,8 @@ describe('generateAddressEVM', () => {
     test('generateOKXPublicAddress', async () => {
         const rootNode = getRootNode({ mnemonic, network });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 60,
-            protocol: 44,
+            bipIdCoin: CoinIds.ETH,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getOKXPublicAddress({

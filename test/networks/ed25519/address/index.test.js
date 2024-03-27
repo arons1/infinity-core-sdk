@@ -17,7 +17,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicStellarAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 148 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 148 }),
         });
         (0, globals_1.expect)(publicAddress).toBe('GCYKH5F7TTFCKPB25N6ZMA6NUYE62P4QOBZ5WCQGEAQPEZEMNW7F3TOO');
         (0, globals_1.expect)((0, stellar_1.isValidAddress)(publicAddress)).toBe(true);
@@ -29,7 +29,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicSolanaAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 501 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 501 }),
         });
         (0, globals_1.expect)(publicAddress).toBe('HSPjuCaHafg3YUfcQy3iVkLL4g639xHBC9FEiQNzmrWZ');
         (0, globals_1.expect)((0, solana_1.isValidAddress)(publicAddress)).toBe(true);
@@ -41,7 +41,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicTezosAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 1729 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 1729 }),
         });
         const publicHash = (0, index_1.getTezosPublicKeyHash)({
             keyPair,
@@ -57,7 +57,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
             seed,
         });
         const publicAddress = (0, index_2.getPublicXRPAddress)({
-            publicKey: (0, index_2.getPublicKey)({ keyPair, coinId: 144 }),
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: 144 }),
         });
         (0, globals_1.expect)(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         (0, globals_1.expect)((0, xrp_1.isValidAddress)(publicAddress)).toBe(true);

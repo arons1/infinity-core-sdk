@@ -14,6 +14,7 @@ import {
     getPrivateAddress,
 } from '../../../../lib/commonjs/networks/utxo/address';
 import { describe, expect, test } from '@jest/globals';
+import { CoinIds, Protocol } from '../../../../lib/commonjs/networks/registry';
 
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
@@ -43,8 +44,8 @@ describe('generateAddressUTXO', () => {
     test('generateExtendedPrivateKeyBTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 0,
-            protocol: 49,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         expect(xprvToYprv(privateAccountNode.toBase58())).toBe(
@@ -54,8 +55,8 @@ describe('generateAddressUTXO', () => {
     test('generateExtendedPrivateKeySegwitBTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 0,
-            protocol: 84,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.SEGWIT,
             rootNode,
         });
         expect(xprvToZprv(privateAccountNode.toBase58())).toBe(
@@ -65,8 +66,8 @@ describe('generateAddressUTXO', () => {
     test('generateExtendedPublicKeyBTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 0,
-            protocol: 44,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         expect(publicAccountNode.toBase58()).toBe(
@@ -76,8 +77,8 @@ describe('generateAddressUTXO', () => {
     test('xpubToYpub', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 0,
-            protocol: 49,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         expect(xpubToYpub(publicAccountNode.toBase58())).toBe(
@@ -87,8 +88,8 @@ describe('generateAddressUTXO', () => {
     test('xpubToZpub', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 0,
-            protocol: 84,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.SEGWIT,
             rootNode,
         });
         expect(xpubToZpub(publicAccountNode.toBase58())).toBe(
@@ -98,8 +99,8 @@ describe('generateAddressUTXO', () => {
     test('getPublicAddressP2WPKHP2S', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 0,
-            protocol: 49,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         const publicAddress = getPublicAddressP2WPKHP2S({
@@ -113,8 +114,8 @@ describe('generateAddressUTXO', () => {
     test('getPublicAddressLTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkLTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 2,
-            protocol: 44,
+            bipIdCoin: CoinIds.LTC,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const publicAddress = getPublicAddressP2PKH({
@@ -128,8 +129,8 @@ describe('generateAddressUTXO', () => {
     test('getPublicAddressSegwit', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
         const publicAccountNode = getPublicMasterKey({
-            bipIdCoin: 0,
-            protocol: 84,
+            bipIdCoin: CoinIds.BTC,
+            protocol: Protocol.SEGWIT,
             rootNode,
         });
         const publicAddress = getPublicAddressSegwit({
@@ -146,8 +147,8 @@ describe('generateAddressUTXO', () => {
     test('getPrivateAddressLTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkLTC });
         const privateAccountNode = getPrivateMasterKey({
-            bipIdCoin: 2,
-            protocol: 44,
+            bipIdCoin: CoinIds.LTC,
+            protocol: Protocol.LEGACY,
             rootNode,
         });
         const privateAddress = getPrivateAddress({

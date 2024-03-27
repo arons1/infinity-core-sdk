@@ -30,6 +30,8 @@ import { RIPEMD160, SHA256, enc } from 'crypto-js';
 import { extractPath } from '../../../utils';
 import { createHash } from 'crypto';
 import { shortenKey, stringFromUInt64T } from '../../../core/math/integers';
+import { DerivationName } from '../../constants';
+import { Coins } from '../../registry';
 
 const ec = new elliptic('secp256k1');
 /* 
@@ -131,7 +133,7 @@ export const getFIOPrivateAddress = ({
 }: AddressParams): string => {
     const privateKey = getPrivateKey({
         privateAccountNode,
-        network: networks['fio'],
+        network: networks[Coins.FIO],
     })?.privateKey;
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     const private_key = Buffer.concat([new Buffer([0x80]), privateKey]);
@@ -155,7 +157,7 @@ export const getPrivateAddress = ({
         privateAccountNode,
         index,
         change,
-        network: networks['eth'],
+        network: networks[Coins.ETH],
     })?.privateKey;
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     return '0x' + privateKey.toString('hex');
@@ -245,7 +247,7 @@ export const generateAddresses = ({
     newAddress.publicKey = getPublicKey({
         publicAccountNode: privateAccountNode,
     });
-    if (derivation.name == 'fio') {
+    if (derivation.name == DerivationName.FIO) {
         newAddress.privateAddress = getFIOPrivateAddress({
             privateAccountNode,
             network,
@@ -258,32 +260,32 @@ export const generateAddresses = ({
     }
 
     switch (derivation.name) {
-        case 'legacy':
+        case DerivationName.LEGACY:
             newAddress.publicAddress = getPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;
-        case 'bnb':
+        case DerivationName.BNB:
             newAddress.publicAddress = getBCPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;
-        case 'harmony':
+        case DerivationName.HARMONY:
             newAddress.publicAddress = getHarmonyPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;
-        case 'xdc':
+        case DerivationName.XDC:
             newAddress.publicAddress = getXDCPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;
-        case 'okx':
+        case DerivationName.OKX:
             newAddress.publicAddress = getOKXPublicAddress({
                 publicAccountNode: privateAccountNode,
             });
             break;
-        case 'fio':
+        case DerivationName.FIO:
             newAddress.publicAddress = getFIOPublicAddress({
                 publicAccountNode: privateAccountNode,
             });

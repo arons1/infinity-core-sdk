@@ -4,6 +4,7 @@ const globals_1 = require("@jest/globals");
 const signMessage_1 = require("../../../../lib/commonjs/networks/evm/signMessage");
 const address_1 = require("../../../../lib/commonjs/networks/evm/address");
 const secp256k1_1 = require("../../../../lib/commonjs/networks/utils/secp256k1");
+const registry_1 = require("../../../../lib/commonjs/networks/registry");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const network = {
     messagePrefix: '\u0018Bitcoin Signed Message:\n',
@@ -20,7 +21,7 @@ const network = {
     (0, globals_1.test)('signMessage(BSC)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const privateAccountNode = (0, secp256k1_1.getPrivateMasterKey)({
-            bipIdCoin: 60,
+            bipIdCoin: registry_1.CoinIds.ETH,
             protocol: 44,
             rootNode,
         });
@@ -36,7 +37,7 @@ const network = {
     (0, globals_1.test)('verifyMessage(BSC)', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network });
         const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
-            bipIdCoin: 60,
+            bipIdCoin: registry_1.CoinIds.ETH,
             protocol: 44,
             rootNode,
         });
