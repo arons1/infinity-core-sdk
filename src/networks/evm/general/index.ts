@@ -17,4 +17,9 @@ export enum Chains {
     VET = 100009,
 }
 
+export const PRIORITY_FEES = {
+    [Chains.ETH]: '1000000000',
+    [Chains.MATIC]: '21000000000',
+};
+
 export const SupportedChains = Object.values(Chains);
