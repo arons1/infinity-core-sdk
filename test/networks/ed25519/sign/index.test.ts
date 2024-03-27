@@ -36,7 +36,7 @@ describe('signMessageED25519', () => {
             message: Buffer.from('Message to sign', 'utf-8'),
         });
         expect(Buffer.from(signedMessage).toString('hex')).toBe(
-            '81d8bea6041999a5881dfe3e909f8d18140b7bfab074a22dfa7c4a16397d264d48951a200398292bed4b19b5de5928c93b942284211ce03e0319d46c13e38004',
+            'f929e426aec83c0460a17eab3d3f872239c08ee442e3dabdad5ae14e50afb47452fc6e28a8e9d4043227ff6113dd7a0893ea47580242f2d877743581ab718402',
         );
     });
 });

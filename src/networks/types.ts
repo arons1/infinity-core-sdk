@@ -1,6 +1,7 @@
 import { BIP32Interface, Network } from '../core/bip32';
 import { DerivationName } from './constants';
-import { CoinIds, Protocol, Coins } from './registry';
+import { CoinIds, Protocol, Coins, Curve } from './registry';
+import { Encoding } from './utils/secp256k1';
 
 export type GenerateAddressesParams = {
     mnemonic: string;
@@ -78,11 +79,11 @@ export type GenerateAddressParams = {
 export type DerivationParams = {
     name: DerivationName;
     path: string;
-    xpub?: string;
-    xprv?: string;
+    xpub?: Encoding;
+    xprv?: Encoding;
 };
 export type Derivation = {
     derivations: DerivationParams[];
     bip44: number;
-    curve: string;
+    curve: Curve;
 };

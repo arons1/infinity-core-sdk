@@ -19,6 +19,7 @@ import {
 } from './utxo';
 import { generateAddresses as generateAddressED25519 } from './ed25519';
 import { DerivationTypeNotSupported } from '../errors/networks/index';
+import { Curve } from './registry';
 /* 
 generateAddresses
     Returns generated addresses
@@ -37,7 +38,7 @@ export const generateAddresses = ({
     const results: AddressResult[] = [];
     for (let derivation of coin.derivations) {
         switch (coin.curve) {
-            case 'ecdsa':
+            case Curve.ECDSA:
                 results.push(
                     generateAddressEVM({
                         mnemonic,
@@ -46,7 +47,7 @@ export const generateAddresses = ({
                     }),
                 );
                 break;
-            case 'secp256k1':
+            case Curve.SECP256K1:
                 results.push(
                     generateAddressUTXO({
                         mnemonic,
@@ -55,7 +56,7 @@ export const generateAddresses = ({
                     }),
                 );
                 break;
-            case 'ed25519':
+            case Curve.ED25519:
                 results.push(
                     generateAddressED25519({
                         mnemonic,

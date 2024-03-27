@@ -1,142 +1,144 @@
 import { DerivationName } from './constants';
+import { CoinIds, Coins, Curve } from './registry';
 import { Derivation } from './types';
+import { Encoding } from './utils/secp256k1';
 
 export default {
-    btc: {
+    [Coins.BTC]: {
         derivations: [
             {
                 name: DerivationName.SEGWIT,
                 path: "m/84'/0'/0'/0/0",
-                xpub: 'zpub',
-                xprv: 'zpriv',
+                xpub: Encoding.ZPUB,
+                xprv: Encoding.ZPRIV,
             },
             {
                 name: DerivationName.WRAPPED_SEGWIT,
                 path: "m/49'/0'/0'/0/0",
-                xpub: 'ypub',
-                xprv: 'ypriv',
+                xpub: Encoding.YPUB,
+                xprv: Encoding.YPRIV,
             },
         ],
-        bip44: 0,
-        curve: 'secp256k1',
+        bip44: CoinIds.BTC,
+        curve: Curve.SECP256K1,
     },
-    ltc: {
+    [Coins.LTC]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/2'/0'/0/0",
-                xpub: 'xpub',
-                xprv: 'xprv',
+                xpub: Encoding.XPUB,
+                xprv: Encoding.XPRIV,
             },
         ],
-        bip44: 2,
-        curve: 'secp256k1',
+        bip44: CoinIds.LTC,
+        curve: Curve.SECP256K1,
     },
-    doge: {
+    [Coins.DOGE]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/3'/0'/0/0",
-                xpub: 'xpub',
-                xprv: 'xprv',
+                xpub: Encoding.XPUB,
+                xprv: Encoding.XPRIV,
             },
         ],
-        bip44: 3,
-        curve: 'secp256k1',
+        bip44: CoinIds.DOGE,
+        curve: Curve.SECP256K1,
     },
-    fio: {
+    [Coins.FIO]: {
         derivations: [
             {
                 name: DerivationName.FIO,
                 path: "m/44'/235'/0'/0/0",
-                xpub: 'xpub',
-                xprv: 'xprv',
+                xpub: Encoding.XPUB,
+                xprv: Encoding.XPRIV,
             },
         ],
-        bip44: 235,
-        curve: 'ecdsa',
+        bip44: CoinIds.FIO,
+        curve: Curve.ECDSA,
     },
-    stellar: {
+    [Coins.STELLAR]: {
         derivations: [
             {
                 name: DerivationName.STELLAR,
                 path: "m/44'/148'/0'",
             },
         ],
-        bip44: 148,
-        curve: 'ed25519',
+        bip44: CoinIds.STELLAR,
+        curve: Curve.ED25519,
     },
-    solana: {
+    [Coins.SOLANA]: {
         derivations: [
             {
                 name: DerivationName.SOLANA,
                 path: "m/44'/501'/0'/0'",
             },
         ],
-        bip44: 501,
-        curve: 'ed25519',
+        bip44: CoinIds.SOLANA,
+        curve: Curve.ED25519,
     },
-    tezos: {
+    [Coins.TEZOS]: {
         derivations: [
             {
                 name: DerivationName.TEZOS,
                 path: "m/44'/1729'/0'/0'",
             },
         ],
-        bip44: 1729,
-        curve: 'ed25519',
+        bip44: CoinIds.TEZOS,
+        curve: Curve.ED25519,
     },
-    xrp: {
+    [Coins.XRP]: {
         derivations: [
             {
                 name: DerivationName.XRP,
                 path: "m/44'/144'/0'/0/0",
             },
         ],
-        bip44: 144,
-        curve: 'ed25519',
+        bip44: CoinIds.XRP,
+        curve: Curve.ED25519,
     },
-    eth: {
+    [Coins.ETH]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/40'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    bnb: {
+    [Coins.BNB]: {
         derivations: [
             {
                 name: 'bnb',
                 path: "m/44'/714'/0'/0/0",
             },
         ],
-        bip44: 714,
-        curve: 'ecdsa',
+        bip44: CoinIds.BNB,
+        curve: Curve.ECDSA,
     },
-    matic: {
+    [Coins.MATIC]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    bsc: {
+    [Coins.BSC]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    groestlcoin: {
+    [Coins.GRS]: {
         derivations: [
             {
                 name: DerivationName.SEGWIT,
@@ -145,10 +147,10 @@ export default {
                 xprv: 'zpriv',
             },
         ],
-        bip44: 17,
-        curve: 'secp256k1',
+        bip44: CoinIds.GRS,
+        curve: Curve.SECP256K1,
     },
-    harmony: {
+    [Coins.ONE]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
@@ -159,67 +161,67 @@ export default {
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    cronos: {
+    [Coins.CRS]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    vechain: {
+    [Coins.VET]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    avax: {
+    [Coins.AVAX]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    xdc: {
+    [Coins.XDC]: {
         derivations: [
             {
                 name: DerivationName.XDC,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    kcc: {
+    [Coins.KCC]: {
         derivations: [
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
-    okc: {
+    [Coins.OKC]: {
         derivations: [
             {
                 name: DerivationName.OKX,
                 path: "m/44'/60'/0'/0/0",
             },
         ],
-        bip44: 60,
-        curve: 'ecdsa',
+        bip44: CoinIds.ETH,
+        curve: Curve.ECDSA,
     },
 } as Record<string, Derivation>;

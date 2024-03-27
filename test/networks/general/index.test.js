@@ -4,7 +4,7 @@ const globals_1 = require("@jest/globals");
 const generate_address_1 = require("../../../lib/commonjs/networks/generate_address");
 const secp256k1_1 = require("../../../lib/commonjs/networks/utils/secp256k1");
 const registry_1 = require("../../../lib/commonjs/networks/registry");
-const constants_1 = require("../../../src/networks/constants");
+const constants_1 = require("../../../lib/commonjs/networks/constants");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 const networkBTC = {
     messagePrefix: '\u0018Bitcoin Signed Message:\n',

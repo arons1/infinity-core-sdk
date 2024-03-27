@@ -10,26 +10,37 @@ import { mnemonicToSeedSync, validateMnemonic } from '../../core/bip39';
 import { InvalidMnemonic } from '../../errors/networks';
 import { Protocol } from '../registry';
 
-const addressEncoding: Record<string, string> = {
-    ypub: '049d7cb2',
-    zpub: '04b24746',
-    ypriv: '049d7878',
-    zpriv: '04b2430c',
+export enum Encoding {
+    XPUB = 'xpub',
+    YPUB = 'ypub',
+    ZPUB = 'zpub',
+    YPRIV = 'ypriv',
+    ZPRIV = 'zpriv',
+    XPRIV = 'xpriv',
+}
+const addressEncoding: Record<Encoding, string> = {
+    [Encoding.XPUB]: '',
+    [Encoding.YPUB]: '049d7cb2',
+    [Encoding.ZPUB]: '04b24746',
+    [Encoding.XPRIV]: '',
+    [Encoding.YPRIV]: '049d7878',
+    [Encoding.ZPRIV]: '04b2430c',
 };
-const pathRegex = new RegExp("^m(\\/[0-9]+')+$");
 const replaceDerive = (val: string): string => val.replace("'", '');
 export const isValidPath = (path: string) => {
-    if (!pathRegex.test(path)) {
-        return false;
-    }
-    return !path
-        .split('/')
-        .slice(1)
-        .map(replaceDerive)
-        .some(isNaN as any /* ts T_T*/);
+    if (typeof path != 'string') return false;
+    const splitted = path.split('/');
+    if (splitted[0] != 'm') return false;
+    if (splitted.length < 4 || splitted.length > 6) return false;
+    return (
+        splitted
+            .slice(1)
+            .map(replaceDerive)
+            .find(a => isNaN(parseInt(a))) == undefined
+    );
 };
-export const encodeGeneric = (dataAddress: string, type: string) => {
-    if (type == 'xpub') return dataAddress;
+export const encodeGeneric = (dataAddress: string, type: Encoding) => {
+    if (type == Encoding.XPUB) return dataAddress;
     var data = bs58check.decode(dataAddress);
     data = data.slice(4);
     const encodeCode = addressEncoding[type];
@@ -37,16 +48,16 @@ export const encodeGeneric = (dataAddress: string, type: string) => {
     return bs58check.encode(data);
 };
 export const xpubToYpub = (data: string) => {
-    return encodeGeneric(data, 'ypub');
+    return encodeGeneric(data, Encoding.YPUB);
 };
 export const xprvToYprv = (data: string): string => {
-    return encodeGeneric(data, 'ypriv');
+    return encodeGeneric(data, Encoding.YPRIV);
 };
 export const xprvToZprv = (data: string): string => {
-    return encodeGeneric(data, 'zpriv');
+    return encodeGeneric(data, Encoding.ZPRIV);
 };
 export const xpubToZpub = (data: string): string => {
-    return encodeGeneric(data, 'zpub');
+    return encodeGeneric(data, Encoding.ZPUB);
 };
 
 /* 

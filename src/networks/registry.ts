@@ -40,3 +40,9 @@ export enum Protocol {
     WRAPPED_SEGWIT = 49,
     SEGWIT = 84,
 }
+
+export enum Curve {
+    SECP256K1 = 'secp256k1',
+    ED25519 = 'ed25519',
+    ECDSA = 'ecdsa',
+}

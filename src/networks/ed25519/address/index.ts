@@ -8,7 +8,6 @@ import {
     DerivePathError,
     InvalidMnemonic,
     InvalidPublicKey,
-    InvalidSecret,
     InvalidSeed,
 } from '../../../errors/networks';
 import {
@@ -67,7 +66,6 @@ export const getPublicSolanaAddress = ({
 }: {
     publicKey: Buffer;
 }): string => {
-    if (!Buffer.isBuffer(publicKey)) throw new Error(InvalidPublicKey);
     const bytes = new Uint8Array(
         publicKey.buffer,
         publicKey.byteOffset,
@@ -125,7 +123,6 @@ export const getSecretAddress = ({
     secretKey: Buffer;
     bipIdCoin: CoinIds;
 }): string => {
-    if (!Buffer.isBuffer(secretKey)) throw new Error(InvalidSecret);
     if (SupportedNetworks.find(a => a == bipIdCoin) == undefined)
         throw new Error(CoinNotSupported);
     if (bipIdCoin == CoinIds.XRP) {
@@ -211,6 +208,7 @@ export const generateAddresses = ({
     derivation,
     mnemonic,
 }: GenerateAddressParams): AddressResult => {
+    console.log(derivation.path);
     if (!isValidPath(derivation.path))
         throw new Error(DerivationTypeNotSupported);
     const path = extractPath(derivation.path);
