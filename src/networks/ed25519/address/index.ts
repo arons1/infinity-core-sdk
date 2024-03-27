@@ -208,7 +208,6 @@ export const generateAddresses = ({
     derivation,
     mnemonic,
 }: GenerateAddressParams): AddressResult => {
-    console.log(derivation.path);
     if (!isValidPath(derivation.path))
         throw new Error(DerivationTypeNotSupported);
     const path = extractPath(derivation.path);
