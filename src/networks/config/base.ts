@@ -1,7 +1,7 @@
 import { CoinIds, Coins, Curve } from '../registry';
 
 abstract class Base {
-    abstract curve:Curve;
+    abstract curve: Curve;
     idCoin: Coins;
     bipIdCoin: CoinIds;
     constructor(coinId: Coins, bipIdCoin: CoinIds) {

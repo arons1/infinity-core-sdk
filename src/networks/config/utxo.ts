@@ -34,7 +34,7 @@ import {
 import Base from './base';
 
 class UTXOBase extends Base {
-    curve = Curve.SECP256K1
+    curve = Curve.SECP256K1;
     supportedMethods(): string[] {
         return [
             'getRootNode',

@@ -2,7 +2,7 @@ import { Curve } from '../registry';
 import Base from './base';
 
 class ECDSABase extends Base {
-    curve = Curve.ECDSA
+    curve = Curve.ECDSA;
     supportedMethods(): string[] {
         return [];
     }

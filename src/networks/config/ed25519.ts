@@ -2,7 +2,7 @@ import { Curve } from '../registry';
 import Base from './base';
 
 class ED25519Base extends Base {
-    curve = Curve.ED25519
+    curve = Curve.ED25519;
     supportedMethods(): string[] {
         return [];
     }
