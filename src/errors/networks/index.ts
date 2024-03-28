@@ -11,3 +11,4 @@ export const InvalidSeed = 'ERR_INVALID_SEED';
 export const InvalidPublicKey = 'ERR_INVALID_PUBLIC_KEY';
 export const InvalidSecret = 'ERR_INVALID_SECRET_KEY';
 export const ProtocolNotSupported = 'ERR_PROTOCOL_NOT_SUPPORTED';
+export const Bip44IdNotSupported = 'ERR_BIP44_ID_NOT_SUPPORTED'

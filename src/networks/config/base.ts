@@ -1,3 +1,4 @@
+import { Bip44IdNotSupported, CoinNotSupported } from '../../errors';
 import { CoinIds, Coins, Curve } from '../registry';
 
 abstract class Base {
@@ -5,6 +6,10 @@ abstract class Base {
     idCoin: Coins;
     bipIdCoin: CoinIds;
     constructor(coinId: Coins, bipIdCoin: CoinIds) {
+        if(Object.values(Coins).find(a => a == coinId) == undefined)
+            throw new Error(CoinNotSupported)
+        if(Object.values(CoinIds).find(a => a == bipIdCoin) == undefined)
+            throw new Error(Bip44IdNotSupported)
         this.idCoin = coinId;
         this.bipIdCoin = bipIdCoin;
     }
