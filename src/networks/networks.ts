@@ -1,7 +1,7 @@
 import { Network } from '../core/bip32';
 import { Coins } from './registry';
 
-const networks:Record<Coins, Network> = {
+const networks: Record<Coins, Network> = {
     [Coins.BTC]: {
         messagePrefix: '\u0018Bitcoin Signed Message:\n',
         bech32: 'bc',
@@ -239,7 +239,7 @@ const networks:Record<Coins, Network> = {
         pubKeyHash: 0,
         scriptHash: 5,
         wif: 128,
-    }
+    },
 };
 
-export default networks
+export default networks;
