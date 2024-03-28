@@ -4,7 +4,7 @@ import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';
 import { Encoding } from './utils/secp256k1';
 
-const derivations: Record<Coins, Derivation> = {
+const config: Record<Coins, Derivation> = {
     [Coins.BTC]: {
         derivations: [
             {
@@ -305,4 +305,4 @@ const derivations: Record<Coins, Derivation> = {
     },
 };
 
-export default derivations;
+export default config;
