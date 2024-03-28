@@ -3,7 +3,7 @@ import { CoinIds, Coins } from '../registry';
 import ECDSACoin from './ecdsa';
 import ED25519Coin from './ed25519';
 import SECP256K1Coin from './secp256k1';
-const config = (idCoin: Coins): ED25519Coin | SECP256K1Coin | ECDSACoin => {
+const Config = (idCoin: Coins): ED25519Coin | SECP256K1Coin | ECDSACoin => {
     switch (idCoin) {
         case Coins.BTC:
             return new SECP256K1Coin(Coins.BTC, CoinIds.BTC);
@@ -55,5 +55,4 @@ const config = (idCoin: Coins): ED25519Coin | SECP256K1Coin | ECDSACoin => {
             throw new Error(NotSupported);
     }
 };
-
-export default config;
+export default Config;
