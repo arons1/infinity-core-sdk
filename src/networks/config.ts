@@ -1,4 +1,5 @@
 import { DerivationName } from './constants';
+import networks from './networks';
 import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';
 import { Encoding } from './utils/secp256k1';
@@ -23,6 +24,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.BTC,
         curve: Curve.SECP256K1,
+        network: networks[Coins.BTC],
     },
     [Coins.LTC]: {
         derivations: [
@@ -36,6 +38,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.LTC,
         curve: Curve.SECP256K1,
+        network: networks[Coins.LTC],
     },
     [Coins.DOGE]: {
         derivations: [
@@ -49,6 +52,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.DOGE,
         curve: Curve.SECP256K1,
+        network: networks[Coins.DOGE],
     },
     [Coins.FIO]: {
         derivations: [
@@ -62,6 +66,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.FIO,
         curve: Curve.ECDSA,
+        network: networks[Coins.FIO],
     },
     [Coins.STELLAR]: {
         derivations: [
@@ -73,6 +78,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.STELLAR,
         curve: Curve.ED25519,
+        network: networks[Coins.STELLAR],
     },
     [Coins.SOLANA]: {
         derivations: [
@@ -84,6 +90,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.SOLANA,
         curve: Curve.ED25519,
+        network: networks[Coins.SOLANA],
     },
     [Coins.TEZOS]: {
         derivations: [
@@ -95,6 +102,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.TEZOS,
         curve: Curve.ED25519,
+        network: networks[Coins.TEZOS],
     },
     [Coins.XRP]: {
         derivations: [
@@ -106,6 +114,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.XRP,
         curve: Curve.ED25519,
+        network: networks[Coins.XRP],
     },
     [Coins.ETH]: {
         derivations: [
@@ -117,6 +126,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.ETH],
     },
     [Coins.BNB]: {
         derivations: [
@@ -128,6 +138,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.BNB,
         curve: Curve.ECDSA,
+        network: networks[Coins.BNB],
     },
     [Coins.MATIC]: {
         derivations: [
@@ -139,6 +150,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.MATIC],
     },
     [Coins.BSC]: {
         derivations: [
@@ -150,6 +162,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.BSC],
     },
     [Coins.GRS]: {
         derivations: [
@@ -163,6 +176,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.GRS,
         curve: Curve.SECP256K1,
+        network: networks[Coins.GRS],
     },
     [Coins.ONE]: {
         derivations: [
@@ -179,6 +193,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.ONE],
     },
     [Coins.CRS]: {
         derivations: [
@@ -190,6 +205,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.CRS],
     },
     [Coins.VET]: {
         derivations: [
@@ -201,6 +217,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.VET],
     },
     [Coins.AVAX]: {
         derivations: [
@@ -212,6 +229,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.AVAX],
     },
     [Coins.XDC]: {
         derivations: [
@@ -223,6 +241,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.XDC],
     },
     [Coins.KCC]: {
         derivations: [
@@ -234,6 +253,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.KCC],
     },
     [Coins.OKX]: {
         derivations: [
@@ -245,6 +265,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.OKX],
     },
     [Coins.ARB]: {
         derivations: [
@@ -256,6 +277,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.ARB],
     },
     [Coins.BSC_TESTNET]: {
         derivations: [
@@ -267,6 +289,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.BSC_TESTNET],
     },
     [Coins.ETH_TESTNET]: {
         derivations: [
@@ -278,6 +301,7 @@ const derivations: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        network: networks[Coins.ETH_TESTNET],
     },
 };
 

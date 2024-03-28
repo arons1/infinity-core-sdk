@@ -97,6 +97,7 @@ export type Derivation = {
     derivations: DerivationParams[];
     bip44: CoinIds;
     curve: Curve;
+    network: Network;
 };
 
 export type getPrivateMasterKeyParams = {
