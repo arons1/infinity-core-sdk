@@ -24,8 +24,8 @@ const config: Record<Coins, ED25519Base | UTXOBase | ECDSABase> = {
     [Coins.OKX]: new ECDSABase(Coins.OKX, CoinIds.ETH),
     [Coins.BSC]: new ECDSABase(Coins.BSC, CoinIds.ETH),
     [Coins.ARB]: new ECDSABase(Coins.ARB, CoinIds.ETH),
-    [Coins.ETH_TESTNET]: new ECDSABase(Coins.ETH, CoinIds.ETH),
-    [Coins.BSC_TESTNET]: new ECDSABase(Coins.ETH, CoinIds.ETH),
+    [Coins.ETH_TESTNET]: new ECDSABase(Coins.ETH_TESTNET, CoinIds.ETH),
+    [Coins.BSC_TESTNET]: new ECDSABase(Coins.BSC_TESTNET, CoinIds.ETH),
 };
 
 export default config;
