@@ -3,7 +3,7 @@ import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';
 import { Encoding } from './utils/secp256k1';
 
-export default {
+const derivations : Record<Coins, Derivation> = {
     [Coins.BTC]: {
         derivations: [
             {
@@ -121,7 +121,7 @@ export default {
     [Coins.BNB]: {
         derivations: [
             {
-                name: 'bnb',
+                name: DerivationName.BNB,
                 path: "m/44'/714'/0'/0/0",
                 protocol: Protocol.LEGACY,
             },
@@ -155,9 +155,9 @@ export default {
         derivations: [
             {
                 name: DerivationName.SEGWIT,
-                path: "m/84'/0'/0'/0/0",
-                xpub: 'zpub',
-                xprv: 'zpriv',
+                path: "m/84'/17'/0'/0/0",
+                xpub: Encoding.ZPUB,
+                xprv: Encoding.ZPRIV,
                 protocol: Protocol.SEGWIT,
             },
         ],
@@ -279,4 +279,6 @@ export default {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
     },
-} as Record<Coins, Derivation>;
+};
+
+export default derivations

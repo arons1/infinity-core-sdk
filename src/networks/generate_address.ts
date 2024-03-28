@@ -4,7 +4,7 @@ import {
     NetworkNotSupported,
 } from '../errors/networks';
 import networks from './networks';
-import derivations from './derivations';
+import derivations from './config';
 import {
     AddressResult,
     GenerateAddressesParams,

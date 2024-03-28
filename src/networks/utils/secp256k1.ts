@@ -14,7 +14,7 @@ import {
     InvalidMnemonic,
 } from '../../errors/networks';
 import { Protocol } from '../registry';
-import derivations from '../derivations';
+import derivations from '../config';
 
 export enum Encoding {
     XPUB = 'xpub',
