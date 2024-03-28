@@ -12,3 +12,4 @@ export const InvalidFingerPrint = 'ERR_INVALID_FINGERPRINT';
 export const InvalidPrivateKey = 'ERR_INVALID_PRIVATE_KEY';
 export const InvalidIndex = 'ERR_INVALID_INDEX';
 export const ExpectedMasterGotChild = 'ERR_EXPECTED_MATER_BUT_CHILD';
+export const NotImplemented = "ERR_NOT_IMPLEMENTED"

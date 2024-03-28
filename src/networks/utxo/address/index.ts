@@ -189,7 +189,7 @@ generatePublicAddresses
     @param network: Network
 */
 export const generatePublicAddress = ({
-    publicNode,
+    publicAccountNode,
     network,
     change,
     index,
@@ -197,12 +197,12 @@ export const generatePublicAddress = ({
 }: GeneratePublicAddressParams): PublicAddressResult => {
     const newAddress = {} as PublicAddressResult;
     newAddress.publicKey = getPublicKey({
-        publicAccountNode: publicNode,
+        publicAccountNode,
     });
     switch (derivation) {
         case DerivationName.LEGACY:
             newAddress.publicAddress = getPublicAddressP2PKH({
-                publicAccountNode: publicNode,
+                publicAccountNode,
                 network,
                 change,
                 index,
@@ -210,7 +210,7 @@ export const generatePublicAddress = ({
             break;
         case DerivationName.WRAPPED_SEGWIT:
             newAddress.publicAddress = getPublicAddressP2WPKHP2S({
-                publicAccountNode: publicNode,
+                publicAccountNode,
                 network,
                 change,
                 index,
@@ -218,7 +218,7 @@ export const generatePublicAddress = ({
             break;
         case DerivationName.SEGWIT:
             newAddress.publicAddress = getPublicAddressSegwit({
-                publicAccountNode: publicNode,
+                publicAccountNode,
                 network,
                 change,
                 index,

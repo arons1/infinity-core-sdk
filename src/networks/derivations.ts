@@ -1,5 +1,5 @@
 import { DerivationName } from './constants';
-import { CoinIds, Coins, Curve } from './registry';
+import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';
 import { Encoding } from './utils/secp256k1';
 
@@ -11,12 +11,14 @@ export default {
                 path: "m/84'/0'/0'/0/0",
                 xpub: Encoding.ZPUB,
                 xprv: Encoding.ZPRIV,
+                protocol: Protocol.SEGWIT,
             },
             {
                 name: DerivationName.WRAPPED_SEGWIT,
                 path: "m/49'/0'/0'/0/0",
                 xpub: Encoding.YPUB,
                 xprv: Encoding.YPRIV,
+                protocol: Protocol.WRAPPED_SEGWIT,
             },
         ],
         bip44: CoinIds.BTC,
@@ -29,6 +31,7 @@ export default {
                 path: "m/44'/2'/0'/0/0",
                 xpub: Encoding.XPUB,
                 xprv: Encoding.XPRIV,
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.LTC,
@@ -41,6 +44,7 @@ export default {
                 path: "m/44'/3'/0'/0/0",
                 xpub: Encoding.XPUB,
                 xprv: Encoding.XPRIV,
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.DOGE,
@@ -53,6 +57,7 @@ export default {
                 path: "m/44'/235'/0'/0/0",
                 xpub: Encoding.XPUB,
                 xprv: Encoding.XPRIV,
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.FIO,
@@ -63,6 +68,7 @@ export default {
             {
                 name: DerivationName.STELLAR,
                 path: "m/44'/148'/0'",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.STELLAR,
@@ -73,6 +79,7 @@ export default {
             {
                 name: DerivationName.SOLANA,
                 path: "m/44'/501'/0'/0'",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.SOLANA,
@@ -83,6 +90,7 @@ export default {
             {
                 name: DerivationName.TEZOS,
                 path: "m/44'/1729'/0'/0'",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.TEZOS,
@@ -93,6 +101,7 @@ export default {
             {
                 name: DerivationName.XRP,
                 path: "m/44'/144'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.XRP,
@@ -102,7 +111,8 @@ export default {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/40'/60'/0'/0/0",
+                path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -113,6 +123,7 @@ export default {
             {
                 name: 'bnb',
                 path: "m/44'/714'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.BNB,
@@ -123,6 +134,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -133,6 +145,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -145,6 +158,7 @@ export default {
                 path: "m/84'/0'/0'/0/0",
                 xpub: 'zpub',
                 xprv: 'zpriv',
+                protocol: Protocol.SEGWIT,
             },
         ],
         bip44: CoinIds.GRS,
@@ -155,10 +169,12 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
             {
                 name: DerivationName.HARMONY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -169,6 +185,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -179,6 +196,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -189,6 +207,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -199,6 +218,7 @@ export default {
             {
                 name: DerivationName.XDC,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -209,6 +229,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -219,6 +240,7 @@ export default {
             {
                 name: DerivationName.OKX,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -229,6 +251,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -239,6 +262,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,
@@ -249,6 +273,7 @@ export default {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
+                protocol: Protocol.LEGACY,
             },
         ],
         bip44: CoinIds.ETH,

@@ -20,6 +20,7 @@ import {
 import { generateAddresses as generateAddressED25519 } from './ed25519';
 import { DerivationTypeNotSupported } from '../errors/networks/index';
 import { Curve } from './registry';
+import { DerivationName } from './constants';
 /* 
 generateAddresses
     Returns generated addresses
@@ -75,28 +76,29 @@ export const generateAddresses = ({
 /* 
 generatePublicAddresses
     Returns public generated addresses
-    @param publicNode: Public secp256k1 node
+    @param publicAccountNode: Public secp256k1 node
     @param idCoin: Coin id
     @param change: change derivation
     @param index: index derivation
     @param derivation: derivation name
 */
 export const generatePublicAddresses = ({
-    publicNode,
+    publicAccountNode,
     idCoin,
     change,
     index,
-    derivation = 'legacy',
+    derivation = DerivationName.LEGACY,
 }: GeneratePublicAddressesParams): PublicAddressResult => {
     const network = networks[idCoin];
     const coin = derivations[idCoin];
     if (!coin) throw new Error(CoinNotSupported);
     if (!network) throw new Error(NetworkNotSupported);
-    if (coin.curve != 'secp256k1') throw new Error(DerivationTypeNotSupported);
+    if (coin.curve != Curve.ED25519)
+        throw new Error(DerivationTypeNotSupported);
     if (coin.derivations.find(a => a.name == derivation) == undefined)
         throw new Error(DerivationTypeNotSupported);
     return generatePublicAddress({
-        publicNode,
+        publicAccountNode,
         network,
         change,
         index,

@@ -1,7 +1,7 @@
 import { Network } from '../core/bip32';
 import { Coins } from './registry';
 
-export default {
+const networks:Record<Coins, Network> = {
     [Coins.BTC]: {
         messagePrefix: '\u0018Bitcoin Signed Message:\n',
         bech32: 'bc',
@@ -155,4 +155,91 @@ export default {
         scriptHash: 5,
         wif: 128,
     },
-} as Record<Coins, Network>;
+    [Coins.STELLAR]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.XRP]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.BNB]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.SOLANA]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.TEZOS]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.ARB]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.ETH_TESTNET]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.BSC_TESTNET]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    }
+};
+
+export default networks

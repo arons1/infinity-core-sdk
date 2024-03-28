@@ -8,14 +8,14 @@ export type GenerateAddressesParams = {
     idCoin: Coins;
 };
 export type GeneratePublicAddressParams = {
-    publicNode: BIP32Interface;
+    publicAccountNode: BIP32Interface;
     change: number;
     index: number;
     network: Network;
     derivation: string;
 };
 export type GeneratePublicAddressesParams = {
-    publicNode: BIP32Interface;
+    publicAccountNode: BIP32Interface;
     idCoin: Coins;
     change: number;
     index: number;
@@ -43,6 +43,16 @@ export type RootNodeParams = {
 export type MasterKeyParams = {
     rootNode: BIP32Interface;
     bipIdCoin: CoinIds;
+    protocol: Protocol;
+};
+export type MasterAddressParams = {
+    privateAccountNode: BIP32Interface;
+    coinId: Coins;
+    protocol: Protocol;
+};
+export type MasterPublicAddressParams = {
+    publicAccountNode: BIP32Interface;
+    coinId: Coins;
     protocol: Protocol;
 };
 export type Keys = {
@@ -81,9 +91,38 @@ export type DerivationParams = {
     path: string;
     xpub?: Encoding;
     xprv?: Encoding;
+    protocol: Protocol;
 };
 export type Derivation = {
     derivations: DerivationParams[];
-    bip44: number;
+    bip44: CoinIds;
     curve: Curve;
+};
+
+export type getPrivateMasterKeyParams = {
+    protocol: Protocol;
+    rootNode: BIP32Interface;
+};
+export type getPublicMasterKeyParams = getPrivateMasterKeyParams;
+export type getPublicMasterAddressParams = {
+    protocol: Protocol;
+    publicAccountNode: BIP32Interface;
+};
+export type getPrivateMasterAddressParams = {
+    protocol: Protocol;
+    change?: number;
+    index?: number;
+    privateAccountNode: BIP32Interface;
+};
+
+export type getPublicAddressParams = {
+    change?: number;
+    index?: number;
+    publicAccountNode: BIP32Interface;
+    protocol: Protocol;
+};
+export type getPrivateAddressParams = {
+    change?: number;
+    index?: number;
+    privateAccountNode: BIP32Interface;
 };

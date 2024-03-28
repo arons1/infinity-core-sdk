@@ -2,13 +2,19 @@ import bs58check from 'bs58check';
 import { BIP32Interface, fromSeed } from '../../core/bip32';
 import {
     AddressParams,
+    MasterAddressParams,
     MasterKeyParams,
+    MasterPublicAddressParams,
     PublicAddressParams,
     RootNodeParams,
 } from '../types';
 import { mnemonicToSeedSync, validateMnemonic } from '../../core/bip39';
-import { InvalidMnemonic } from '../../errors/networks';
+import {
+    DerivationTypeNotSupported,
+    InvalidMnemonic,
+} from '../../errors/networks';
 import { Protocol } from '../registry';
+import derivations from '../derivations';
 
 export enum Encoding {
     XPUB = 'xpub',
@@ -108,6 +114,46 @@ export const getPrivateMasterKey = ({
         .deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
         .deriveHardened(0);
+};
+/* 
+getPrivateMasterAddress
+    Returns Account Extended Private Address
+    @param privateMasterKey: Account Extended Private Node
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
+export const getPrivateMasterAddress = ({
+    privateAccountNode,
+    coinId,
+    protocol = 44,
+}: MasterAddressParams): string => {
+    const derivation = derivations[coinId].derivations.find(
+        a => a.protocol == protocol,
+    );
+    if (!derivation) throw new Error(DerivationTypeNotSupported);
+    return encodeGeneric(
+        privateAccountNode.toBase58(),
+        derivation.xprv ?? Encoding.XPRIV,
+    );
+};
+/* 
+getPublicMasterAddress
+    Returns Account Extended Public Address
+    @param publicAccountNode: Account Extended Public Node
+    @param protocol: Protocol that it's going to use be use in the derivation
+*/
+export const getPublicMasterAddress = ({
+    publicAccountNode,
+    coinId,
+    protocol = 44,
+}: MasterPublicAddressParams): string => {
+    const derivation = derivations[coinId].derivations.find(
+        a => a.protocol == protocol,
+    );
+    if (!derivation) throw new Error(DerivationTypeNotSupported);
+    return encodeGeneric(
+        publicAccountNode.toBase58(),
+        derivation.xpub ?? Encoding.XPUB,
+    );
 };
 /* 
 getPrivateKey
