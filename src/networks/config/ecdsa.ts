@@ -2,7 +2,7 @@ import { NotImplemented } from '../../errors';
 import { Curve } from '../registry';
 import Base from './base';
 
-class ECDSABase extends Base {
+class ECDSACoin extends Base {
     curve = Curve.ECDSA;
     supportedMethods(): string[] {
         return [];
@@ -42,4 +42,4 @@ class ECDSABase extends Base {
     }
 }
 
-export default ECDSABase;
+export default ECDSACoin;

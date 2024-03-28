@@ -2,7 +2,7 @@ import { NotImplemented } from '../../errors';
 import { Curve } from '../registry';
 import Base from './base';
 
-class ED25519Base extends Base {
+class ED25519Coin extends Base {
     curve = Curve.ED25519;
     supportedMethods(): string[] {
         return [];
@@ -42,4 +42,4 @@ class ED25519Base extends Base {
     }
 }
 
-export default ED25519Base;
+export default ED25519Coin;

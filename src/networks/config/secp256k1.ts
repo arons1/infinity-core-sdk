@@ -33,7 +33,7 @@ import {
 } from '../generate_address';
 import Base from './base';
 
-class SECP256K1Base extends Base {
+class SECP256K1Coin extends Base {
     curve = Curve.SECP256K1;
     supportedMethods(): string[] {
         return [
@@ -144,4 +144,4 @@ class SECP256K1Base extends Base {
         });
 }
 
-export default SECP256K1Base;
+export default SECP256K1Coin;
