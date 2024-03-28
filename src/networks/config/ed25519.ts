@@ -33,7 +33,7 @@ import {
 } from '../generate_address';
 import Base from './base';
 
-class UTXOBase extends Base{
+class ED25519Base extends Base{
         getRootNode = (mnemonic: string): BIP32Interface =>
             getRootNode({ mnemonic, network: networks[this.idCoin] })
         getPrivateMasterKey = ({
@@ -129,4 +129,4 @@ class UTXOBase extends Base{
  
 };
 
-export default UTXOBase;
+export default ED25519Base;
