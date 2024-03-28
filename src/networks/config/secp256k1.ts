@@ -33,7 +33,7 @@ import {
 } from '../generate_address';
 import Base from './base';
 
-class UTXOBase extends Base {
+class SECP256K1Base extends Base {
     curve = Curve.SECP256K1;
     supportedMethods(): string[] {
         return [
@@ -144,4 +144,4 @@ class UTXOBase extends Base {
         });
 }
 
-export default UTXOBase;
+export default SECP256K1Base;

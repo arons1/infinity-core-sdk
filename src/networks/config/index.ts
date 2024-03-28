@@ -2,17 +2,17 @@ import { NotSupported } from '../../errors';
 import { CoinIds, Coins } from '../registry';
 import ECDSABase from './ecdsa';
 import ED25519Base from './ed25519';
-import UTXOBase from './utxo';
-const config = (idCoin: Coins): ED25519Base | UTXOBase | ECDSABase => {
+import SECP256K1Base from './secp256k1';
+const config = (idCoin: Coins): ED25519Base | SECP256K1Base | ECDSABase => {
     switch (idCoin) {
         case Coins.BTC:
-            return new UTXOBase(Coins.BTC, CoinIds.BTC);
+            return new SECP256K1Base(Coins.BTC, CoinIds.BTC);
         case Coins.LTC:
-            return new UTXOBase(Coins.LTC, CoinIds.LTC);
+            return new SECP256K1Base(Coins.LTC, CoinIds.LTC);
         case Coins.DOGE:
-            return new UTXOBase(Coins.DOGE, CoinIds.DOGE);
+            return new SECP256K1Base(Coins.DOGE, CoinIds.DOGE);
         case Coins.GRS:
-            return new UTXOBase(Coins.GRS, CoinIds.GRS);
+            return new SECP256K1Base(Coins.GRS, CoinIds.GRS);
         case Coins.FIO:
             return new ECDSABase(Coins.FIO, CoinIds.FIO);
         case Coins.STELLAR:
