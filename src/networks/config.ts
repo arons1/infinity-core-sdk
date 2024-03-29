@@ -58,8 +58,6 @@ const config: Record<Coins, Derivation> = {
             {
                 name: DerivationName.FIO,
                 path: "m/44'/235'/0'/0/0",
-                xpub: Encoding.XPUB,
-                xprv: Encoding.XPRIV,
                 protocol: Protocol.LEGACY,
             },
         ],
