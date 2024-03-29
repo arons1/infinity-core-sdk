@@ -14,16 +14,9 @@ import {
     InvalidMnemonic,
 } from '../../errors/networks';
 import { Protocol } from '../registry';
-import derivations from '../config';
+import config from '../config';
+import { Encoding } from '../constants';
 
-export enum Encoding {
-    XPUB = 'xpub',
-    YPUB = 'ypub',
-    ZPUB = 'zpub',
-    YPRIV = 'ypriv',
-    ZPRIV = 'zpriv',
-    XPRIV = 'xpriv',
-}
 const addressEncoding: Record<Encoding, string> = {
     [Encoding.XPUB]: '',
     [Encoding.YPUB]: '049d7cb2',
@@ -126,7 +119,7 @@ export const getPrivateMasterAddress = ({
     coinId,
     protocol = 44,
 }: MasterAddressParams): string => {
-    const derivation = derivations[coinId].derivations.find(
+    const derivation = config[coinId].derivations.find(
         a => a.protocol == protocol,
     );
     if (!derivation) throw new Error(DerivationTypeNotSupported);
@@ -146,7 +139,7 @@ export const getPublicMasterAddress = ({
     coinId,
     protocol = 44,
 }: MasterPublicAddressParams): string => {
-    const derivation = derivations[coinId].derivations.find(
+    const derivation = config[coinId].derivations.find(
         a => a.protocol == protocol,
     );
     if (!derivation) throw new Error(DerivationTypeNotSupported);

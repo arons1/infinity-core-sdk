@@ -41,14 +41,14 @@ describe('generateAddresses', () => {
     });
     test('generatePublicAddressesBTC', async () => {
         const rootNode = getRootNode({ mnemonic, network: networkBTC });
-        const publicNode = getPublicMasterKey({
+        const publicAccountNode = getPublicMasterKey({
             bipIdCoin: 0,
             protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         const addresses = generatePublicAddresses({
             idCoin: Coins.BTC,
-            publicNode,
+            publicAccountNode,
             change: 1,
             index: 1,
             derivation: DerivationName.WRAPPED_SEGWIT,
@@ -69,10 +69,10 @@ describe('generateAddresses', () => {
     test('generateAddressesPrivateETH', async () => {
         const addresses = generateAddresses({ mnemonic, idCoin: Coins.ETH });
         expect(addresses[0].privateAddress).toBe(
-            '0x1abc3d096fdefb6de18821a75dafa7aec4245d91a4019c23d8ca6d979947e088',
+            '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
         );
         expect(addresses[0].publicAddress).toBe(
-            '0x83D8a68D42aE403ac6726d388e25cc44f5ED2d76',
+            '0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77',
         );
     });
 });

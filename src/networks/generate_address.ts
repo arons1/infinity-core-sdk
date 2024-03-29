@@ -4,7 +4,7 @@ import {
     NetworkNotSupported,
 } from '../errors/networks';
 import networks from './networks';
-import derivations from './config';
+import config from './config';
 import {
     AddressResult,
     GenerateAddressesParams,
@@ -31,8 +31,8 @@ export const generateAddresses = ({
     mnemonic,
     idCoin,
 }: GenerateAddressesParams): AddressResult[] => {
-    const network = networks[idCoin];
-    const coin = derivations[idCoin];
+    const coin = config[idCoin];
+    const network = coin.network;
     if (!coin) throw new Error(CoinNotSupported);
     if (!network && coin.curve != Curve.ED25519)
         throw new Error(NetworkNotSupported);
@@ -90,10 +90,10 @@ export const generatePublicAddresses = ({
     derivation = DerivationName.LEGACY,
 }: GeneratePublicAddressesParams): PublicAddressResult => {
     const network = networks[idCoin];
-    const coin = derivations[idCoin];
+    const coin = config[idCoin];
     if (!coin) throw new Error(CoinNotSupported);
     if (!network) throw new Error(NetworkNotSupported);
-    if (coin.curve != Curve.ED25519)
+    if (coin.curve != Curve.SECP256K1)
         throw new Error(DerivationTypeNotSupported);
     if (coin.derivations.find(a => a.name == derivation) == undefined)
         throw new Error(DerivationTypeNotSupported);

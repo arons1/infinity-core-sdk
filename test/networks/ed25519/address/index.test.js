@@ -12,13 +12,13 @@ const xrp_1 = require("../../../../lib/commonjs/networks/utils/xrp");
 const index_2 = require("../../../../lib/commonjs/networks/ed25519/address/index");
 const tezos_2 = require("../../../../lib/commonjs/networks/utils/tezos");
 const registry_1 = require("../../../../lib/commonjs/networks/registry");
-const derivations_1 = __importDefault(require("../../../../lib/commonjs/networks/derivations"));
+const config_1 = __importDefault(require("../../../../lib/commonjs/networks/config"));
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 (0, globals_1.describe)('generateAddressED25519', () => {
     (0, globals_1.test)('generateStellarAddress', async () => {
         const seed = (0, index_2.getSeed)({ mnemonic });
         const keyPair = (0, index_2.getKeyPair)({
-            path: derivations_1.default[registry_1.Coins.STELLAR].derivations[0].path,
+            path: config_1.default[registry_1.Coins.STELLAR].derivations[0].path,
             seed,
         });
         const publicAddress = (0, index_2.getPublicStellarAddress)({
@@ -30,7 +30,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('generateSolanaAddress', async () => {
         const seed = (0, index_2.getSeed)({ mnemonic });
         const keyPair = (0, index_2.getKeyPair)({
-            path: derivations_1.default[registry_1.Coins.SOLANA].derivations[0].path,
+            path: config_1.default[registry_1.Coins.SOLANA].derivations[0].path,
             seed,
         });
         const publicAddress = (0, index_2.getPublicSolanaAddress)({
@@ -42,7 +42,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('generateTezosAddress', async () => {
         const seed = (0, index_2.getSeed)({ mnemonic });
         const keyPair = (0, index_2.getKeyPair)({
-            path: derivations_1.default[registry_1.Coins.TEZOS].derivations[0].path,
+            path: config_1.default[registry_1.Coins.TEZOS].derivations[0].path,
             seed,
         });
         const publicAddress = (0, index_2.getPublicTezosAddress)({
@@ -58,7 +58,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('generateXRPAddress', async () => {
         const seed = (0, index_2.getSeed)({ mnemonic });
         const keyPair = (0, index_2.getKeyPair)({
-            path: derivations_1.default[registry_1.Coins.XRP].derivations[0].path,
+            path: config_1.default[registry_1.Coins.XRP].derivations[0].path,
             seed,
         });
         const publicAddress = (0, index_2.getPublicXRPAddress)({

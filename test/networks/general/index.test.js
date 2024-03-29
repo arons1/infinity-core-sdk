@@ -27,14 +27,14 @@ const networkBTC = {
     });
     (0, globals_1.test)('generatePublicAddressesBTC', async () => {
         const rootNode = (0, secp256k1_1.getRootNode)({ mnemonic, network: networkBTC });
-        const publicNode = (0, secp256k1_1.getPublicMasterKey)({
+        const publicAccountNode = (0, secp256k1_1.getPublicMasterKey)({
             bipIdCoin: 0,
             protocol: registry_1.Protocol.WRAPPED_SEGWIT,
             rootNode,
         });
         const addresses = (0, generate_address_1.generatePublicAddresses)({
             idCoin: registry_1.Coins.BTC,
-            publicNode,
+            publicAccountNode,
             change: 1,
             index: 1,
             derivation: constants_1.DerivationName.WRAPPED_SEGWIT,
@@ -48,7 +48,7 @@ const networkBTC = {
     });
     (0, globals_1.test)('generateAddressesPrivateETH', async () => {
         const addresses = (0, generate_address_1.generateAddresses)({ mnemonic, idCoin: registry_1.Coins.ETH });
-        (0, globals_1.expect)(addresses[0].privateAddress).toBe('0x1abc3d096fdefb6de18821a75dafa7aec4245d91a4019c23d8ca6d979947e088');
-        (0, globals_1.expect)(addresses[0].publicAddress).toBe('0x83D8a68D42aE403ac6726d388e25cc44f5ED2d76');
+        (0, globals_1.expect)(addresses[0].privateAddress).toBe('0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93');
+        (0, globals_1.expect)(addresses[0].publicAddress).toBe('0x0c86B43d8c108Eb5ae05218057F0d313Cf9FFD77');
     });
 });

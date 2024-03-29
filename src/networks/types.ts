@@ -1,7 +1,6 @@
 import { BIP32Interface, Network } from '../core/bip32';
-import { DerivationName } from './constants';
+import { DerivationName, Encoding } from './constants';
 import { CoinIds, Protocol, Coins, Curve } from './registry';
-import { Encoding } from './utils/secp256k1';
 
 export type GenerateAddressesParams = {
     mnemonic: string;

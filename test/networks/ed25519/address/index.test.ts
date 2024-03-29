@@ -15,7 +15,7 @@ import {
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
 import { isValidPublicKey } from '../../../../lib/commonjs/networks/utils/tezos';
 import { CoinIds, Coins } from '../../../../lib/commonjs/networks/registry';
-import derivations from '../../../../lib/commonjs/networks/derivations';
+import config from '../../../../lib/commonjs/networks/config';
 const mnemonic =
     'derive lab over dragon nothing pioneer until deputy inherit help next release';
 
@@ -23,7 +23,7 @@ describe('generateAddressED25519', () => {
     test('generateStellarAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: derivations[Coins.STELLAR].derivations[0].path,
+            path: config[Coins.STELLAR].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicStellarAddress({
@@ -37,7 +37,7 @@ describe('generateAddressED25519', () => {
     test('generateSolanaAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: derivations[Coins.SOLANA].derivations[0].path,
+            path: config[Coins.SOLANA].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicSolanaAddress({
@@ -51,7 +51,7 @@ describe('generateAddressED25519', () => {
     test('generateTezosAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: derivations[Coins.TEZOS].derivations[0].path,
+            path: config[Coins.TEZOS].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicTezosAddress({
@@ -67,7 +67,7 @@ describe('generateAddressED25519', () => {
     test('generateXRPAddress', async () => {
         const seed = getSeed({ mnemonic });
         const keyPair = getKeyPair({
-            path: derivations[Coins.XRP].derivations[0].path,
+            path: config[Coins.XRP].derivations[0].path,
             seed,
         });
         const publicAddress = getPublicXRPAddress({

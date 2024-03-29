@@ -1,8 +1,7 @@
-import { DerivationName } from './constants';
+import { DerivationName, Encoding } from './constants';
 import networks from './networks';
 import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';
-import { Encoding } from './utils/secp256k1';
 
 const config: Record<Coins, Derivation> = {
     [Coins.BTC]: {

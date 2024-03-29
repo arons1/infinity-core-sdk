@@ -12,3 +12,11 @@ export enum DerivationName {
     STELLAR = 'stellar',
     TEZOS = 'tezos',
 }
+export enum Encoding {
+    XPUB = 'xpub',
+    YPUB = 'ypub',
+    ZPUB = 'zpub',
+    YPRIV = 'ypriv',
+    ZPRIV = 'zpriv',
+    XPRIV = 'xpriv',
+}

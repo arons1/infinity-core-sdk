@@ -5,14 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const ed25519_1 = require("../../../../lib/commonjs/networks/ed25519");
-const derivations_1 = __importDefault(require("../../../../lib/commonjs/networks/derivations"));
+const config_1 = __importDefault(require("../../../../lib/commonjs/networks/config"));
 const registry_1 = require("../../../../lib/commonjs/networks/registry");
 const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit help next release';
 (0, globals_1.describe)('signMessageED25519', () => {
     (0, globals_1.test)('signMessageStellar', async () => {
         const seed = (0, ed25519_1.getSeed)({ mnemonic });
         const secretKey = (0, ed25519_1.getSecretKey)({
-            path: derivations_1.default[registry_1.Coins.STELLAR].derivations[0].path,
+            path: config_1.default[registry_1.Coins.STELLAR].derivations[0].path,
             seed,
         });
         const signedMessage = (0, ed25519_1.sign)({
@@ -24,7 +24,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('signMessageSolana', async () => {
         const seed = (0, ed25519_1.getSeed)({ mnemonic });
         const secretKey = (0, ed25519_1.getSecretKey)({
-            path: derivations_1.default[registry_1.Coins.SOLANA].derivations[0].path,
+            path: config_1.default[registry_1.Coins.SOLANA].derivations[0].path,
             seed,
         });
         const signedMessage = (0, ed25519_1.sign)({

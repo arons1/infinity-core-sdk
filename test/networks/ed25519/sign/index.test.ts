@@ -4,7 +4,7 @@ import {
     sign,
     getSecretKey,
 } from '../../../../lib/commonjs/networks/ed25519';
-import derivations from '../../../../lib/commonjs/networks/derivations';
+import config from '../../../../lib/commonjs/networks/config';
 import { Coins } from '../../../../lib/commonjs/networks/registry';
 
 const mnemonic =
@@ -14,7 +14,7 @@ describe('signMessageED25519', () => {
     test('signMessageStellar', async () => {
         const seed = getSeed({ mnemonic });
         const secretKey = getSecretKey({
-            path: derivations[Coins.STELLAR].derivations[0].path,
+            path: config[Coins.STELLAR].derivations[0].path,
             seed,
         });
         const signedMessage = sign({
@@ -28,7 +28,7 @@ describe('signMessageED25519', () => {
     test('signMessageSolana', async () => {
         const seed = getSeed({ mnemonic });
         const secretKey = getSecretKey({
-            path: derivations[Coins.SOLANA].derivations[0].path,
+            path: config[Coins.SOLANA].derivations[0].path,
             seed,
         });
         const signedMessage = sign({
