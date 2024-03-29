@@ -27,6 +27,8 @@ import {
     getFIOAccount,
 } from '../evm/address/index';
 import { isValidAddress } from '../utils/evm';
+import { isValidAddress as isValidAddressFIO } from '../utils/fio';
+
 import { generateAddresses } from '../generate_address';
 import Base from './base';
 import config from '../config';
@@ -50,23 +52,21 @@ class ECDSACoin extends Base {
         return getRootNode({ mnemonic, network: networks[this.idCoin] });
     }
     getPrivateMasterKey({
-        protocol = 44,
         rootNode,
     }: getPrivateMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
-            protocol,
+            protocol:44,
             rootNode,
         });
     }
 
     getPublicMasterKey({
-        protocol = 44,
         rootNode,
     }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
-            protocol,
+            protocol:44,
             rootNode,
         }).neutered();
     }
@@ -109,7 +109,7 @@ class ECDSACoin extends Base {
         }
     };
     isValidAddress(address: string): boolean {
-        return isValidAddress(address);
+        return this.idCoin == Coins.FIO ? isValidAddressFIO(address) : isValidAddress(address);
     }
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
