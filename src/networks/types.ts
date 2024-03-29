@@ -100,19 +100,19 @@ export type Derivation = {
     network: Network;
 };
 export type getPublicAddressED25519Params = {
-    keyPair:any
-}
-export type getPrivateAddressED25519Params = getPublicAddressED25519Params
+    keyPair: any;
+};
+export type getPrivateAddressED25519Params = getPublicAddressED25519Params;
 export type getPrivateMasterKeyParams = {
     protocol?: Protocol;
     rootNode: BIP32Interface;
 };
 export type GetSeedParams = {
-    mnemonic:string
-}
+    mnemonic: string;
+};
 export type getAccountParams = {
-    keyPair:Keypair
-}
+    keyPair: Keypair;
+};
 export type getPublicMasterKeyParams = getPrivateMasterKeyParams;
 export type getPublicMasterAddressParams = {
     protocol?: Protocol;

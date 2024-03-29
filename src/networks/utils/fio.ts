@@ -14,7 +14,7 @@ const isValidPublicAddress = (address: string) => {
         new RegExp('^\\w+$').test(address)
     );
 };
-const isValidFioAddress = (address: string) : boolean => {
+const isValidFioAddress = (address: string): boolean => {
     if (typeof address != 'string') return false;
     return (
         address.length >= 3 &&
@@ -25,7 +25,7 @@ const isValidFioAddress = (address: string) : boolean => {
         ).test(address)
     );
 };
-export const isValidAddress = (address: string) : boolean => {
+export const isValidAddress = (address: string): boolean => {
     if (typeof address != 'string') return false;
     if (address.startsWith('FIO')) return isValidPublicKey(address);
     if (address.includes('@')) return isValidFioAddress(address);

@@ -8,10 +8,7 @@ import {
     getPublicAddressParams,
     getPublicMasterKeyParams,
 } from '../types';
-import {
-    getPrivateMasterKey,
-    getRootNode
-} from '../utils/secp256k1';
+import { getPrivateMasterKey, getRootNode } from '../utils/secp256k1';
 
 import networks from '../networks';
 import {
@@ -36,8 +33,6 @@ import config from '../config';
 import { DerivationName } from '../constants';
 
 class ECDSACoin extends Base {
-
-
     curve = Curve.ECDSA;
     supportedMethods(): string[] {
         return [
@@ -51,26 +46,35 @@ class ECDSACoin extends Base {
             'getAccount',
         ];
     }
-    getRootNode = (mnemonic: string): BIP32Interface =>
-        getRootNode({ mnemonic, network: networks[this.idCoin] });
-    getPrivateMasterKey = ({
+    getRootNode(mnemonic: string): BIP32Interface {
+        return getRootNode({ mnemonic, network: networks[this.idCoin] });
+    }
+    getPrivateMasterKey({
         protocol = 44,
         rootNode,
-    }: getPrivateMasterKeyParams): BIP32Interface =>
-        getPrivateMasterKey({ bipIdCoin: this.bipIdCoin, protocol, rootNode });
-    getPublicMasterKey = ({
+    }: getPrivateMasterKeyParams): BIP32Interface {
+        return getPrivateMasterKey({
+            bipIdCoin: this.bipIdCoin,
+            protocol,
+            rootNode,
+        });
+    }
+
+    getPublicMasterKey({
         protocol = 44,
         rootNode,
-    }: getPublicMasterKeyParams): BIP32Interface =>
-        getPrivateMasterKey({
+    }: getPublicMasterKeyParams): BIP32Interface {
+        return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol,
             rootNode,
         }).neutered();
-    getPrivateAddress = ({
-        privateAccountNode,
-    }: getPrivateAddressParams): string =>
-        getPrivateAddress({ privateAccountNode });
+    }
+
+    getPrivateAddress({ privateAccountNode }: getPrivateAddressParams): string {
+        return getPrivateAddress({ privateAccountNode });
+    }
+
     getPublicAddress = ({
         publicAccountNode,
     }: getPublicAddressParams): string | undefined => {
@@ -104,9 +108,12 @@ class ECDSACoin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     };
-    isValidAddress = (address: string): boolean => isValidAddress(address);
-    generateAddresses = (mnemonic: string): AddressResult[] =>
-        generateAddresses({ mnemonic, idCoin: this.idCoin });
+    isValidAddress(address: string): boolean {
+        return isValidAddress(address);
+    }
+    generateAddresses(mnemonic: string): AddressResult[] {
+        return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    }
     getAccount(publicAddress: string): string {
         if (!isValidAddress(publicAddress)) {
             throw new Error(InvalidAddress);

@@ -51,46 +51,62 @@ class SECP256K1Coin extends Base {
         ];
     }
 
-    getRootNode = (mnemonic: string): BIP32Interface =>
-        getRootNode({ mnemonic, network: networks[this.idCoin] });
-    getPrivateMasterKey = ({
+    getRootNode(mnemonic: string): BIP32Interface {
+        return getRootNode({ mnemonic, network: networks[this.idCoin] });
+    }
+
+    getPrivateMasterKey({
         protocol = 44,
         rootNode,
-    }: getPrivateMasterKeyParams): BIP32Interface =>
-        getPrivateMasterKey({ bipIdCoin: this.bipIdCoin, protocol, rootNode });
-    getPublicMasterKey = ({
+    }: getPrivateMasterKeyParams): BIP32Interface {
+        return getPrivateMasterKey({
+            bipIdCoin: this.bipIdCoin,
+            protocol,
+            rootNode,
+        });
+    }
+
+    getPublicMasterKey({
         protocol = 44,
         rootNode,
-    }: getPublicMasterKeyParams): BIP32Interface =>
-        getPrivateMasterKey({
+    }: getPublicMasterKeyParams): BIP32Interface {
+        return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol,
             rootNode,
         }).neutered();
-    getPrivateMasterAddress = ({
+    }
+
+    getPrivateMasterAddress({
         privateAccountNode,
         protocol = 44,
-    }: getPrivateMasterAddressParams): string =>
-        getPrivateMasterAddress({
+    }: getPrivateMasterAddressParams): string {
+        return getPrivateMasterAddress({
             privateAccountNode,
             coinId: this.idCoin,
             protocol,
         });
-    getPublicMasterAddress = ({
+    }
+
+    getPublicMasterAddress({
         publicAccountNode,
         protocol = 44,
-    }: getPublicMasterAddressParams): string =>
-        getPublicMasterAddress({
+    }: getPublicMasterAddressParams): string {
+        return getPublicMasterAddress({
             publicAccountNode,
             coinId: this.idCoin,
             protocol,
         });
-    getPrivateAddress = ({
+    }
+
+    getPrivateAddress({
         privateAccountNode,
         change = 0,
         index = 0,
-    }: getPrivateAddressParams): string =>
-        getPrivateAddress({ privateAccountNode, change, index });
+    }: getPrivateAddressParams): string {
+        return getPrivateAddress({ privateAccountNode, change, index });
+    }
+
     getPublicAddress = ({
         change = 0,
         index = 0,
@@ -124,25 +140,29 @@ class SECP256K1Coin extends Base {
                 throw new Error(ProtocolNotSupported);
         }
     };
-    isValidAddress = (address: string): boolean =>
-        isValidAddress(address, networks[this.idCoin] as Network);
-    isValidExtendedKey = (address: string): boolean =>
-        isValidExtendedKey(address, networks[this.idCoin] as Network);
-    generateAddresses = (mnemonic: string): AddressResult[] =>
-        generateAddresses({ mnemonic, idCoin: this.idCoin });
-    generatePublicAddresses = ({
+    isValidAddress(address: string): boolean {
+        return isValidAddress(address, networks[this.idCoin] as Network);
+    }
+    isValidExtendedKey(address: string): boolean {
+        return isValidExtendedKey(address, networks[this.idCoin] as Network);
+    }
+    generateAddresses(mnemonic: string): AddressResult[] {
+        return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    }
+    generatePublicAddresses({
         change,
         index,
         publicAccountNode,
         derivation,
-    }: GeneratePublicAddressesParams): PublicAddressResult =>
-        generatePublicAddresses({
+    }: GeneratePublicAddressesParams): PublicAddressResult {
+        return generatePublicAddresses({
             change,
             index,
             publicAccountNode,
             idCoin: this.idCoin,
             derivation,
         });
+    }
     getSeed(_props: any) {
         throw new Error(NotImplemented);
     }

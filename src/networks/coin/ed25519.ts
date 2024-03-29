@@ -1,7 +1,23 @@
 import { DerivationTypeNotSupported, NotImplemented } from '../../errors';
-import { getKeyPair, getPrivateKey, getPublicKey, getPublicSolanaAddress, getPublicStellarAddress, getPublicTezosAddress, getPublicXRPAddress, getSecretAddress, getSeed, getTezosPublicKeyHash } from '../ed25519';
+import {
+    getKeyPair,
+    getPrivateKey,
+    getPublicKey,
+    getPublicSolanaAddress,
+    getPublicStellarAddress,
+    getPublicTezosAddress,
+    getPublicXRPAddress,
+    getSecretAddress,
+    getSeed,
+    getTezosPublicKeyHash,
+} from '../ed25519';
 import { Coins, Curve } from '../registry';
-import { GetSeedParams, getAccountParams, getPrivateAddressED25519Params, getPublicAddressED25519Params } from '../types';
+import {
+    GetSeedParams,
+    getAccountParams,
+    getPrivateAddressED25519Params,
+    getPublicAddressED25519Params,
+} from '../types';
 import Base from './base';
 import { GetKeyPairParams } from '../../../lib/commonjs/networks/ed25519/address/types';
 import config from '../config';
@@ -14,20 +30,16 @@ import { isValidAddress as isValidAddressTezos } from '../utils/tezos';
 class ED25519Coin extends Base {
     curve = Curve.ED25519;
     supportedMethods(): string[] {
-        return [
-            "getPrivateAddress",
-            "getPublicAddress",
-            ""
-        ];
+        return ['getPrivateAddress', 'getPublicAddress', ''];
     }
-    getPrivateAddress({keyPair}:getPrivateAddressED25519Params){
+    getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
         return getSecretAddress({
-            secretKey: getPrivateKey({keyPair}),
+            secretKey: getPrivateKey({ keyPair }),
             bipIdCoin: this.bipIdCoin,
         });
     }
-    getPublicAddress({keyPair}:getPublicAddressED25519Params) {
-        const publicKey = getPublicKey({keyPair,bipIdCoin:this.bipIdCoin})
+    getPublicAddress({ keyPair }: getPublicAddressED25519Params) {
+        const publicKey = getPublicKey({ keyPair, bipIdCoin: this.bipIdCoin });
         const derivation = config[this.idCoin].derivations[0];
         switch (derivation.name) {
             case DerivationName.STELLAR:
@@ -37,7 +49,7 @@ class ED25519Coin extends Base {
 
             case DerivationName.XRP:
                 return getPublicXRPAddress({
-                    publicKey
+                    publicKey,
                 });
 
             case DerivationName.SOLANA:
@@ -53,17 +65,17 @@ class ED25519Coin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     }
-    isValidAddress(address:string) {
+    isValidAddress(address: string) {
         const derivation = config[this.idCoin].derivations[0];
         switch (derivation.name) {
             case DerivationName.STELLAR:
-                return isValidAddressStellar(address)
+                return isValidAddressStellar(address);
             case DerivationName.XRP:
-                return isValidAddressXRP(address)
+                return isValidAddressXRP(address);
             case DerivationName.SOLANA:
-                return isValidAddressSolana(address)
+                return isValidAddressSolana(address);
             case DerivationName.TEZOS:
-                return isValidAddressTezos(address)
+                return isValidAddressTezos(address);
             default:
                 throw new Error(DerivationTypeNotSupported);
         }
@@ -71,8 +83,8 @@ class ED25519Coin extends Base {
     isValidExtendedKey(_props: any) {
         throw new Error(NotImplemented);
     }
-    getAccount({keyPair}: getAccountParams): string {
-        if(this.idCoin == Coins.TEZOS)
+    getAccount({ keyPair }: getAccountParams): string {
+        if (this.idCoin == Coins.TEZOS)
             return getTezosPublicKeyHash({
                 keyPair,
             });
@@ -84,12 +96,12 @@ class ED25519Coin extends Base {
     generatePublicAddresses(_props: any) {
         throw new Error(NotImplemented);
     }
-    
-    getSeed({mnemonic}:GetSeedParams) {
-        return getSeed({mnemonic})
+
+    getSeed({ mnemonic }: GetSeedParams) {
+        return getSeed({ mnemonic });
     }
-    getKeyPair({path,seed}:GetKeyPairParams) {
-        return getKeyPair({path,seed})
+    getKeyPair({ path, seed }: GetKeyPairParams) {
+        return getKeyPair({ path, seed });
     }
 
     getRootNode(_props: any) {

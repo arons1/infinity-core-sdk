@@ -1,6 +1,6 @@
 import { bech32 } from '../../core/base';
 import { isValidAddress as EVMValidAddress } from '../evm/sdk/ethereumjs-util/account';
-import {isValidAddress as isValidAddressFIO} from '../utils/fio'
+import { isValidAddress as isValidAddressFIO } from '../utils/fio';
 
 export const isValidAddress = (address: string) => {
     if (typeof address != 'string') return false;
@@ -10,8 +10,7 @@ export const isValidAddress = (address: string) => {
         return isValidBench32Address(address, 'ex');
     else if (address.startsWith('bnb'))
         return isValidBench32Address(address, 'bnb');
-    else if(address.startsWith('0x'))
-        return EVMValidAddress(address);
+    else if (address.startsWith('0x')) return EVMValidAddress(address);
     return isValidAddressFIO(address);
 };
 const decodeAddress = (value: string): Buffer => {
