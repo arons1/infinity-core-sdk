@@ -30,8 +30,8 @@ const config: Record<Coins, Derivation> = {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/2'/0'/0/0",
-                xpub: Encoding.XPUB,
-                xprv: Encoding.XPRIV,
+                xpub: Encoding.LTUB,
+                xprv: Encoding.LTPV,
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -44,8 +44,8 @@ const config: Record<Coins, Derivation> = {
             {
                 name: DerivationName.LEGACY,
                 path: "m/44'/3'/0'/0/0",
-                xpub: Encoding.XPUB,
-                xprv: Encoding.XPRIV,
+                xpub: Encoding.DGUB,
+                xprv: Encoding.DGPUV,
                 protocol: Protocol.LEGACY,
             },
         ],

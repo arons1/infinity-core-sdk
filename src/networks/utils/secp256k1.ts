@@ -18,12 +18,17 @@ import config from '../config';
 import { Encoding } from '../constants';
 
 const addressEncoding: Record<Encoding, string> = {
-    [Encoding.XPUB]: '',
+    [Encoding.XPUB]: '0488b21e',
     [Encoding.YPUB]: '049d7cb2',
     [Encoding.ZPUB]: '04b24746',
-    [Encoding.XPRIV]: '',
+    [Encoding.XPRIV]: '0x0488ade4',
     [Encoding.YPRIV]: '049d7878',
     [Encoding.ZPRIV]: '04b2430c',
+    [Encoding.LTUB]:'019da462',
+    [Encoding.LTPV]:'019d9cfe',
+    [Encoding.DGUB]:'02facafd',
+    [Encoding.DGPUV]:'02fac398'
+
 };
 const replaceDerive = (val: string): string => val.replace("'", '');
 export const isValidPath = (path: string) => {
@@ -39,7 +44,7 @@ export const isValidPath = (path: string) => {
     );
 };
 export const encodeGeneric = (dataAddress: string, type: Encoding) => {
-    if (type == Encoding.XPUB) return dataAddress;
+    if (dataAddress.startsWith(type)) return dataAddress;
     var data = bs58check.decode(dataAddress);
     data = data.slice(4);
     const encodeCode = addressEncoding[type];

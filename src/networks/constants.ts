@@ -19,4 +19,8 @@ export enum Encoding {
     YPRIV = 'ypriv',
     ZPRIV = 'zpriv',
     XPRIV = 'xpriv',
+    LTUB = 'ltub',
+    LTPV = 'ltpv',
+    DGUB = 'dgub',
+    DGPUV = 'dgpuv'
 }
