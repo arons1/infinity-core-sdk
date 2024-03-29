@@ -24,11 +24,10 @@ const addressEncoding: Record<Encoding, string> = {
     [Encoding.XPRIV]: '0x0488ade4',
     [Encoding.YPRIV]: '049d7878',
     [Encoding.ZPRIV]: '04b2430c',
-    [Encoding.LTUB]:'019da462',
-    [Encoding.LTPV]:'019d9cfe',
-    [Encoding.DGUB]:'02facafd',
-    [Encoding.DGPUV]:'02fac398'
-
+    [Encoding.LTUB]: '019da462',
+    [Encoding.LTPV]: '019d9cfe',
+    [Encoding.DGUB]: '02facafd',
+    [Encoding.DGPUV]: '02fac398',
 };
 const replaceDerive = (val: string): string => val.replace("'", '');
 export const isValidPath = (path: string) => {

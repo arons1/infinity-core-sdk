@@ -24,7 +24,7 @@ import {
     getPublicAddressSegwit,
 } from '../utxo';
 import networks from '../networks';
-import { ProtocolNotSupported } from '../../errors';
+import { NotImplemented, ProtocolNotSupported } from '../../errors';
 import { getPrivateAddress } from '../evm/address/index';
 import { isValidAddress, isValidExtendedKey } from '../utils/utxo';
 import {
@@ -50,15 +50,16 @@ class SECP256K1Coin extends Base {
             'generatePublicAddresses',
         ];
     }
+
     getRootNode = (mnemonic: string): BIP32Interface =>
         getRootNode({ mnemonic, network: networks[this.idCoin] });
     getPrivateMasterKey = ({
-        protocol,
+        protocol = 44,
         rootNode,
     }: getPrivateMasterKeyParams): BIP32Interface =>
         getPrivateMasterKey({ bipIdCoin: this.bipIdCoin, protocol, rootNode });
     getPublicMasterKey = ({
-        protocol,
+        protocol = 44,
         rootNode,
     }: getPublicMasterKeyParams): BIP32Interface =>
         getPrivateMasterKey({
@@ -68,7 +69,7 @@ class SECP256K1Coin extends Base {
         }).neutered();
     getPrivateMasterAddress = ({
         privateAccountNode,
-        protocol,
+        protocol = 44,
     }: getPrivateMasterAddressParams): string =>
         getPrivateMasterAddress({
             privateAccountNode,
@@ -77,7 +78,7 @@ class SECP256K1Coin extends Base {
         });
     getPublicMasterAddress = ({
         publicAccountNode,
-        protocol,
+        protocol = 44,
     }: getPublicMasterAddressParams): string =>
         getPublicMasterAddress({
             publicAccountNode,
@@ -142,6 +143,15 @@ class SECP256K1Coin extends Base {
             idCoin: this.idCoin,
             derivation,
         });
+    getSeed(_props: any) {
+        throw new Error(NotImplemented);
+    }
+    getKeyPair(_props: any) {
+        throw new Error(NotImplemented);
+    }
+    getAccount(): string {
+        throw new Error(NotImplemented);
+    }
 }
 
 export default SECP256K1Coin;

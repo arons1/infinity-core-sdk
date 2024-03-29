@@ -22,5 +22,5 @@ export enum Encoding {
     LTUB = 'ltub',
     LTPV = 'ltpv',
     DGUB = 'dgub',
-    DGPUV = 'dgpuv'
+    DGPUV = 'dgpuv',
 }

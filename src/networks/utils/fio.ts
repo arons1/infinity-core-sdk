@@ -1,7 +1,6 @@
 const isValidPublicKey = (pubkey: string) => {
     if (typeof pubkey != 'string') return false;
     return (
-        pubkey &&
         pubkey.length >= 1 &&
         pubkey.length <= 62 &&
         new RegExp('^FIO\\w+$').test(pubkey)
@@ -10,16 +9,14 @@ const isValidPublicKey = (pubkey: string) => {
 const isValidPublicAddress = (address: string) => {
     if (typeof address != 'string') return false;
     return (
-        address &&
         address.length >= 1 &&
         address.length <= 128 &&
         new RegExp('^\\w+$').test(address)
     );
 };
-const isValidFioAddress = (address: string) => {
+const isValidFioAddress = (address: string) : boolean => {
     if (typeof address != 'string') return false;
     return (
-        address &&
         address.length >= 3 &&
         address.length <= 64 &&
         new RegExp(
@@ -28,7 +25,7 @@ const isValidFioAddress = (address: string) => {
         ).test(address)
     );
 };
-export const isValidAddress = (address: string) => {
+export const isValidAddress = (address: string) : boolean => {
     if (typeof address != 'string') return false;
     if (address.startsWith('FIO')) return isValidPublicKey(address);
     if (address.includes('@')) return isValidFioAddress(address);

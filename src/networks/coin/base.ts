@@ -13,6 +13,8 @@ abstract class Base {
         this.idCoin = coinId;
         this.bipIdCoin = bipIdCoin;
     }
+    abstract getSeed(_props: any): any;
+    abstract getKeyPair(_props: any): any;
     abstract getRootNode(_props: any): any;
     abstract getPrivateMasterKey(_props: any): any;
     abstract getPublicMasterKey(_props: any): any;
@@ -25,6 +27,7 @@ abstract class Base {
     abstract generateAddresses(_props: any): any;
     abstract generatePublicAddresses(_props: any): any;
     abstract supportedMethods(): string[];
+    abstract getAccount(_props: any): string;
 }
 
 export default Base;
