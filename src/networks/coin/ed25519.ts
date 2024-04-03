@@ -1,5 +1,6 @@
 import { DerivationTypeNotSupported, NotImplemented } from '../../errors';
 import {
+    generateAddresses,
     getKeyPair,
     getPrivateKey,
     getPublicKey,
@@ -13,6 +14,7 @@ import {
 } from '../ed25519';
 import { Coins, Curve } from '../registry';
 import {
+    AddressResult,
     GetSeedParams,
     getAccountParams,
     getPrivateAddressED25519Params,
@@ -30,7 +32,7 @@ import { isValidAddress as isValidAddressTezos } from '../utils/tezos';
 class ED25519Coin extends Base {
     curve = Curve.ED25519;
     supportedMethods(): string[] {
-        return ['getPrivateAddress', 'getPublicAddress', ''];
+        return ['getPrivateAddress', 'getPublicAddress', 'isValidAddress','getAccount','getSeed','getKeyPair','generateAddresses'];
     }
     getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
         return getSecretAddress({
@@ -80,9 +82,6 @@ class ED25519Coin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     }
-    isValidExtendedKey(_props: any) {
-        throw new Error(NotImplemented);
-    }
     getAccount({ keyPair }: getAccountParams): string {
         if (this.idCoin == Coins.TEZOS)
             return getTezosPublicKeyHash({
@@ -90,20 +89,22 @@ class ED25519Coin extends Base {
             });
         throw new Error(NotImplemented);
     }
-    generateAddresses(_props: any) {
-        throw new Error(NotImplemented);
-    }
-    generatePublicAddresses(_props: any) {
-        throw new Error(NotImplemented);
-    }
-
     getSeed({ mnemonic }: GetSeedParams) {
         return getSeed({ mnemonic });
     }
     getKeyPair({ path, seed }: GetKeyPairParams) {
         return getKeyPair({ path, seed });
     }
-
+    generateAddresses(mnemonic: string): AddressResult {
+        const derivation = config[this.idCoin].derivations[0]
+        return generateAddresses({ mnemonic, derivation });
+    }
+    isValidExtendedKey(_props: any) {
+        throw new Error(NotImplemented);
+    }
+    generatePublicAddresses(_props: any) {
+        throw new Error(NotImplemented);
+    }
     getRootNode(_props: any) {
         throw new Error(NotImplemented);
     }

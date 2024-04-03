@@ -83,7 +83,7 @@ export type RedemParams = {
 };
 export type GenerateAddressParams = {
     mnemonic: string;
-    network: Network;
+    network?: Network;
     derivation: DerivationParams;
 };
 export type DerivationParams = {
