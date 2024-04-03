@@ -1,6 +1,5 @@
 import { DerivationTypeNotSupported, NotImplemented } from '../../errors';
 import {
-    generateAddresses,
     getKeyPair,
     getPrivateKey,
     getPublicKey,
@@ -28,6 +27,7 @@ import { isValidAddress as isValidAddressStellar } from '../utils/stellar';
 import { isValidAddress as isValidAddressXRP } from '../utils/xrp';
 import { isValidAddress as isValidAddressSolana } from '../utils/solana';
 import { isValidAddress as isValidAddressTezos } from '../utils/tezos';
+import { generateAddresses } from '../generate_address';
 
 class ED25519Coin extends Base {
     curve = Curve.ED25519;
@@ -95,9 +95,8 @@ class ED25519Coin extends Base {
     getKeyPair({ path, seed }: GetKeyPairParams) {
         return getKeyPair({ path, seed });
     }
-    generateAddresses(mnemonic: string): AddressResult {
-        const derivation = config[this.idCoin].derivations[0]
-        return generateAddresses({ mnemonic, derivation });
+    generateAddresses(mnemonic: string): AddressResult[] {
+        return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }
     isValidExtendedKey(_props: any) {
         throw new Error(NotImplemented);
