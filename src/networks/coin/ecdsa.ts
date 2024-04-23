@@ -142,6 +142,9 @@ class ECDSACoin extends Base {
     getKeyPair(_props: any) {
         throw new Error(NotImplemented);
     }
+    importMaster(_props: any) {
+        throw new Error(NotImplemented);
+    }
 }
 
 export default ECDSACoin;

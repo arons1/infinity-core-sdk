@@ -28,6 +28,7 @@ abstract class Base {
     abstract generatePublicAddresses(_props: any): any;
     abstract supportedMethods(): string[];
     abstract getAccount(_props: any): string;
+    abstract importMaster(_props: any): any;
 }
 
 export default Base;
