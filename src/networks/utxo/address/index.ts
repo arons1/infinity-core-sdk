@@ -25,7 +25,6 @@ import { extractPath } from '../../../utils';
 import { DerivationName } from '../../constants';
 import { Protocol } from '../../registry';
 import { bitcoinjs } from '../../../core';
-import { fromBase58 } from '../../../core/base/base58';
 
 /* 
 getPrivateAddress
