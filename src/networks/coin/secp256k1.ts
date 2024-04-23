@@ -3,7 +3,7 @@ import { Curve, Protocol } from '../registry';
 
 import {
     AddressResult,
-    GeneratePublicAddressesParams,
+    GeneratePublicAddressesCoinParams,
     PublicAddressResult,
     getPrivateAddressParams,
     getPrivateMasterAddressParams,
@@ -150,11 +150,11 @@ class SECP256K1Coin extends Base {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }
     generatePublicAddresses({
-        change,
-        index,
+        change = 0,
+        index = 0,
         publicAccountNode,
         derivation,
-    }: GeneratePublicAddressesParams): PublicAddressResult {
+    }: GeneratePublicAddressesCoinParams): PublicAddressResult {
         return generatePublicAddresses({
             change,
             index,

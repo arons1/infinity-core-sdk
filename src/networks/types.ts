@@ -21,10 +21,17 @@ export type GeneratePublicAddressesParams = {
     index: number;
     derivation: string;
 };
+export type GeneratePublicAddressesCoinParams = {
+    publicAccountNode: BIP32Interface;
+    change?: number;
+    index?: number;
+    derivation: string;
+};
 export type AddressResult = {
     extendedPrivateAddress: string | undefined;
     extendedPublicAddress: string | undefined;
     privateKey: any;
+    protocol:Protocol;
     privateAddress: string | undefined;
     publicKey: any;
     publicAddress: string | undefined;

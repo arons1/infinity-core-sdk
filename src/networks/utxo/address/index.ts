@@ -23,6 +23,7 @@ import {
 } from '../../utils/secp256k1';
 import { extractPath } from '../../../utils';
 import { DerivationName } from '../../constants';
+import { Protocol } from '../../registry';
 
 /* 
 getPrivateAddress
@@ -134,6 +135,8 @@ export const generateAddresses = ({
         protocol: path[0].number,
     });
     const newAddress = {} as AddressResult;
+    newAddress.protocol = path[0].number as Protocol;
+
     newAddress.extendedNode = privateAccountNode;
     newAddress.extendedPrivateAddress = encodeGeneric(
         privateAccountNode.toBase58(),

@@ -20,7 +20,6 @@ import {
     getPublicAddressED25519Params,
 } from '../types';
 import Base from './base';
-import { GetKeyPairParams } from '../../../lib/commonjs/networks/ed25519/address/types';
 import config from '../config';
 import { DerivationName } from '../constants';
 import { isValidAddress as isValidAddressStellar } from '../utils/stellar';
@@ -28,6 +27,7 @@ import { isValidAddress as isValidAddressXRP } from '../utils/xrp';
 import { isValidAddress as isValidAddressSolana } from '../utils/solana';
 import { isValidAddress as isValidAddressTezos } from '../utils/tezos';
 import { generateAddresses } from '../generate_address';
+import { GetKeyPairParams } from '../ed25519/address/types';
 
 class ED25519Coin extends Base {
     curve = Curve.ED25519;

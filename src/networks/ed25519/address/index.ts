@@ -32,7 +32,7 @@ import {
 import { isValidPath } from '../../utils/secp256k1';
 import { SupportedNetworks } from '../general';
 import { DerivationName } from '../../constants';
-import { CoinIds } from '../../registry';
+import { CoinIds, Protocol } from '../../registry';
 
 /* 
 getSecret
@@ -219,6 +219,8 @@ export const generateAddresses = ({
         path: derivation.path,
         seed,
     });
+    newAddress.protocol = path[0].number as Protocol;
+
     newAddress.publicKey = getPublicKey({ keyPair, bipIdCoin: path[1].number });
     newAddress.privateKey = getPrivateKey({ keyPair });
     newAddress.privateAddress = getSecretAddress({
