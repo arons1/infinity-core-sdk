@@ -24,6 +24,8 @@ import {
 import { extractPath } from '../../../utils';
 import { DerivationName } from '../../constants';
 import { Protocol } from '../../registry';
+import { bitcoinjs } from '../../../core';
+import { fromBase58 } from '../../../core/base/base58';
 
 /* 
 getPrivateAddress
@@ -49,6 +51,8 @@ export const getPrivateAddress = ({
         throw new Error(GenPrivateKeyError);
     return privateKey.toWIF();
 };
+
+export const importMaster = (privateMasterAddress:string,network:Network) => bitcoinjs.bip32.fromBase58(privateMasterAddress,network)
 
 /* 
 getPublicAddressSegwit

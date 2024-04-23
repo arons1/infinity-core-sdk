@@ -22,6 +22,7 @@ import {
     getPublicAddressP2PKH,
     getPublicAddressP2WPKHP2S,
     getPublicAddressSegwit,
+    importMaster,
 } from '../utxo';
 import networks from '../networks';
 import { NotImplemented, ProtocolNotSupported } from '../../errors';
@@ -148,6 +149,10 @@ class SECP256K1Coin extends Base {
     }
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    }
+
+    importMaster(privateMasterAddress:string){
+        return importMaster(privateMasterAddress,networks[this.idCoin] as Network)
     }
     generatePublicAddresses({
         change = 0,
