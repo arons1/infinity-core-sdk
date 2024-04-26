@@ -51,7 +51,8 @@ export const getPrivateAddress = ({
     return privateKey.toWIF();
 };
 
-export const importMaster = (privateMasterAddress:string,network:Network) => bitcoinjs.bip32.fromBase58(privateMasterAddress,network)
+export const importMaster = (privateMasterAddress: string, network: Network) =>
+    bitcoinjs.bip32.fromBase58(privateMasterAddress, network);
 
 /* 
 getPublicAddressSegwit

@@ -15,7 +15,7 @@ export enum Chains {
     ARB = 42161,
     OP = 10,
     VET = 100009,
-    BASE = 8453
+    BASE = 8453,
 }
 
 export const PRIORITY_FEES = {

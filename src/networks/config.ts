@@ -125,7 +125,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.ETH],
-        chain: Chains.ETH
+        chain: Chains.ETH,
     },
     [Coins.BNB]: {
         derivations: [
@@ -150,7 +150,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.MATIC],
-        chain: Chains.MATIC
+        chain: Chains.MATIC,
     },
     [Coins.BSC]: {
         derivations: [
@@ -163,7 +163,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.BSC],
-        chain: Chains.BSC
+        chain: Chains.BSC,
     },
     [Coins.GRS]: {
         derivations: [
@@ -182,12 +182,12 @@ const config: Record<Coins, Derivation> = {
     [Coins.ONE]: {
         derivations: [
             {
-                name: DerivationName.LEGACY,
+                name: DerivationName.HARMONY,
                 path: "m/44'/60'/0'/0/0",
                 protocol: Protocol.LEGACY,
             },
             {
-                name: DerivationName.HARMONY,
+                name: DerivationName.LEGACY,
                 path: "m/44'/60'/0'/0/0",
                 protocol: Protocol.LEGACY,
             },
@@ -220,7 +220,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.VET],
-        chain: Chains.VET
+        chain: Chains.VET,
     },
     [Coins.AVAX]: {
         derivations: [
@@ -233,7 +233,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.AVAX],
-        chain: Chains.AVAX
+        chain: Chains.AVAX,
     },
     [Coins.XDC]: {
         derivations: [
@@ -246,7 +246,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.XDC],
-        chain: Chains.XDC
+        chain: Chains.XDC,
     },
     [Coins.KCC]: {
         derivations: [
@@ -259,7 +259,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.KCC],
-        chain: Chains.KCC
+        chain: Chains.KCC,
     },
     [Coins.OKX]: {
         derivations: [
@@ -272,7 +272,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.OKX],
-        chain: Chains.OKX
+        chain: Chains.OKX,
     },
     [Coins.ARB]: {
         derivations: [
@@ -285,7 +285,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.ARB],
-        chain: Chains.ARB
+        chain: Chains.ARB,
     },
     [Coins.BSC_TESTNET]: {
         derivations: [
@@ -298,7 +298,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.BSC_TESTNET],
-        chain: Chains.BSC_TESTNET
+        chain: Chains.BSC_TESTNET,
     },
     [Coins.ETH_TESTNET]: {
         derivations: [
@@ -324,7 +324,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.OP],
-        chain: Chains.OP
+        chain: Chains.OP,
     },
     [Coins.BASE]: {
         derivations: [
@@ -337,8 +337,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.BASE],
-        chain: Chains.BASE
-    }
+        chain: Chains.BASE,
+    },
 };
 
 export default config;

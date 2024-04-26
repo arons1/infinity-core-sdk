@@ -259,7 +259,7 @@ const networks: Record<Coins, Network> = {
         pubKeyHash: 0,
         scriptHash: 5,
         wif: 128,
-    }
+    },
 };
 
 export default networks;

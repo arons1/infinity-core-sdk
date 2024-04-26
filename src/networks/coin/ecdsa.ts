@@ -56,17 +56,15 @@ class ECDSACoin extends Base {
     }: getPrivateMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
-            protocol:44,
+            protocol: 44,
             rootNode,
         });
     }
 
-    getPublicMasterKey({
-        rootNode,
-    }: getPublicMasterKeyParams): BIP32Interface {
+    getPublicMasterKey({ rootNode }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
-            protocol:44,
+            protocol: 44,
             rootNode,
         }).neutered();
     }
@@ -109,7 +107,9 @@ class ECDSACoin extends Base {
         }
     };
     isValidAddress(address: string): boolean {
-        return this.idCoin == Coins.FIO ? isValidAddressFIO(address) : isValidAddress(address);
+        return this.idCoin == Coins.FIO
+            ? isValidAddressFIO(address)
+            : isValidAddress(address);
     }
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });

@@ -30,10 +30,17 @@ import { generateAddresses } from '../generate_address';
 import { GetKeyPairParams } from '../ed25519/address/types';
 
 class ED25519Coin extends Base {
-
     curve = Curve.ED25519;
     supportedMethods(): string[] {
-        return ['getPrivateAddress', 'getPublicAddress', 'isValidAddress','getAccount','getSeed','getKeyPair','generateAddresses'];
+        return [
+            'getPrivateAddress',
+            'getPublicAddress',
+            'isValidAddress',
+            'getAccount',
+            'getSeed',
+            'getKeyPair',
+            'generateAddresses',
+        ];
     }
     getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
         return getSecretAddress({

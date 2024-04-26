@@ -32,7 +32,7 @@ export type AddressResult = {
     extendedPrivateAddress: string | undefined;
     extendedPublicAddress: string | undefined;
     privateKey: any;
-    protocol:Protocol;
+    protocol: Protocol;
     privateAddress: string | undefined;
     publicKey: any;
     publicAddress: string | undefined;
@@ -43,7 +43,7 @@ export type AddressResult = {
 export type PublicAddressResult = {
     publicKey: any;
     publicAddress: string | undefined;
-    account:string;
+    account: string;
 };
 export type RootNodeParams = {
     mnemonic: string;
@@ -107,7 +107,7 @@ export type Derivation = {
     bip44: CoinIds;
     curve: Curve;
     network: Network;
-    chain?:Chains;
+    chain?: Chains;
 };
 export type getPublicAddressED25519Params = {
     keyPair: any;

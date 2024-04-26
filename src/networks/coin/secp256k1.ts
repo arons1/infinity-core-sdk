@@ -150,8 +150,11 @@ class SECP256K1Coin extends Base {
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }
-    importMaster(privateMasterAddress:string) : BIP32Interface{
-        return importMaster(privateMasterAddress,networks[this.idCoin] as Network)
+    importMaster(privateMasterAddress: string): BIP32Interface {
+        return importMaster(
+            privateMasterAddress,
+            networks[this.idCoin] as Network,
+        );
     }
     generatePublicAddresses({
         change = 0,
