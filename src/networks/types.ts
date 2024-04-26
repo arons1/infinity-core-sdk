@@ -1,5 +1,6 @@
 import { BIP32Interface, Network } from '../core/bip32';
 import { DerivationName, Encoding } from './constants';
+import { Chains } from './evm';
 import { CoinIds, Protocol, Coins, Curve } from './registry';
 import { Keypair } from 'stellar-sdk';
 
@@ -42,6 +43,7 @@ export type AddressResult = {
 export type PublicAddressResult = {
     publicKey: any;
     publicAddress: string | undefined;
+    account:string;
 };
 export type RootNodeParams = {
     mnemonic: string;
@@ -105,6 +107,7 @@ export type Derivation = {
     bip44: CoinIds;
     curve: Curve;
     network: Network;
+    chain?:Chains;
 };
 export type getPublicAddressED25519Params = {
     keyPair: any;
