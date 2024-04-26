@@ -8,7 +8,10 @@ import {
     getPublicAddressParams,
     getPublicMasterKeyParams,
 } from '../types';
-import { getPrivateMasterKey, getRootNode } from '../utils/secp256k1';
+import {
+    getPrivateMasterKey,
+    getRootNode,
+} from '../utils/secp256k1';
 
 import networks from '../networks';
 import {
@@ -35,6 +38,7 @@ import config from '../config';
 import { DerivationName } from '../constants';
 
 class ECDSACoin extends Base {
+
     curve = Curve.ECDSA;
     supportedMethods(): string[] {
         return [
@@ -45,7 +49,7 @@ class ECDSACoin extends Base {
             'getPublicAddress',
             'isValidAddress',
             'generateAddresses',
-            'getAccount',
+            'getAccount'
         ];
     }
     getRootNode(mnemonic: string): BIP32Interface {
@@ -60,6 +64,7 @@ class ECDSACoin extends Base {
             rootNode,
         });
     }
+
 
     getPublicMasterKey({ rootNode }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({

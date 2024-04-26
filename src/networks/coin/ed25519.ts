@@ -48,6 +48,7 @@ class ED25519Coin extends Base {
             bipIdCoin: this.bipIdCoin,
         });
     }
+
     getPublicAddress({ keyPair }: getPublicAddressED25519Params) {
         const publicKey = getPublicKey({ keyPair, bipIdCoin: this.bipIdCoin });
         const derivation = config[this.idCoin].derivations[0];
@@ -118,6 +119,7 @@ class ED25519Coin extends Base {
     getPrivateMasterKey(_props: any) {
         throw new Error(NotImplemented);
     }
+
     getPublicMasterKey(_props: any) {
         throw new Error(NotImplemented);
     }

@@ -51,7 +51,6 @@ class SECP256K1Coin extends Base {
             'generatePublicAddresses',
         ];
     }
-
     getRootNode(mnemonic: string): BIP32Interface {
         return getRootNode({ mnemonic, network: networks[this.idCoin] });
     }
