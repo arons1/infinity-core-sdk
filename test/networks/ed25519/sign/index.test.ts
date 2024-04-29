@@ -13,14 +13,7 @@ const mnemonic =
 describe('signMessageED25519', () => {
     test('signMessageStellar', async () => {
         const seed = getSeed({ mnemonic });
-        const secretKey = getSecretKey({
-            path: config[Coins.STELLAR].derivations[0].path,
-            seed,
-        });
-        const signedMessage = sign({
-            secretKey,
-            message: Buffer.from('Message to sign', 'utf-8'),
-        });
+       
         expect(Buffer.from(signedMessage).toString('hex')).toBe(
             '6dfed7942b499dd09e6dff5047b047f3f012728ef5b03ba942effe552b27929530db5ca9c0ad4ef133220d4462277fe9e41b7f77cd16071338f9d83e2ff27c03',
         );

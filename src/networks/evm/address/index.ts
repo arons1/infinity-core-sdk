@@ -34,13 +34,15 @@ import { DerivationName } from '../../constants';
 import { Coins, Protocol } from '../../registry';
 
 const ec = new elliptic('secp256k1');
-/* 
-getPublicAddress
-    Returns Public address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Retrieves the public address associated with a given public account node.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node used to generate the public address.
+ * @param {number} [change=0] - The account change derivation.
+ * @param {number} [index=0] - The account index derivation.
+ * @return {string | undefined} The generated public address, or undefined if the public key cannot be generated.
+ */
 export const getPublicAddress = ({
     publicAccountNode,
     change = 0,
@@ -54,13 +56,14 @@ export const getPublicAddress = ({
         throw new Error(DerivePathError);
     }
 };
-/* 
-getHarmonyPublicAddress
-    Returns Public Harmony address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+/**
+ * Retrieves the Harmony public address from the provided public account node.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node used to generate the public address.
+ * @param {number} [change=0] - The account change derivation.
+ * @param {number} [index=0] - The account index derivation.
+ * @return {string | undefined} The Harmony public address, or undefined if the public key cannot be generated.
+ */
 export const getHarmonyPublicAddress = ({
     publicAccountNode,
     change = 0,
@@ -82,13 +85,17 @@ const encodeAddressToBech32 = ({
     const words = bech32.toWords(Buffer.from(hexAddr, 'hex'));
     return bech32.encode(prefix, words);
 };
-/* 
-getOKXPublicAddress
-    Returns Public OKX address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Retrieves the OKX public address from the provided public account node.
+ *
+ * @param {PublicAddressParams} params - The parameters for retrieving the public address.
+ * @param {string} params.publicAccountNode - The public account node used to generate the public address.
+ * @param {number} [params.change=0] - The account change derivation.
+ * @param {number} [params.index=0] - The account index derivation.
+ * @return {string | undefined} The OKX public address, or undefined if the public key cannot be generated.
+ * @throws {Error} If the public key cannot be generated.
+ */
 export const getOKXPublicAddress = ({
     publicAccountNode,
     change = 0,
@@ -103,13 +110,17 @@ export const getOKXPublicAddress = ({
         });
     } else throw new Error(DerivePathError);
 };
-/* 
-getXDCPublicAddress
-    Returns Public XDC address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Generates a public XDC address based on the provided public account node, change, and index.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node.
+ * @param {number} [change=0] - The change derivation.
+ * @param {number} [index=0] - The index derivation.
+ * @return {string | undefined} The generated public XDC address, or undefined if the public address is not available.
+ * @throws {Error} If the public address cannot be derived.
+ */
+
 export const getXDCPublicAddress = ({
     publicAccountNode,
     change = 0,
@@ -121,13 +132,16 @@ export const getXDCPublicAddress = ({
     } else throw new Error(DerivePathError);
 };
 
-/* 
-getPrivateAddress
-    Returns Private address
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Retrieves the private address associated with a given private account node.
+ *
+ * @param {AddressParams} params - The parameters for retrieving the private address.
+ * @param {ExtendedPrivateKey} params.privateAccountNode - The private account node.
+ * @returns {string} The private address in base58 format.
+ * @throws {Error} If the private key is undefined.
+ */
+
 export const getFIOPrivateAddress = ({
     privateAccountNode,
 }: AddressParams): string => {
@@ -141,13 +155,17 @@ export const getFIOPrivateAddress = ({
     const checksum = sha256(sha256(private_key)).slice(0, 4);
     return base58.encode(Buffer.concat([private_key, checksum]));
 };
-/* 
-getPrivateAddress
-    Returns Private address
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Retrieves the private address associated with a given private account node.
+ *
+ * @param {AddressParams} params - The parameters for retrieving the private address.
+ * @param {ExtendedPrivateKey} params.privateAccountNode - The private account node.
+ * @param {number} [params.change=0] - The change derivation.
+ * @param {number} [params.index=0] - The index derivation.
+ * @returns {string} The private address in hexadecimal format.
+ * @throws {Error} If the private key is undefined.
+ */
 export const getPrivateAddress = ({
     privateAccountNode,
     change = 0,
@@ -162,11 +180,14 @@ export const getPrivateAddress = ({
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     return '0x' + privateKey.toString('hex');
 };
-/*
-getFIOPublicAddress
-    Returns FIO public address
-    @param publicAccountNode: Account Extended Public Node
-*/
+
+/**
+ * Generates a FIO public address from the given public account node.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node used to generate the public address.
+ * @return {string} The generated FIO public address.
+ */
+
 export const getFIOPublicAddress = ({
     publicAccountNode,
 }: PublicAddressParams) => {
@@ -187,6 +208,12 @@ export const getFIOPublicAddress = ({
     } else throw new Error(DerivePathError);
 };
 
+/**
+ * A function that retrieves the FIO account based on the provided public address.
+ *
+ * @param {string} publicAddress - The public address to extract the FIO account from.
+ * @return {string} The FIO account extracted from the public address.
+ */
 export const getFIOAccount = (publicAddress: string) => {
     if (!publicAddress.startsWith('FIO')) throw new Error(InvalidAddress);
     const pubkey = publicAddress.substring('FIO'.length, publicAddress.length);
@@ -197,11 +224,13 @@ export const getFIOAccount = (publicAddress: string) => {
     const output = stringFromUInt64T(long);
     return output;
 };
-/*
-getBCPublicAddress
-    Returns bc public address
-    @param publicAccountNode: Account Extended Public Node
-*/
+
+/**
+ * Generates a Binance Chain (BC) public address from the given public account node.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node used to generate the public address.
+ * @return {string} The generated Binance Chain public address.
+ */
 export const getBCPublicAddress = ({
     publicAccountNode,
 }: PublicAddressParams) => {
@@ -220,13 +249,16 @@ export const getBCPublicAddress = ({
         });
     } else throw new Error(DerivePathError);
 };
-/* 
-generateAddresses
-    Returns addresses and private keys
-    @param derivation: derivation object
-    @param mnemonic: mnemonic
-    @param network: network object
-*/
+
+/**
+ * Generates addresses and private keys based on the provided parameters.
+ *
+ * @param {GenerateAddressParams} params - The parameters for generating addresses.
+ * @param {Network} params.network - The network object.
+ * @param {Derivation} params.derivation - The derivation object.
+ * @param {string} params.mnemonic - The mnemonic.
+ * @return {AddressResult} The generated addresses and private keys.
+ */
 export const generateAddresses = ({
     network,
     derivation,

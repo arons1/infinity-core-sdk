@@ -8,13 +8,16 @@ import {
     publicToAddress,
     recoverFromSignature,
 } from '../sdk';
-/* 
-signMessage
-    Returns message signed
-    @param message: message to sign
-    @param privateKey: private key
-    @param chainId: Id of the chain
-*/
+
+/**
+ * Signs a message using the provided private key and chain ID.
+ *
+ * @param {SignMessageParams} options - The options for signing the message.
+ * @param {string} options.message - The message to sign.
+ * @param {string} options.privateKey - The private key used for signing.
+ * @param {number} options.chainId - The chain ID used for signing.
+ * @return {string} The signed message as a hexadecimal string.
+ */
 export const signMessage = ({
     message,
     privateKey,
@@ -35,14 +38,18 @@ const extractRSV = (sig: string): RSV => {
         v,
     };
 };
-/* 
-verifyMessage
-    Returns if the address passed matches the one that signed the message
-    @param message: original message which was signed
-    @param address: public address used to sign
-    @param signature: signature to verify
-    @param chainId: Id of the chain
-*/
+
+/**
+ * Verifies a message using the provided signature and address.
+ *
+ * @param {VerifyMessageParams} params - The parameters for verifying the message.
+ * @param {string} params.message - The message to be verified.
+ * @param {string} params.address - The address associated with the signature.
+ * @param {string} params.signature - The signature to be verified.
+ * @param {number} params.chainId - The chain ID for the signature.
+ * @return {Promise<boolean>} A promise that resolves to a boolean indicating whether the signature is valid.
+ */
+
 export const verifyMessage = async ({
     message,
     address,
@@ -52,12 +59,12 @@ export const verifyMessage = async ({
     if (!isValidAddress(address)) throw new Error(InvalidAddress);
     const msgHash = hashPersonalMessage(Buffer.from(message, 'utf-8'));
     const { v, r, s } = extractRSV(signature);
-    const publicKey = await recoverFromSignature(
+    const publicKey = recoverFromSignature(
         msgHash,
         parseInt(v, 16),
         Buffer.from(r.substring(2), 'hex'),
         Buffer.from(s.substring(2), 'hex'),
-        chainId,
+        chainId
     );
     const publicAddress =
         '0x' + publicToAddress(publicKey, true).toString('hex');

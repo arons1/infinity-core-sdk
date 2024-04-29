@@ -63,12 +63,14 @@ export const xpubToZpub = (data: string): string => {
     return encodeGeneric(data, Encoding.ZPUB);
 };
 
-/* 
-getRootNode
-    Returns root node
-    @param mnemonic: X words phrase
-    @param network: Network for this node
-*/
+
+/**
+ * Generates a root node based on the provided mnemonic and network.
+ *
+ * @param {RootNodeParams} mnemonic - The mnemonic to generate the root node from.
+ * @param {Network} network - The network for the root node.
+ * @return {BIP32Interface} The generated root node.
+ */
 export const getRootNode = ({
     mnemonic,
     network,
@@ -77,13 +79,15 @@ export const getRootNode = ({
     const seed = mnemonicToSeedSync(mnemonic);
     return fromSeed(seed, network);
 };
-/* 
-getPublicMasterKey
-    Returns Account Extended Public Key
-    @param rootNode: Root node
-    @param bipIdCoin: Coin BIP32 ID
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
+
+/**
+ * Returns the public master key for a given root node, coin BIP32 ID, and protocol.
+ *
+ * @param {BIP32Interface} rootNode - The root node.
+ * @param {string} bipIdCoin - The coin BIP32 ID.
+ * @param {Protocol} [protocol=Protocol.LEGACY] - The protocol to use in the derivation.
+ * @returns {BIP32Interface} - The public master key.
+ */
 export const getPublicMasterKey = ({
     rootNode,
     bipIdCoin,
@@ -95,13 +99,15 @@ export const getPublicMasterKey = ({
         protocol,
     }).neutered();
 };
-/* 
-getPrivateMasterKey
-    Returns Account Extended Private Node
-    @param rootNode: Root node
-    @param bipIdCoin: Coin BIP32 ID
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
+/**
+ * Returns the private master key for a given root node, coin BIP32 ID, and protocol.
+ *
+ * @param {MasterKeyParams} params - The parameters for generating the private master key.
+ * @param {BIP32Interface} params.rootNode - The root node.
+ * @param {string} params.bipIdCoin - The coin BIP32 ID.
+ * @param {number} [params.protocol=44] - The protocol to use in the derivation.
+ * @returns {BIP32Interface} - The private master key.
+ */
 export const getPrivateMasterKey = ({
     rootNode,
     bipIdCoin,
@@ -112,12 +118,17 @@ export const getPrivateMasterKey = ({
         .deriveHardened(bipIdCoin)
         .deriveHardened(0);
 };
-/* 
-getPrivateMasterAddress
-    Returns Account Extended Private Address
-    @param privateMasterKey: Account Extended Private Node
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
+
+/**
+ * Returns the private master address for a given private account node, coin ID, and protocol.
+ *
+ * @param {MasterAddressParams} params - The parameters for generating the private master address.
+ * @param {BIP32Interface} params.privateAccountNode - The private account node.
+ * @param {string} params.coinId - The ID of the coin.
+ * @param {number} [params.protocol=44] - The protocol to use in the derivation.
+ * @return {string} The private master address.
+ * @throws {Error} If the derivation for the specified protocol is not found.
+ */
 export const getPrivateMasterAddress = ({
     privateAccountNode,
     coinId,
@@ -132,12 +143,17 @@ export const getPrivateMasterAddress = ({
         derivation.xprv ?? Encoding.XPRIV,
     );
 };
-/* 
-getPublicMasterAddress
-    Returns Account Extended Public Address
-    @param publicAccountNode: Account Extended Public Node
-    @param protocol: Protocol that it's going to use be use in the derivation
-*/
+
+/**
+ * Returns the public master address for a given public account node, coin ID, and protocol.
+ *
+ * @param {MasterPublicAddressParams} params - The parameters for generating the public master address.
+ * @param {BIP32Interface} params.publicAccountNode - The public account node.
+ * @param {string} params.coinId - The ID of the coin.
+ * @param {number} [params.protocol=44] - The protocol to use in the derivation.
+ * @return {string} The public master address.
+ * @throws {Error} If the derivation for the specified protocol is not found.
+ */
 export const getPublicMasterAddress = ({
     publicAccountNode,
     coinId,
@@ -152,13 +168,15 @@ export const getPublicMasterAddress = ({
         derivation.xpub ?? Encoding.XPUB,
     );
 };
-/* 
-getPrivateKey
-    Returns Private key
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Returns the private key for a given private account node, with optional change and index.
+ *
+ * @param {AddressParams} privateAccountNode - The private account node.
+ * @param {number} [change=0] - The change to apply to the derivation.
+ * @param {number} [index=0] - The index to apply to the derivation.
+ * @return {BIP32Interface} The private key derived from the private account node.
+ */
 export const getPrivateKey = ({
     privateAccountNode,
     change = 0,
@@ -167,13 +185,15 @@ export const getPrivateKey = ({
     return privateAccountNode.derive(change).derive(index);
 };
 
-/* 
-getPublicKey
-    Returns Public address
-    @param publicAccountNode: Account Extended Public Node
-    @param change: account change derivation
-    @param index: account index derivation
-*/
+
+/**
+ * Retrieves the public key associated with a given public account node, change, and index.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The public account node.
+ * @param {number} [change=0] - The change to apply to the derivation.
+ * @param {number} [index=0] - The index to apply to the derivation.
+ * @return {Buffer | undefined} The public key derived from the public account node, or undefined if not available.
+ */
 export const getPublicKey = ({
     publicAccountNode,
     change = 0,

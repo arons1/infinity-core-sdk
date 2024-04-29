@@ -8,12 +8,14 @@ import {
     getPublicTezosAddress,
     getPublicXRPAddress,
     getSecretAddress,
+    getSecretKey,
     getSeed,
     getTezosPublicKeyHash,
 } from '../ed25519';
 import { Coins, Curve } from '../registry';
 import {
     AddressResult,
+    GetKeyPairParams,
     GetSeedParams,
     getAccountParams,
     getPrivateAddressED25519Params,
@@ -27,7 +29,6 @@ import { isValidAddress as isValidAddressXRP } from '../utils/xrp';
 import { isValidAddress as isValidAddressSolana } from '../utils/solana';
 import { isValidAddress as isValidAddressTezos } from '../utils/tezos';
 import { generateAddresses } from '../generate_address';
-import { GetKeyPairParams } from '../ed25519/address/types';
 
 class ED25519Coin extends Base {
     curve = Curve.ED25519;
@@ -40,6 +41,7 @@ class ED25519Coin extends Base {
             'getSeed',
             'getKeyPair',
             'generateAddresses',
+            'getSecretKey',
         ];
     }
     getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
@@ -101,8 +103,13 @@ class ED25519Coin extends Base {
     getSeed({ mnemonic }: GetSeedParams) {
         return getSeed({ mnemonic });
     }
-    getKeyPair({ path, seed }: GetKeyPairParams) {
+    getKeyPair({ seed }: GetKeyPairParams) {
+        const path = config[this.idCoin].derivations[0].path;
         return getKeyPair({ path, seed });
+    }
+    getSecretKey({ seed }: GetKeyPairParams): Buffer | Uint8Array {
+        const path = config[this.idCoin].derivations[0].path;
+        return getSecretKey({ path, seed });
     }
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });

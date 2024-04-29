@@ -123,6 +123,9 @@ export type GetSeedParams = {
 export type getAccountParams = {
     keyPair: Keypair;
 };
+export type GetKeyPairParams = {
+    seed: Buffer;
+};
 export type getPublicMasterKeyParams = getPrivateMasterKeyParams;
 export type getPublicMasterAddressParams = {
     protocol?: Protocol;

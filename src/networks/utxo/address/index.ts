@@ -26,14 +26,16 @@ import { DerivationName } from '../../constants';
 import { Protocol } from '../../registry';
 import { bitcoinjs } from '../../../core';
 
-/* 
-getPrivateAddress
-    Returns Private address
-    @param privateAccountNode: Account Extended Private Node
-    @param change: account change derivation
-    @param index: account index derivation
-    @param network: network for derivation
-*/
+
+/**
+ * Retrieves the private address associated with a given private account node.
+ *
+ * @param {AddressParams} privateAccountNode - The private account node.
+ * @param {number} [change=0] - The change derivation.
+ * @param {number} [index=0] - The index derivation.
+ * @param {Network} network - The network for derivation.
+ * @returns {string} The private address in Wallet Import Format (WIF).
+ */
 export const getPrivateAddress = ({
     privateAccountNode,
     change = 0,
@@ -54,14 +56,16 @@ export const getPrivateAddress = ({
 export const importMaster = (privateMasterAddress: string, network: Network) =>
     bitcoinjs.bip32.fromBase58(privateMasterAddress, network);
 
-/* 
-getPublicAddressSegwit
-    Returns Public Segwit address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-    @param network: network for derivation
-*/
+
+/**
+ * Generates a public address for SegWit transactions.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The extended public account node.
+ * @param {number} [change=0] - The change derivation.
+ * @param {number} [index=0] - The index derivation.
+ * @param {Network} network - The network for derivation.
+ * @return {string | undefined} The generated public address.
+ */
 export const getPublicAddressSegwit = ({
     publicAccountNode,
     change = 0,
@@ -71,6 +75,14 @@ export const getPublicAddressSegwit = ({
     const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2wpkh({ pubkey, network: network as Network }).address;
 };
+/**
+ * Generates a redeem script for a Pay-to-Witness-Public-Key-Hash (P2WPKH) transaction.
+ *
+ * @param {Object} params - The parameters for generating the redeem script.
+ * @param {Buffer} params.publicKey - The public key used in the redeem script.
+ * @param {Network} params.network - The network for which the redeem script is generated.
+ * @return {Buffer | undefined} The redeem script as a Buffer, or undefined if any of the parameters are invalid.
+ */
 export const getRedeemP2WPKH = ({
     publicKey,
     network,
@@ -81,14 +93,16 @@ export const getRedeemP2WPKH = ({
     });
     return redeem.output;
 };
-/* 
-getPublicAddressP2WPKHP2S
-    Returns Public P2WPKHP2S address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-    @param network: network for derivation
-*/
+
+/**
+ * Generates a public address using the P2WPKH-P2S scheme.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The extended public account node.
+ * @param {number} [change=0] - The change derivation.
+ * @param {number} [index=0] - The index derivation.
+ * @param {Network} network - The network for derivation.
+ * @return {string | undefined} The generated public address.
+ */
 export const getPublicAddressP2WPKHP2S = ({
     publicAccountNode,
     change = 0,
@@ -102,14 +116,16 @@ export const getPublicAddressP2WPKHP2S = ({
         network: network as Network,
     }).address;
 };
-/* 
-getPublicAddressP2PKH
-    Returns Public P2PKH address
-    @param publicAccountNode: Account Extended Public Address
-    @param change: account change derivation
-    @param index: account index derivation
-    @param network: network for derivation
-*/
+
+/**
+ * Generates a public address using the P2PKH (Pay-to-Public-Key-Hash) scheme.
+ *
+ * @param {PublicAddressParams} publicAccountNode - The extended public account node.
+ * @param {number} [change=0] - The change derivation.
+ * @param {number} [index=0] - The index derivation.
+ * @param {Network} network - The network for derivation.
+ * @return {string | undefined} The generated public address.
+ */
 export const getPublicAddressP2PKH = ({
     publicAccountNode,
     change = 0,
@@ -119,12 +135,17 @@ export const getPublicAddressP2PKH = ({
     const pubkey = getPublicKey({ publicAccountNode, change, index });
     return payments.p2pkh({ pubkey, network: network as Network }).address;
 };
-/* 
-generateAddresses
-    Returns addresses and private keys
-    @param derivation: derivation object
-    @param mnemonic: mnemonic
-*/
+
+/**
+ * Generates addresses and private keys based on the given parameters.
+ *
+ * @param {GenerateAddressParams} params - The parameters for generating addresses.
+ * @param {string} params.mnemonic - The mnemonic for generating the addresses.
+ * @param {Network} params.network - The network for generating the addresses.
+ * @param {Derivation} params.derivation - The derivation object for generating the addresses.
+ * @throws {Error} If the derivation object does not contain xprv or xpub.
+ * @return {AddressResult} The generated addresses and private keys.
+ */
 export const generateAddresses = ({
     mnemonic,
     network,
@@ -186,15 +207,19 @@ export const generateAddresses = ({
     return newAddress;
 };
 
-/* 
-generatePublicAddresses
-    Returns addresses and private keys
-    @param derivation: derivation object
-    @param publicNode: Public Extended Node derivation
-    @param change: change derivation
-    @param index: index derivation
-    @param network: Network
-*/
+
+/**
+ * Generates a public address based on the given parameters.
+ *
+ * @param {GeneratePublicAddressParams} params - The parameters for generating the public address.
+ * @param {BIP32Interface} params.publicAccountNode - The extended public account node.
+ * @param {Network} params.network - The network for generating the address.
+ * @param {number} [params.change=0] - The change derivation.
+ * @param {number} [params.index=0] - The index derivation.
+ * @param {DerivationName} params.derivation - The derivation scheme for generating the address.
+ * @throws {Error} If the derivation scheme is not supported.
+ * @return {PublicAddressResult} The generated public address.
+ */
 export const generatePublicAddress = ({
     publicAccountNode,
     network,
