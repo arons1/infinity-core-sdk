@@ -32,6 +32,11 @@ import { generateAddresses } from '../generate_address';
 
 class ED25519Coin extends Base {
     curve = Curve.ED25519;
+    /**
+     * Returns an array of supported methods for the current class.
+     *
+     * @return {string[]} An array of strings representing the supported methods.
+     */
     supportedMethods(): string[] {
         return [
             'getPrivateAddress',
@@ -44,6 +49,13 @@ class ED25519Coin extends Base {
             'getSecretKey',
         ];
     }
+    /**
+     * Retrieves the private address using the provided key pair.
+     *
+     * @param {getPrivateAddressED25519Params} keyPair - The key pair object.
+     * @return {string} The private address.
+     */
+
     getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
         return getSecretAddress({
             secretKey: getPrivateKey({ keyPair }),
@@ -51,6 +63,13 @@ class ED25519Coin extends Base {
         });
     }
 
+    /**
+     * Retrieves the public address based on the provided key pair.
+     *
+     * @param {getPublicAddressED25519Params} keyPair - The key pair object.
+     * @return {string} The public address.
+     * @throws {Error} If the derivation name is not supported.
+     */
     getPublicAddress({ keyPair }: getPublicAddressED25519Params) {
         const publicKey = getPublicKey({ keyPair, bipIdCoin: this.bipIdCoin });
         const derivation = config[this.idCoin].derivations[0];
@@ -78,6 +97,13 @@ class ED25519Coin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     }
+    /**
+     * Validates the given address based on the derivation name.
+     *
+     * @param {string} address - The address to be validated.
+     * @return {boolean} Returns true if the address is valid, false otherwise.
+     * @throws {Error} Throws an error if the derivation name is not supported.
+     */
     isValidAddress(address: string) {
         const derivation = config[this.idCoin].derivations[0];
         switch (derivation.name) {
@@ -93,6 +119,13 @@ class ED25519Coin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     }
+    /**
+     * Retrieves the account associated with the given key pair.
+     *
+     * @param {getAccountParams} keyPair - The key pair used to retrieve the account.
+     * @return {string} The public key hash of the account if the coin is Tezos, otherwise throws an error.
+     * @throws {Error} If the coin is not Tezos.
+     */
     getAccount({ keyPair }: getAccountParams): string {
         if (this.idCoin == Coins.TEZOS)
             return getTezosPublicKeyHash({
@@ -100,17 +133,43 @@ class ED25519Coin extends Base {
             });
         throw new Error(NotImplemented);
     }
+    /**
+     * Retrieves the seed from the given mnemonic.
+     *
+     * @param {GetSeedParams} params - The parameters for retrieving the seed.
+     * @param {string} params.mnemonic - The mnemonic to generate the seed from.
+     * @return {Buffer} The generated seed.
+     */
     getSeed({ mnemonic }: GetSeedParams) {
         return getSeed({ mnemonic });
     }
+    /**
+     * Retrieves a key pair using the given seed.
+     *
+     * @param {GetKeyPairParams} params - The parameters for retrieving the key pair.
+     * @param {string} params.seed - The seed used to generate the key pair.
+     * @return {Promise<KeyPair>} A promise that resolves to the generated key pair.
+     */
     getKeyPair({ seed }: GetKeyPairParams) {
         const path = config[this.idCoin].derivations[0].path;
         return getKeyPair({ path, seed });
     }
+    /**
+     * Retrieves the secret key based on the provided seed.
+     *
+     * @param {GetKeyPairParams} seed - The seed used to generate the key pair.
+     * @return {Buffer | Uint8Array} The secret key as a Buffer or Uint8Array.
+     */
     getSecretKey({ seed }: GetKeyPairParams): Buffer | Uint8Array {
         const path = config[this.idCoin].derivations[0].path;
         return getSecretKey({ path, seed });
     }
+    /**
+     * Generates addresses based on the provided mnemonic.
+     *
+     * @param {string} mnemonic - The mnemonic used to generate the addresses.
+     * @return {AddressResult[]} An array of AddressResult objects representing the generated addresses.
+     */
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }

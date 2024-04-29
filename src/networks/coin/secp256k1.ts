@@ -36,6 +36,11 @@ import Base from './base';
 
 class SECP256K1Coin extends Base {
     curve = Curve.SECP256K1;
+    /**
+     * Returns an array of strings representing the supported methods of the class.
+     *
+     * @return {string[]} An array of strings containing the supported methods.
+     */
     supportedMethods(): string[] {
         return [
             'getRootNode',
@@ -51,10 +56,24 @@ class SECP256K1Coin extends Base {
             'generatePublicAddresses',
         ];
     }
+    /**
+     * Retrieves the root node of the BIP32 hierarchy for the given mnemonic and network.
+     *
+     * @param {string} mnemonic - The mnemonic phrase used to generate the root node.
+     * @return {BIP32Interface} The root node of the BIP32 hierarchy.
+     */
+
     getRootNode(mnemonic: string): BIP32Interface {
         return getRootNode({ mnemonic, network: networks[this.idCoin] });
     }
 
+    /**
+     * Retrieves the private master key based on the specified protocol and root node.
+     *
+     * @param {getPrivateMasterKeyParams} protocol - The protocol number. Default is 44.
+     * @param {BIP32Interface} rootNode - The root node for key derivation.
+     * @return {BIP32Interface} The private master key.
+     */
     getPrivateMasterKey({
         protocol = 44,
         rootNode,
@@ -66,6 +85,13 @@ class SECP256K1Coin extends Base {
         });
     }
 
+    /**
+     * Retrieves the public master key based on the specified protocol and root node.
+     *
+     * @param {number} protocol - The protocol number. Default is 44.
+     * @param {BIP32Interface} rootNode - The root node for key derivation.
+     * @return {BIP32Interface} The public master key.
+     */
     getPublicMasterKey({
         protocol = 44,
         rootNode,
@@ -76,6 +102,14 @@ class SECP256K1Coin extends Base {
             rootNode,
         }).neutered();
     }
+
+    /**
+     * Retrieves the private master address based on the specified private account node and protocol.
+     *
+     * @param {getPrivateMasterAddressParams} privateAccountNode - The private account node.
+     * @param {number} [protocol=44] - The protocol number. Default is 44.
+     * @return {string} The private master address.
+     */
 
     getPrivateMasterAddress({
         privateAccountNode,
@@ -88,6 +122,14 @@ class SECP256K1Coin extends Base {
         });
     }
 
+    /**
+     * Returns the public master address for a given public account node and protocol.
+     *
+     * @param {getPublicMasterAddressParams} publicAccountNode - The public account node.
+     * @param {number} [protocol=44] - The protocol number. Default is 44.
+     * @return {string} The public master address.
+     */
+
     getPublicMasterAddress({
         publicAccountNode,
         protocol = 44,
@@ -99,6 +141,14 @@ class SECP256K1Coin extends Base {
         });
     }
 
+    /**
+     * Retrieves the private address associated with the given private account node, change, and index.
+     *
+     * @param {getPrivateAddressParams} privateAccountNode - The private account node.
+     * @param {number} [change=0] - The change derivation.
+     * @param {number} [index=0] - The index derivation.
+     * @return {string} The private address.
+     */
     getPrivateAddress({
         privateAccountNode,
         change = 0,
@@ -107,12 +157,25 @@ class SECP256K1Coin extends Base {
         return getPrivateAddress({ privateAccountNode, change, index });
     }
 
-    getPublicAddress = ({
+
+
+    /**
+     * Retrieves the public address associated with the given public account node, change, index, and protocol.
+     *
+     * @param {getPublicAddressParams} options - The options for retrieving the public address.
+     * @param {BIP32Interface} options.publicAccountNode - The public account node.
+     * @param {number} [options.change=0] - The change derivation.
+     * @param {number} [options.index=0] - The index derivation.
+     * @param {Protocol} options.protocol - The protocol to use for address generation.
+     * @return {string | undefined} The public address, or undefined if the protocol is not supported.
+     * @throws {Error} If the protocol is not supported.
+     */
+    getPublicAddress({
         change = 0,
         index = 0,
         publicAccountNode,
         protocol,
-    }: getPublicAddressParams): string | undefined => {
+    }: getPublicAddressParams): string | undefined {
         const network = networks[this.idCoin];
         switch (protocol) {
             case Protocol.SEGWIT:
@@ -140,21 +203,57 @@ class SECP256K1Coin extends Base {
                 throw new Error(ProtocolNotSupported);
         }
     };
+    /**
+     * Validates the given address by checking it against the network configuration.
+     *
+     * @param {string} address - The address to be validated.
+     * @return {boolean} Returns true if the address is valid, false otherwise.
+     */
+
     isValidAddress(address: string): boolean {
         return isValidAddress(address, networks[this.idCoin] as Network);
     }
+    /**
+     * Validates the given extended key address by checking it against the network configuration.
+     *
+     * @param {string} address - The extended key address to be validated.
+     * @return {boolean} Returns true if the extended key address is valid, false otherwise.
+     */
     isValidExtendedKey(address: string): boolean {
         return isValidExtendedKey(address, networks[this.idCoin] as Network);
     }
+    /**
+     * Generates addresses based on the provided mnemonic.
+     *
+     * @param {string} mnemonic - The mnemonic used to generate the addresses.
+     * @return {AddressResult[]} An array of generated addresses.
+     */
+
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }
+    /**
+     * Imports the private master address and returns the BIP32Interface.
+     *
+     * @param {string} privateMasterAddress - The private master address to import.
+     * @return {BIP32Interface} The imported BIP32Interface.
+     */
     importMaster(privateMasterAddress: string): BIP32Interface {
         return importMaster(
             privateMasterAddress,
             networks[this.idCoin] as Network,
         );
     }
+    /**
+     * Generates public addresses based on the given parameters.
+     *
+     * @param {GeneratePublicAddressesCoinParams} options - The options for generating public addresses.
+     * @param {number} [options.change=0] - The change value.
+     * @param {number} [options.index=0] - The index value.
+     * @param {BIP32Interface} options.publicAccountNode - The public account node.
+     * @param {DerivationName} options.derivation - The derivation type.
+     * @return {PublicAddressResult} The generated public addresses.
+     */
     generatePublicAddresses({
         change = 0,
         index = 0,

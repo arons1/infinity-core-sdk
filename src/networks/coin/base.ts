@@ -5,6 +5,13 @@ abstract class Base {
     abstract curve: Curve;
     idCoin: Coins;
     bipIdCoin: CoinIds;
+    /**
+     * Constructs a new instance of the class.
+     *
+     * @param {Coins} coinId - The coin identifier.
+     * @param {CoinIds} bipIdCoin - The BIP44 coin identifier.
+     * @throws {Error} Throws an error if the coinId or bipIdCoin is not supported.
+     */
     constructor(coinId: Coins, bipIdCoin: CoinIds) {
         if (Object.values(Coins).find(a => a == coinId) == undefined)
             throw new Error(CoinNotSupported);

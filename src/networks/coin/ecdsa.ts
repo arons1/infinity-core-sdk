@@ -36,6 +36,11 @@ import { DerivationName } from '../constants';
 
 class ECDSACoin extends Base {
     curve = Curve.ECDSA;
+    /**
+     * Returns an array of strings representing the supported methods of the class.
+     *
+     * @return {string[]} An array of strings containing the supported methods.
+     */
     supportedMethods(): string[] {
         return [
             'getRootNode',
@@ -48,9 +53,23 @@ class ECDSACoin extends Base {
             'getAccount',
         ];
     }
+    /**
+     * Retrieves the root node of the BIP32 hierarchical deterministic (HD) tree
+     * using the provided mnemonic and network information.
+     *
+     * @param {string} mnemonic - The mnemonic phrase used to generate the seed for the HD tree.
+     * @return {BIP32Interface} The root node of the BIP32 HD tree.
+     */
     getRootNode(mnemonic: string): BIP32Interface {
         return getRootNode({ mnemonic, network: networks[this.idCoin] });
     }
+    /**
+     * Retrieves the private master key using the provided root node.
+     *
+     * @param {getPrivateMasterKeyParams} params - The parameters for generating the private master key.
+     * @param {BIP32Interface} params.rootNode - The root node for key derivation.
+     * @return {BIP32Interface} The private master key.
+     */
     getPrivateMasterKey({
         rootNode,
     }: getPrivateMasterKeyParams): BIP32Interface {
@@ -61,6 +80,12 @@ class ECDSACoin extends Base {
         });
     }
 
+    /**
+     * Retrieves the public master key based on the specified root node.
+     *
+     * @param {getPublicMasterKeyParams} rootNode - The root node for key derivation.
+     * @return {BIP32Interface} The public master key.
+     */
     getPublicMasterKey({ rootNode }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
@@ -69,13 +94,25 @@ class ECDSACoin extends Base {
         }).neutered();
     }
 
+    /**
+     * Retrieves the private address associated with the given private account node.
+     *
+     * @param {getPrivateAddressParams} privateAccountNode - The private account node.
+     * @return {string} The private address.
+     */
     getPrivateAddress({ privateAccountNode }: getPrivateAddressParams): string {
         return getPrivateAddress({ privateAccountNode });
     }
 
-    getPublicAddress = ({
+    /**
+     * Retrieves the public address based on the derivation type.
+     *
+     * @param {getPublicAddressParams} publicAccountNode - The public account node used to generate the public address.
+     * @return {string | undefined} The public address based on the specified derivation type.
+     */
+    getPublicAddress({
         publicAccountNode,
-    }: getPublicAddressParams): string | undefined => {
+    }: getPublicAddressParams): string | undefined {
         const derivation = config[this.idCoin].derivations[0];
         switch (derivation.name) {
             case DerivationName.LEGACY:
@@ -106,14 +143,33 @@ class ECDSACoin extends Base {
                 throw new Error(DerivationTypeNotSupported);
         }
     };
+    /**
+     * Validates the given address based on the coin type.
+     *
+     * @param {string} address - The address to be validated.
+     * @return {boolean} Returns true if the address is valid, false otherwise.
+     */
     isValidAddress(address: string): boolean {
         return this.idCoin == Coins.FIO
             ? isValidAddressFIO(address)
             : isValidAddress(address);
     }
+    /**
+     * Generates addresses based on the provided mnemonic.
+     *
+     * @param {string} mnemonic - The mnemonic used to generate the addresses.
+     * @return {AddressResult[]} An array of AddressResult objects representing the generated addresses.
+     */
     generateAddresses(mnemonic: string): AddressResult[] {
         return generateAddresses({ mnemonic, idCoin: this.idCoin });
     }
+    /**
+     * Retrieves the account associated with the given public address.
+     *
+     * @param {string} publicAddress - The public address to retrieve the account for.
+     * @return {string} The account associated with the public address.
+     * @throws {Error} If the public address is invalid or if the coin type is not supported.
+     */
     getAccount(publicAddress: string): string {
         if (!isValidAddress(publicAddress)) {
             throw new Error(InvalidAddress);
