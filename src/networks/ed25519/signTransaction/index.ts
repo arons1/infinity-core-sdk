@@ -25,7 +25,9 @@ export const signTransaction = ({
             transaction.sign(Keypair.fromSecret(keyPair.secret()));
             return transaction.toEnvelope().toXDR('base64');
         case Coins.XRP:
-            transaction.SigningPubKey = keyPair.publicKey.toString('hex').toUpperCase();
+            transaction.SigningPubKey = keyPair.publicKey
+                .toString('hex')
+                .toUpperCase();
             transaction.TxnSignature = sign(
                 encodeForSigning(transaction),
                 '00' + keyPair.privateKey.toString('hex').toUpperCase(),

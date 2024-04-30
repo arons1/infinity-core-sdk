@@ -142,7 +142,7 @@ class ECDSACoin extends Base {
             default:
                 throw new Error(DerivationTypeNotSupported);
         }
-    };
+    }
     /**
      * Validates the given address based on the coin type.
      *

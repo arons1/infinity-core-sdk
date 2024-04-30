@@ -25,6 +25,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.BTC,
         curve: Curve.SECP256K1,
         network: networks[Coins.BTC],
+        dust: 546,
+        rpc: ['https://btc1.trezor.io'],
     },
     [Coins.LTC]: {
         derivations: [
@@ -39,6 +41,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.LTC,
         curve: Curve.SECP256K1,
         network: networks[Coins.LTC],
+        dust: 1000,
+        rpc: ['https://ltc1.trezor.io'],
     },
     [Coins.DOGE]: {
         derivations: [
@@ -53,6 +57,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.DOGE,
         curve: Curve.SECP256K1,
         network: networks[Coins.DOGE],
+        dust: 50000000,
+        rpc: ['https://doge1.trezor.io'],
     },
     [Coins.FIO]: {
         derivations: [
@@ -65,6 +71,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.FIO,
         curve: Curve.ECDSA,
         network: networks[Coins.FIO],
+        dust: 546,
+        rpc: ['https://fio.blockpane.com/v1'],
     },
     [Coins.STELLAR]: {
         derivations: [
@@ -77,6 +85,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.STELLAR,
         curve: Curve.ED25519,
         network: networks[Coins.STELLAR],
+        dust: 10000,
+        rpc: ['https://horizon.stellar.org'],
     },
     [Coins.SOLANA]: {
         derivations: [
@@ -89,6 +99,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.SOLANA,
         curve: Curve.ED25519,
         network: networks[Coins.SOLANA],
+        rpc: ['https://mainnet-beta.solflare.network'],
     },
     [Coins.TEZOS]: {
         derivations: [
@@ -101,6 +112,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.TEZOS,
         curve: Curve.ED25519,
         network: networks[Coins.TEZOS],
+        rpc: ['https://prod.tcinfra.net/rpc/mainnet'],
     },
     [Coins.XRP]: {
         derivations: [
@@ -113,6 +125,11 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.XRP,
         curve: Curve.ED25519,
         network: networks[Coins.XRP],
+        rpc: [
+            'wss://xrplcluster.com',
+            'wss://xrpl.link',
+            'wss://s2.ripple.com',
+        ],
     },
     [Coins.ETH]: {
         derivations: [
@@ -126,6 +143,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ETH],
         chain: Chains.ETH,
+        rpc: ['https://rpc.ankr.com/eth'],
     },
     [Coins.BNB]: {
         derivations: [
@@ -138,6 +156,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.BNB,
         curve: Curve.ECDSA,
         network: networks[Coins.BNB],
+        rpc: ['https://dex.bnbchain.org'],
     },
     [Coins.MATIC]: {
         derivations: [
@@ -151,6 +170,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.MATIC],
         chain: Chains.MATIC,
+        rpc: ['https://polygon-rpc.com'],
     },
     [Coins.BSC]: {
         derivations: [
@@ -164,6 +184,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.BSC],
         chain: Chains.BSC,
+        rpc: ['https://bsc-dataseed.bnbchain.org'],
     },
     [Coins.GRS]: {
         derivations: [
@@ -178,6 +199,8 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.GRS,
         curve: Curve.SECP256K1,
         network: networks[Coins.GRS],
+        dust: 1000,
+        rpc: ['https://blockbook.groestlcoin.org'],
     },
     [Coins.ONE]: {
         derivations: [
@@ -196,6 +219,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ONE],
         chain: Chains.ONE,
+        rpc: ['https://api.harmony.one'],
     },
     [Coins.CRS]: {
         derivations: [
@@ -208,6 +232,7 @@ const config: Record<Coins, Derivation> = {
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
         network: networks[Coins.CRS],
+        rpc: ['https://evm.cronos.org'],
     },
     [Coins.VET]: {
         derivations: [
@@ -221,6 +246,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.VET],
         chain: Chains.VET,
+        rpc: ['https://mainnet.vechain.org'],
     },
     [Coins.AVAX]: {
         derivations: [
@@ -234,6 +260,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.AVAX],
         chain: Chains.AVAX,
+        rpc: ['https://api.avax.network/ext/bc/C/rpc'],
     },
     [Coins.XDC]: {
         derivations: [
@@ -247,6 +274,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.XDC],
         chain: Chains.XDC,
+        rpc: ['https://erpc.xinfin.network'],
     },
     [Coins.KCC]: {
         derivations: [
@@ -260,6 +288,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.KCC],
         chain: Chains.KCC,
+        rpc: ['https://rpc-mainnet.kcc.network'],
     },
     [Coins.OKX]: {
         derivations: [
@@ -273,6 +302,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.OKX],
         chain: Chains.OKX,
+        rpc: ['https://exchainrpc.okex.org'],
     },
     [Coins.ARB]: {
         derivations: [
@@ -286,6 +316,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ARB],
         chain: Chains.ARB,
+        rpc: ['https://arb1.arbitrum.io/rpc'],
     },
     [Coins.BSC_TESTNET]: {
         derivations: [
@@ -299,6 +330,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.BSC_TESTNET],
         chain: Chains.BSC_TESTNET,
+        rpc: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
     },
     [Coins.ETH_TESTNET]: {
         derivations: [
@@ -312,6 +344,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ETH_TESTNET],
         chain: Chains.ETH_TESTNET,
+        rpc: ['wss://ropsten.infura.io/ws/v3/7a88decb96744f998ab69192dc97fb40'],
     },
     [Coins.OP]: {
         derivations: [
@@ -325,6 +358,9 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.OP],
         chain: Chains.OP,
+        rpc: [
+            'https://optimism-mainnet.infura.io/v3/b6bf7d3508c941499b10025c0776eaf8',
+        ],
     },
     [Coins.BASE]: {
         derivations: [
@@ -338,6 +374,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.BASE],
         chain: Chains.BASE,
+        rpc: ['https://base-rpc.publicnode.com'],
     },
 };
 

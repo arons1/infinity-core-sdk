@@ -63,7 +63,6 @@ export const xpubToZpub = (data: string): string => {
     return encodeGeneric(data, Encoding.ZPUB);
 };
 
-
 /**
  * Generates a root node based on the provided mnemonic and network.
  *
@@ -184,7 +183,6 @@ export const getPrivateKey = ({
 }: AddressParams): BIP32Interface => {
     return privateAccountNode.derive(change).derive(index);
 };
-
 
 /**
  * Retrieves the public key associated with a given public account node, change, and index.

@@ -157,8 +157,6 @@ class SECP256K1Coin extends Base {
         return getPrivateAddress({ privateAccountNode, change, index });
     }
 
-
-
     /**
      * Retrieves the public address associated with the given public account node, change, index, and protocol.
      *
@@ -202,7 +200,7 @@ class SECP256K1Coin extends Base {
             default:
                 throw new Error(ProtocolNotSupported);
         }
-    };
+    }
     /**
      * Validates the given address by checking it against the network configuration.
      *

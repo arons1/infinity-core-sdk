@@ -34,7 +34,6 @@ import { SupportedNetworks } from '../general';
 import { DerivationName } from '../../constants';
 import { CoinIds, Protocol } from '../../registry';
 
-
 /**
  * Retrieves the seed from the given mnemonic.
  *

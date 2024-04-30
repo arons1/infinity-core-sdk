@@ -64,7 +64,7 @@ export const verifyMessage = async ({
         parseInt(v, 16),
         Buffer.from(r.substring(2), 'hex'),
         Buffer.from(s.substring(2), 'hex'),
-        chainId
+        chainId,
     );
     const publicAddress =
         '0x' + publicToAddress(publicKey, true).toString('hex');

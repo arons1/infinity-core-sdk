@@ -132,7 +132,6 @@ export const getXDCPublicAddress = ({
     } else throw new Error(DerivePathError);
 };
 
-
 /**
  * Retrieves the private address associated with a given private account node.
  *

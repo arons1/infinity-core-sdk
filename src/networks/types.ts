@@ -108,6 +108,8 @@ export type Derivation = {
     curve: Curve;
     network: Network;
     chain?: Chains;
+    dust?: number;
+    rpc: string[];
 };
 export type getPublicAddressED25519Params = {
     keyPair: any;

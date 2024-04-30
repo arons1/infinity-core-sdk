@@ -26,7 +26,6 @@ import { DerivationName } from '../../constants';
 import { Protocol } from '../../registry';
 import { bitcoinjs } from '../../../core';
 
-
 /**
  * Retrieves the private address associated with a given private account node.
  *
@@ -55,7 +54,6 @@ export const getPrivateAddress = ({
 
 export const importMaster = (privateMasterAddress: string, network: Network) =>
     bitcoinjs.bip32.fromBase58(privateMasterAddress, network);
-
 
 /**
  * Generates a public address for SegWit transactions.
@@ -206,7 +204,6 @@ export const generateAddresses = ({
     }
     return newAddress;
 };
-
 
 /**
  * Generates a public address based on the given parameters.
