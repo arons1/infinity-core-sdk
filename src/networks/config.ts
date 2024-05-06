@@ -1,5 +1,5 @@
 import { DerivationName, Encoding } from './constants';
-import { Chains } from './evm';
+import { Chains } from './evm/general';
 import networks from './networks';
 import { CoinIds, Coins, Curve, Protocol } from './registry';
 import { Derivation } from './types';

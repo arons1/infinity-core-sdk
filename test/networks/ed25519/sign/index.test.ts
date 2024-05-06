@@ -13,9 +13,16 @@ const mnemonic =
 describe('signMessageED25519', () => {
     test('signMessageStellar', async () => {
         const seed = getSeed({ mnemonic });
-
+        const secretKey = getSecretKey({
+            path: config[Coins.TEZOS].derivations[0].path,
+            seed,
+        });
+        const signedMessage = sign({
+            secretKey,
+            message: Buffer.from('Message to sign', 'utf-8'),
+        });
         expect(Buffer.from(signedMessage).toString('hex')).toBe(
-            '6dfed7942b499dd09e6dff5047b047f3f012728ef5b03ba942effe552b27929530db5ca9c0ad4ef133220d4462277fe9e41b7f77cd16071338f9d83e2ff27c03',
+            '4823529380a27dc72cb687eb2487bc5f05f9e90f6ee578185b4e50a67c30e663ee54d1917c19995406b77bbe7a9f90d6f61605acca3a1d94f7a466555c626809',
         );
     });
     test('signMessageSolana', async () => {

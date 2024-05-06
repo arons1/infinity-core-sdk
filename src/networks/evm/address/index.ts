@@ -271,7 +271,10 @@ export const generateAddresses = ({
     });
     const newAddress = {} as AddressResult;
     newAddress.protocol = path[0].number as Protocol;
+    newAddress.derivationName = derivation.name;
     newAddress.extendedNode = privateAccountNode;
+    newAddress.derivationName = derivation.name;
+
     newAddress.privateKey = getPrivateKey({
         privateAccountNode,
         network,

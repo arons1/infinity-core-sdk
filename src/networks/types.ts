@@ -39,11 +39,13 @@ export type AddressResult = {
     extendedNode: BIP32Interface | undefined;
     publicKeyHash?: string;
     account?: string;
+    derivationName: string;
 };
 export type PublicAddressResult = {
     publicKey: any;
     publicAddress: string | undefined;
     account: string;
+    derivationName: string;
 };
 export type RootNodeParams = {
     mnemonic: string;

@@ -159,6 +159,7 @@ export const generateAddresses = ({
     });
     const newAddress = {} as AddressResult;
     newAddress.protocol = path[0].number as Protocol;
+    newAddress.derivationName = derivation.name;
 
     newAddress.extendedNode = privateAccountNode;
     newAddress.extendedPrivateAddress = encodeGeneric(
@@ -228,6 +229,8 @@ export const generatePublicAddress = ({
     newAddress.publicKey = getPublicKey({
         publicAccountNode,
     });
+    newAddress.derivationName = derivation;
+
     switch (derivation) {
         case DerivationName.LEGACY:
             newAddress.publicAddress = getPublicAddressP2PKH({

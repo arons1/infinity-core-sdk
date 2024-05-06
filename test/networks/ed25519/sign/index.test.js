@@ -12,7 +12,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
     (0, globals_1.test)('signMessageStellar', async () => {
         const seed = (0, ed25519_1.getSeed)({ mnemonic });
         const secretKey = (0, ed25519_1.getSecretKey)({
-            path: config_1.default[registry_1.Coins.STELLAR].derivations[0].path,
+            path: config_1.default[registry_1.Coins.TEZOS].derivations[0].path,
             seed,
         });
         const signedMessage = (0, ed25519_1.sign)({

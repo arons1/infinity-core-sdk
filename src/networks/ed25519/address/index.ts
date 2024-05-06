@@ -258,6 +258,7 @@ export const generateAddresses = ({
         seed,
     });
     newAddress.protocol = path[0].number as Protocol;
+    newAddress.derivationName = derivation.name;
 
     newAddress.publicKey = getPublicKey({ keyPair, bipIdCoin: path[1].number });
     newAddress.privateKey = getPrivateKey({ keyPair });
