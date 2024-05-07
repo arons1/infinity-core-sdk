@@ -72,7 +72,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.FIO],
         dust: 546,
-        rpc: ['https://fio.blockpane.com/v1'],
+        rpc: ['https://fio.blockpane.com/v1/'],
     },
     [Coins.STELLAR]: {
         derivations: [
