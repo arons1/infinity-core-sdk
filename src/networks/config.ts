@@ -27,6 +27,7 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.BTC],
         dust: 546,
         rpc: ['https://btc1.trezor.io'],
+        apiUrl: 'https://btc1.trezor.io',
     },
     [Coins.LTC]: {
         derivations: [
@@ -43,6 +44,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.LTC],
         dust: 1000,
         rpc: ['https://ltc1.trezor.io'],
+        apiUrl: 'https://ltc1.trezor.io',
+
     },
     [Coins.DOGE]: {
         derivations: [
@@ -59,6 +62,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.DOGE],
         dust: 50000000,
         rpc: ['https://doge1.trezor.io'],
+        apiUrl: 'https://doge1.trezor.io',
+
     },
     [Coins.FIO]: {
         derivations: [
@@ -73,6 +78,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.FIO],
         dust: 546,
         rpc: ['https://fio.blockpane.com/v1/'],
+        apiUrl: 'https://fio.blockpane.com',
+
     },
     [Coins.STELLAR]: {
         derivations: [
@@ -87,6 +94,7 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.STELLAR],
         dust: 10000,
         rpc: ['https://horizon.stellar.org'],
+        apiUrl: 'https://horizon.stellar.org',
     },
     [Coins.SOLANA]: {
         derivations: [
@@ -113,6 +121,8 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ED25519,
         network: networks[Coins.TEZOS],
         rpc: ['https://prod.tcinfra.net/rpc/mainnet'],
+        apiUrl: 'https://api.tzkt.io',
+
     },
     [Coins.XRP]: {
         derivations: [
@@ -130,6 +140,8 @@ const config: Record<Coins, Derivation> = {
             'wss://xrpl.link',
             'wss://s2.ripple.com',
         ],
+        apiUrl: 'https://s1.ripple.com:51234',
+
     },
     [Coins.ETH]: {
         derivations: [
@@ -145,6 +157,8 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.ETH,
         apiKey: '6ED2Z4CPYC16PQIBDXZH69NV8B23JI5CXE',
         rpc: ['https://rpc.ankr.com/eth'],
+        apiUrl: 'https://api.etherscan.io',
+
     },
     [Coins.BNB]: {
         derivations: [
@@ -173,6 +187,8 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.MATIC,
         apiKey: 'H6WD6D2CIX8TQNRTV39NVETWDNX64FAXG1',
         rpc: ['https://polygon-rpc.com'],
+        apiUrl: 'https://api.polygonscan.com',
+
     },
     [Coins.BSC]: {
         derivations: [
@@ -188,6 +204,8 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.BSC,
         apiKey: 'XJ26CWNQZHSK7ZK5PZDMI5E6PJS9SS3GNB',
         rpc: ['https://bsc-dataseed.bnbchain.org'],
+        apiUrl: 'https://api.bscscan.com',
+
     },
     [Coins.GRS]: {
         derivations: [
@@ -204,6 +222,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.GRS],
         dust: 1000,
         rpc: ['https://blockbook.groestlcoin.org'],
+        apiUrl: 'https://blockbook.groestlcoin.org',
+
     },
     [Coins.ONE]: {
         derivations: [
@@ -238,6 +258,8 @@ const config: Record<Coins, Derivation> = {
         apiKey: 'YUTCIFR27BFAPHTWW5S8JQ6WXI75ZJTXNP',
         network: networks[Coins.CRS],
         rpc: ['https://evm.cronos.org'],
+        apiUrl: 'https://api.cronoscan.com',
+
     },
     [Coins.VET]: {
         derivations: [
@@ -252,6 +274,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.VET],
         chain: Chains.VET,
         rpc: ['https://mainnet.vechain.org'],
+        apiUrl: 'https://explore.vechain.org',
+
     },
     [Coins.AVAX]: {
         derivations: [
@@ -267,6 +291,7 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.AVAX,
         apiKey: 'JNU58ZF1ZNCV1SJ4YZ7VQBFQWDK2U1KTXS',
         rpc: ['https://api.avax.network/ext/bc/C/rpc'],
+        apiUrl: 'https://api.snowtrace.io',
     },
     [Coins.XDC]: {
         derivations: [
@@ -281,6 +306,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.XDC],
         chain: Chains.XDC,
         rpc: ['https://erpc.xinfin.network'],
+        apiUrl: 'https://xdc.blocksscan.io/api',
+
     },
     [Coins.KCC]: {
         derivations: [
@@ -295,6 +322,8 @@ const config: Record<Coins, Derivation> = {
         network: networks[Coins.KCC],
         chain: Chains.KCC,
         rpc: ['https://rpc-mainnet.kcc.network'],
+        apiUrl:'https://scan.kcc.io',
+        apiUrlSecundary:'https://explorer.kcc.io'
     },
     [Coins.OKX]: {
         derivations: [
@@ -324,6 +353,7 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.ARB,
         apiKey: 'JNNU81YTJCYSGKRVYZ6W4XDBSGWM5I2INU',
         rpc: ['https://arb1.arbitrum.io/rpc'],
+        apiUrl:'https://api.arbiscan.io'
     },
     [Coins.BSC_TESTNET]: {
         derivations: [
@@ -369,6 +399,7 @@ const config: Record<Coins, Derivation> = {
         rpc: [
             'https://optimism-mainnet.infura.io/v3/b6bf7d3508c941499b10025c0776eaf8',
         ],
+        apiUrl:'https://api-optimistic.etherscan.io'
     },
     [Coins.BASE]: {
         derivations: [
@@ -384,6 +415,7 @@ const config: Record<Coins, Derivation> = {
         chain: Chains.BASE,
         apiKey: 'FAKRDWBWMEG7PKA74XSUCHUG8GU73UH18D',
         rpc: ['https://base-rpc.publicnode.com'],
+        apiUrl:'https://api.basescan.org'
     },
 };
 

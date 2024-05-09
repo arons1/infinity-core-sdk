@@ -113,6 +113,8 @@ export type Derivation = {
     dust?: number;
     rpc: string[];
     apiKey?: string;
+    apiUrl?:string
+    apiUrlSecundary?:string
 };
 export type getPublicAddressED25519Params = {
     keyPair: any;
