@@ -1,6 +1,6 @@
 {
   "name": "@infinity/core-sdk",
-  "version": "1.0.81",
+  "version": "1.0.86",
   "description": "",
   "main": "./lib/commonjs/index.js",
   "types": "./lib/commonjs/index.d.ts",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@types/async-retry": "^1.4.8",
     "@types/bip39": "^3.0.0",
     "@types/bn.js": "^5.1.5",
     "@types/bs58check": "^2.1.2",
@@ -80,6 +81,7 @@
     "@noble/hashes": "^1.3.3",
     "@noble/secp256k1": "github:harusurv/noble-secp256k1.git",
     "@scure/base": "^1.1.5",
+    "async-retry": "^1.3.3",
     "bech32-buffer": "^0.2.1",
     "bigint-conversion": "^2.4.3",
     "bigint-crypto-utils": "^3.3.0",

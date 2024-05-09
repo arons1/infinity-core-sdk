@@ -143,6 +143,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ETH],
         chain: Chains.ETH,
+        apiKey: '6ED2Z4CPYC16PQIBDXZH69NV8B23JI5CXE',
         rpc: ['https://rpc.ankr.com/eth'],
     },
     [Coins.BNB]: {
@@ -170,6 +171,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.MATIC],
         chain: Chains.MATIC,
+        apiKey: 'H6WD6D2CIX8TQNRTV39NVETWDNX64FAXG1',
         rpc: ['https://polygon-rpc.com'],
     },
     [Coins.BSC]: {
@@ -184,6 +186,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.BSC],
         chain: Chains.BSC,
+        apiKey: 'XJ26CWNQZHSK7ZK5PZDMI5E6PJS9SS3GNB',
         rpc: ['https://bsc-dataseed.bnbchain.org'],
     },
     [Coins.GRS]: {
@@ -231,6 +234,8 @@ const config: Record<Coins, Derivation> = {
         ],
         bip44: CoinIds.ETH,
         curve: Curve.ECDSA,
+        chain: Chains.CRS,
+        apiKey: 'YUTCIFR27BFAPHTWW5S8JQ6WXI75ZJTXNP',
         network: networks[Coins.CRS],
         rpc: ['https://evm.cronos.org'],
     },
@@ -260,6 +265,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.AVAX],
         chain: Chains.AVAX,
+        apiKey: 'JNU58ZF1ZNCV1SJ4YZ7VQBFQWDK2U1KTXS',
         rpc: ['https://api.avax.network/ext/bc/C/rpc'],
     },
     [Coins.XDC]: {
@@ -316,6 +322,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.ARB],
         chain: Chains.ARB,
+        apiKey: 'JNNU81YTJCYSGKRVYZ6W4XDBSGWM5I2INU',
         rpc: ['https://arb1.arbitrum.io/rpc'],
     },
     [Coins.BSC_TESTNET]: {
@@ -358,6 +365,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.OP],
         chain: Chains.OP,
+        apiKey: 'HCC93UJPD1AIJSJASCY3NG8VPANP8MUETH',
         rpc: [
             'https://optimism-mainnet.infura.io/v3/b6bf7d3508c941499b10025c0776eaf8',
         ],
@@ -374,6 +382,7 @@ const config: Record<Coins, Derivation> = {
         curve: Curve.ECDSA,
         network: networks[Coins.BASE],
         chain: Chains.BASE,
+        apiKey: 'FAKRDWBWMEG7PKA74XSUCHUG8GU73UH18D',
         rpc: ['https://base-rpc.publicnode.com'],
     },
 };

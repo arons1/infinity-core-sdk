@@ -17,7 +17,7 @@ import { Protocol } from '../registry';
 import config from '../config';
 import { Encoding } from '../constants';
 
-const addressEncoding: Record<Encoding, string> = {
+export const addressEncoding: Record<Encoding, string> = {
     [Encoding.XPUB]: '0488b21e',
     [Encoding.YPUB]: '049d7cb2',
     [Encoding.ZPUB]: '04b24746',

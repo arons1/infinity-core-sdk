@@ -112,6 +112,7 @@ export type Derivation = {
     chain?: Chains;
     dust?: number;
     rpc: string[];
+    apiKey?: string;
 };
 export type getPublicAddressED25519Params = {
     keyPair: any;
