@@ -34,7 +34,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.WRAPPED_SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         (0, globals_1.expect)((0, secp256k1_1.xprvToYprv)(privateAccountNode.toBase58())).toBe('yprvAHZLii61veRXpyD1b7vfCAUapNPfpoYCiVA78H5Ddn7uSFjBnXv8JtQpVgsgtudUwgCHHGFnGMTgETVjFNzu2j8SLZuR6ZK7Qiczin1QwWS');
     });
@@ -44,7 +44,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         (0, globals_1.expect)((0, secp256k1_1.xprvToZprv)(privateAccountNode.toBase58())).toBe('zprvAcf4ncnUAESerj58XNSsX57U76UiqNwuRmqcgK2KksLtwaFCiP7P21EAifdWVN9dkByxZ2RZ58gLwiR1p1nky91CF83MSkt36tFfkcRGksM');
     });
@@ -54,7 +54,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         (0, globals_1.expect)(publicAccountNode.toBase58()).toBe('xpub6CRVjHtvvpPy5jpN9ppfjLA1ttbSYYZZfhrwyJEX1p2NYkx3xhvhNCiPJ9rjp3JDLTLsQAaesL8JLrUCbrxE4KKPRGqYLgvibRoC7a7gpww');
     });
@@ -64,7 +64,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.WRAPPED_SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         (0, globals_1.expect)((0, secp256k1_1.xpubToYpub)(publicAccountNode.toBase58())).toBe('ypub6WYh8Dcum1yq3THUh9TfZJRKNQEAEGG45i5hvfUqC7etK44LL5ENrgjJLzkDQupjAKg7sAUo91YKqzJSXjH9AVHxmAgUaCjq9yhmawGm1xG');
     });
@@ -74,7 +74,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         (0, globals_1.expect)((0, secp256k1_1.xpubToZpub)(publicAccountNode.toBase58())).toBe('zpub6qeRC8KMzbzx5D9bdPystD4Cf8KDEqfknzmDUhRwKCsspNaMFvRdZoYeZxUYVkWx8E274jeFk4EWKmWqvaZSR2KUNfHyppdVByAbE9GSTPM');
     });
@@ -84,7 +84,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.WRAPPED_SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddressP2WPKHP2S)({
             change: 0,
@@ -100,7 +100,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.LTC,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddressP2PKH)({
             change: 0,
@@ -116,7 +116,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.BTC,
             protocol: registry_1.Protocol.SEGWIT,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddressSegwit)({
             change: 0,
@@ -132,7 +132,7 @@ const networkLTC = {
             bipIdCoin: registry_1.CoinIds.LTC,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const privateAddress = (0, address_1.getPrivateAddress)({
             change: 0,

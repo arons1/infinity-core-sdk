@@ -26,7 +26,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,
@@ -56,7 +56,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,

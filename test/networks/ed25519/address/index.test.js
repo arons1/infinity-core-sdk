@@ -20,7 +20,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const keyPair = (0, index_2.getKeyPair)({
             path: config_1.default[registry_1.Coins.STELLAR].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, index_2.getPublicStellarAddress)({
             publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.STELLAR }),
@@ -33,7 +33,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const keyPair = (0, index_2.getKeyPair)({
             path: config_1.default[registry_1.Coins.SOLANA].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, index_2.getPublicSolanaAddress)({
             publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.SOLANA }),
@@ -46,7 +46,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const keyPair = (0, index_2.getKeyPair)({
             path: config_1.default[registry_1.Coins.TEZOS].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, index_2.getPublicTezosAddress)({
             publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.TEZOS }),
@@ -63,7 +63,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const keyPair = (0, index_2.getKeyPair)({
             path: config_1.default[registry_1.Coins.XRP].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, index_2.getPublicXRPAddress)({
             publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.XRP }),

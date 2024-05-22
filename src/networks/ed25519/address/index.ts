@@ -259,7 +259,9 @@ export const generateAddresses = ({
 }: GenerateAddressParams): AddressResult => {
     if (!isValidPath(derivation.path.replace('ACCOUNT', walletAccount + '')))
         throw new Error(DerivationTypeNotSupported);
-    const path = extractPath(derivation.path);
+    const path = extractPath(
+        derivation.path.replace('ACCOUNT', walletAccount + ''),
+    );
     if (SupportedNetworks.find(a => a == path[1].number) == undefined)
         throw new Error(CoinNotSupported);
     const seed = getSeed({ mnemonic });

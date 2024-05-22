@@ -24,7 +24,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const privateKey = (0, secp256k1_1.getPrivateKey)({
             privateAccountNode,
@@ -41,7 +41,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const publicAddress = (0, address_1.getPublicAddress)({
             publicAccountNode,

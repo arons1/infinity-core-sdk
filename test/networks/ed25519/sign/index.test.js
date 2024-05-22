@@ -14,7 +14,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const secretKey = (0, ed25519_1.getSecretKey)({
             path: config_1.default[registry_1.Coins.TEZOS].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const signedMessage = (0, ed25519_1.sign)({
             secretKey,
@@ -27,7 +27,7 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const secretKey = (0, ed25519_1.getSecretKey)({
             path: config_1.default[registry_1.Coins.SOLANA].derivations[0].path,
             seed,
-            walletAccount: 0
+            walletAccount: 0,
         });
         const signedMessage = (0, ed25519_1.sign)({
             secretKey,
