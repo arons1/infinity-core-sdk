@@ -47,6 +47,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         expect(xprvToYprv(privateAccountNode.toBase58())).toBe(
             'yprvAHZLii61veRXpyD1b7vfCAUapNPfpoYCiVA78H5Ddn7uSFjBnXv8JtQpVgsgtudUwgCHHGFnGMTgETVjFNzu2j8SLZuR6ZK7Qiczin1QwWS',
@@ -58,6 +59,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         expect(xprvToZprv(privateAccountNode.toBase58())).toBe(
             'zprvAcf4ncnUAESerj58XNSsX57U76UiqNwuRmqcgK2KksLtwaFCiP7P21EAifdWVN9dkByxZ2RZ58gLwiR1p1nky91CF83MSkt36tFfkcRGksM',
@@ -69,6 +71,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         expect(publicAccountNode.toBase58()).toBe(
             'xpub6CRVjHtvvpPy5jpN9ppfjLA1ttbSYYZZfhrwyJEX1p2NYkx3xhvhNCiPJ9rjp3JDLTLsQAaesL8JLrUCbrxE4KKPRGqYLgvibRoC7a7gpww',
@@ -80,6 +83,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         expect(xpubToYpub(publicAccountNode.toBase58())).toBe(
             'ypub6WYh8Dcum1yq3THUh9TfZJRKNQEAEGG45i5hvfUqC7etK44LL5ENrgjJLzkDQupjAKg7sAUo91YKqzJSXjH9AVHxmAgUaCjq9yhmawGm1xG',
@@ -91,6 +95,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         expect(xpubToZpub(publicAccountNode.toBase58())).toBe(
             'zpub6qeRC8KMzbzx5D9bdPystD4Cf8KDEqfknzmDUhRwKCsspNaMFvRdZoYeZxUYVkWx8E274jeFk4EWKmWqvaZSR2KUNfHyppdVByAbE9GSTPM',
@@ -102,6 +107,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddressP2WPKHP2S({
             change: 0,
@@ -117,6 +123,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.LTC,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddressP2PKH({
             change: 0,
@@ -132,6 +139,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.BTC,
             protocol: Protocol.SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddressSegwit({
             change: 0,
@@ -150,6 +158,7 @@ describe('generateAddressUTXO', () => {
             bipIdCoin: CoinIds.LTC,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const privateAddress = getPrivateAddress({
             change: 0,

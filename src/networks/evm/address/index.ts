@@ -256,18 +256,23 @@ export const getBCPublicAddress = ({
  * @param {Network} params.network - The network object.
  * @param {Derivation} params.derivation - The derivation object.
  * @param {string} params.mnemonic - The mnemonic.
+ * @param {number} params.walletAccount - The wallet account ID.
  * @return {AddressResult} The generated addresses and private keys.
  */
 export const generateAddresses = ({
     network,
     derivation,
     mnemonic,
+    walletAccount,
 }: GenerateAddressParams): AddressResult => {
-    const path = extractPath(derivation.path);
+    const path = extractPath(
+        derivation.path.replace('ACCOUNT', walletAccount + ''),
+    );
     const privateAccountNode = getPrivateMasterKey({
         rootNode: getRootNode({ mnemonic, network }),
         bipIdCoin: path[1].number,
         protocol: path[0].number,
+        walletAccount,
     });
     const newAddress = {} as AddressResult;
     newAddress.protocol = path[0].number as Protocol;

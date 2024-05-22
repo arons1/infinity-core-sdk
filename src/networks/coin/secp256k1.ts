@@ -77,11 +77,13 @@ class SECP256K1Coin extends Base {
     getPrivateMasterKey({
         protocol = 44,
         rootNode,
+        walletAccount,
     }: getPrivateMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol,
             rootNode,
+            walletAccount,
         });
     }
 
@@ -95,11 +97,13 @@ class SECP256K1Coin extends Base {
     getPublicMasterKey({
         protocol = 44,
         rootNode,
+        walletAccount,
     }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol,
             rootNode,
+            walletAccount,
         }).neutered();
     }
 
@@ -227,8 +231,15 @@ class SECP256K1Coin extends Base {
      * @return {AddressResult[]} An array of generated addresses.
      */
 
-    generateAddresses(mnemonic: string): AddressResult[] {
-        return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    generateAddresses(
+        mnemonic: string,
+        walletAccount: number,
+    ): AddressResult[] {
+        return generateAddresses({
+            mnemonic,
+            idCoin: this.idCoin,
+            walletAccount,
+        });
     }
     /**
      * Imports the private master address and returns the BIP32Interface.

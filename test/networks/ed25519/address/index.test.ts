@@ -25,6 +25,7 @@ describe('generateAddressED25519', () => {
         const keyPair = getKeyPair({
             path: config[Coins.STELLAR].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const publicAddress = getPublicStellarAddress({
             publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.STELLAR }),
@@ -39,6 +40,7 @@ describe('generateAddressED25519', () => {
         const keyPair = getKeyPair({
             path: config[Coins.SOLANA].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const publicAddress = getPublicSolanaAddress({
             publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.SOLANA }),
@@ -53,6 +55,7 @@ describe('generateAddressED25519', () => {
         const keyPair = getKeyPair({
             path: config[Coins.TEZOS].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const publicAddress = getPublicTezosAddress({
             publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.TEZOS }),
@@ -69,6 +72,7 @@ describe('generateAddressED25519', () => {
         const keyPair = getKeyPair({
             path: config[Coins.XRP].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const publicAddress = getPublicXRPAddress({
             publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.XRP }),

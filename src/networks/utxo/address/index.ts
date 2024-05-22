@@ -24,7 +24,7 @@ import {
 import { extractPath } from '../../../utils';
 import { DerivationName } from '../../constants';
 import { Protocol } from '../../registry';
-import { bitcoinjs } from '../../../core';
+import { bip32 } from '../../../core';
 
 /**
  * Retrieves the private address associated with a given private account node.
@@ -53,7 +53,7 @@ export const getPrivateAddress = ({
 };
 
 export const importMaster = (privateMasterAddress: string, network: Network) =>
-    bitcoinjs.bip32.fromBase58(privateMasterAddress, network);
+    bip32.fromBase58(privateMasterAddress, network);
 
 /**
  * Generates a public address for SegWit transactions.
@@ -148,14 +148,18 @@ export const generateAddresses = ({
     mnemonic,
     network,
     derivation,
+    walletAccount,
 }: GenerateAddressParams): AddressResult => {
     if (derivation.xprv == undefined || derivation.xpub == undefined)
         throw new Error(MissingExtendedParams);
-    const path = extractPath(derivation.path);
+    const path = extractPath(
+        derivation.path.replace('ACCOUNT', walletAccount + ''),
+    );
     const privateAccountNode = getPrivateMasterKey({
         rootNode: getRootNode({ mnemonic, network }),
         bipIdCoin: path[1].number,
         protocol: path[0].number,
+        walletAccount,
     });
     const newAddress = {} as AddressResult;
     newAddress.protocol = path[0].number as Protocol;

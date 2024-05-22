@@ -150,9 +150,9 @@ class ED25519Coin extends Base {
      * @param {string} params.seed - The seed used to generate the key pair.
      * @return {Promise<KeyPair>} A promise that resolves to the generated key pair.
      */
-    getKeyPair({ seed }: GetKeyPairParams) {
-        const path = config[this.idCoin].derivations[0].path;
-        return getKeyPair({ path, seed });
+    getKeyPair({ seed, walletAccount }: GetKeyPairParams) {
+        const path = config[this.idCoin].derivations[0].path + '';
+        return getKeyPair({ path, seed, walletAccount });
     }
     /**
      * Retrieves the secret key based on the provided seed.
@@ -160,9 +160,12 @@ class ED25519Coin extends Base {
      * @param {GetKeyPairParams} seed - The seed used to generate the key pair.
      * @return {Buffer | Uint8Array} The secret key as a Buffer or Uint8Array.
      */
-    getSecretKey({ seed }: GetKeyPairParams): Buffer | Uint8Array {
-        const path = config[this.idCoin].derivations[0].path;
-        return getSecretKey({ path, seed });
+    getSecretKey({
+        seed,
+        walletAccount,
+    }: GetKeyPairParams): Buffer | Uint8Array {
+        const path = config[this.idCoin].derivations[0].path + '';
+        return getSecretKey({ path, seed, walletAccount });
     }
     /**
      * Generates addresses based on the provided mnemonic.
@@ -170,8 +173,15 @@ class ED25519Coin extends Base {
      * @param {string} mnemonic - The mnemonic used to generate the addresses.
      * @return {AddressResult[]} An array of AddressResult objects representing the generated addresses.
      */
-    generateAddresses(mnemonic: string): AddressResult[] {
-        return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    generateAddresses(
+        mnemonic: string,
+        walletAccount: number,
+    ): AddressResult[] {
+        return generateAddresses({
+            mnemonic,
+            idCoin: this.idCoin,
+            walletAccount,
+        });
     }
     isValidExtendedKey(_props: any) {
         throw new Error(NotImplemented);

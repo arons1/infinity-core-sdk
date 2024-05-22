@@ -31,7 +31,7 @@ abstract class Base {
     abstract getPublicAddress(_props: any): any;
     abstract isValidAddress(_props: any): any;
     abstract isValidExtendedKey(_props: any): any;
-    abstract generateAddresses(_props: any): any;
+    abstract generateAddresses(mnemonic: string, walletAccount: number): any;
     abstract generatePublicAddresses(_props: any): any;
     abstract supportedMethods(): string[];
     abstract getAccount(_props: any): string;

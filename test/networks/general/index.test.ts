@@ -25,7 +25,11 @@ const networkBTC = {
 };
 describe('generateAddresses', () => {
     test('generateAddressesPrivateBTC', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: Coins.BTC });
+        const addresses = generateAddresses({
+            mnemonic,
+            idCoin: Coins.BTC,
+            walletAccount: 0,
+        });
         expect(addresses[0].privateAddress).toBe(
             'L3ErgHszidgB6NfmZ7vbUNZjdqT8kHFeMWiWkAZMPPfFr3L4ini5',
         );
@@ -45,6 +49,7 @@ describe('generateAddresses', () => {
             bipIdCoin: 0,
             protocol: Protocol.WRAPPED_SEGWIT,
             rootNode,
+            walletAccount: 0,
         });
         const addresses = generatePublicAddresses({
             idCoin: Coins.BTC,
@@ -58,7 +63,11 @@ describe('generateAddresses', () => {
         );
     });
     test('generateAddressesPrivateSolana', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: Coins.SOLANA });
+        const addresses = generateAddresses({
+            mnemonic,
+            idCoin: Coins.SOLANA,
+            walletAccount: 0,
+        });
         expect(addresses[0].privateAddress).toBe(
             'rvHpYF2K2vj1A129LKpmy7bXwcL72ADCSwH71K9EBiW61ajyU3wegrHZUoHZc3sVykGtFVgFi37dK3RbLLp9ipm',
         );
@@ -67,7 +76,11 @@ describe('generateAddresses', () => {
         );
     });
     test('generateAddressesPrivateETH', async () => {
-        const addresses = generateAddresses({ mnemonic, idCoin: Coins.ETH });
+        const addresses = generateAddresses({
+            mnemonic,
+            idCoin: Coins.ETH,
+            walletAccount: 0,
+        });
         expect(addresses[0].privateAddress).toBe(
             '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
         );

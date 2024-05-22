@@ -23,6 +23,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         (0, globals_1.expect)(privateAccountNode.toBase58()).toBe('xprv9zWjyVjLs9BAAqgGXzAZX5CDboLFHywAuMcwxaKqgxYCah6rZ3XVD6Qz7B4chRp8rKURkypYgzYPnAn4k6SJfGj2o9BYhHwuoYu5B1QDGif');
     });
@@ -32,6 +33,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         (0, globals_1.expect)(publicAccountNode.toBase58()).toBe('xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS');
     });
@@ -41,6 +43,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const privateAddress = (0, address_1.getPrivateAddress)({
             privateAccountNode,
@@ -53,6 +56,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.FIO,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const privateAddress = (0, address_1.getFIOPrivateAddress)({
             privateAccountNode,
@@ -65,6 +69,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getPublicAddress)({
             change: 0,
@@ -79,6 +84,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.BNB,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getBCPublicAddress)({
             change: 0,
@@ -93,6 +99,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.FIO,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getFIOPublicAddress)({
             change: 0,
@@ -107,6 +114,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.FIO,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getFIOPublicAddress)({
             change: 0,
@@ -122,6 +130,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getXDCPublicAddress)({
             change: 0,
@@ -136,6 +145,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getHarmonyPublicAddress)({
             change: 0,
@@ -150,6 +160,7 @@ const network = {
             bipIdCoin: registry_1.CoinIds.ETH,
             protocol: registry_1.Protocol.LEGACY,
             rootNode,
+            walletAccount: 0
         });
         const publicAddress = (0, address_1.getOKXPublicAddress)({
             change: 0,

@@ -3,6 +3,7 @@ import { CoinIds } from '../../registry';
 export type GetKeyPairParams = {
     path: string;
     seed: Buffer;
+    walletAccount: number;
 };
 
 export type GetPublicKeyParams = {

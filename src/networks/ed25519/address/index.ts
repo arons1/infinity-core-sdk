@@ -104,13 +104,16 @@ export const getPublicXRPAddress = ({
  * @param {PublicKeyEd25519Params} params - An object containing the seed and path.
  * @param {Buffer} params.seed - The seed.
  * @param {string} params.path - The derivation path.
+ * @param {number} params.walletAccount - The wallet account.
  * @throws {Error} Throws an error if the path is not valid or the seed is not a buffer.
  * @return {Uint8Array | Buffer} Returns the secret key as a Uint8Array or Buffer.
  */
 export const getSecretKey = ({
     seed,
     path,
+    walletAccount,
 }: PublicKeyEd25519Params): Uint8Array | Buffer => {
+    path = path.replace('ACCOUNT', walletAccount + '');
     if (!isValidPath(path)) throw new Error(DerivePathError);
     if (!Buffer.isBuffer(seed)) throw new Error(InvalidSeed);
     const keySecret = derivePath(path, seed.toString('hex'));
@@ -161,10 +164,16 @@ export const getSecretAddress = ({
  * @param {GetKeyPairParams} params - An object containing the path and seed.
  * @param {string} params.path - The derivation path.
  * @param {Buffer} params.seed - The seed.
+ * @param {number} params.walletAccount - The wallet account ID.
  * @throws {Error} Throws an error if the path is not valid or the coin is not supported.
  * @return {any} Returns the generated key pair.
  */
-export const getKeyPair = ({ path, seed }: GetKeyPairParams): any => {
+export const getKeyPair = ({
+    path,
+    seed,
+    walletAccount,
+}: GetKeyPairParams): any => {
+    path = path.replace('ACCOUNT', walletAccount + '');
     if (!isValidPath(path)) throw new Error(DerivationTypeNotSupported);
     const coin = extractPath(path)[1].number;
     if (SupportedNetworks.find(a => a == coin) == undefined)
@@ -240,13 +249,15 @@ export const getPublicTezosAddress = ({
  * Generates addresses based on derivation and mnemonic.
  *
  * @param {GenerateAddressParams} derivation - The derivation parameters.
+ * @param {number} params.walletAccount - The wallet account ID.
  * @return {AddressResult} The generated address result.
  */
 export const generateAddresses = ({
     derivation,
     mnemonic,
+    walletAccount,
 }: GenerateAddressParams): AddressResult => {
-    if (!isValidPath(derivation.path))
+    if (!isValidPath(derivation.path.replace('ACCOUNT', walletAccount + '')))
         throw new Error(DerivationTypeNotSupported);
     const path = extractPath(derivation.path);
     if (SupportedNetworks.find(a => a == path[1].number) == undefined)
@@ -256,6 +267,7 @@ export const generateAddresses = ({
     const keyPair = getKeyPair({
         path: derivation.path,
         seed,
+        walletAccount,
     });
     newAddress.protocol = path[0].number as Protocol;
     newAddress.derivationName = derivation.name;

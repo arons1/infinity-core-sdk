@@ -21,15 +21,21 @@ import { generateAddresses as generateAddressED25519 } from './ed25519';
 import { DerivationTypeNotSupported } from '../errors/networks/index';
 import { Curve } from './registry';
 import { DerivationName } from './constants';
-/* 
-generateAddresses
-    Returns generated addresses
-    @param mnemonic: Mnemonic to generate addresses from
-    @param idCoin: Coin id
-*/
+
+/**
+ * Generates addresses based on the provided mnemonic and coin configuration.
+ *
+ * @param {GenerateAddressesParams} params - The parameters for generating addresses.
+ * @param {string} params.mnemonic - The mnemonic used to generate the addresses.
+ * @param {string} params.idCoin - The ID of the coin.
+ * @param {number} [params.walletAccount] - The wallet account index.
+ * @return {AddressResult[]} An array of AddressResult objects representing the generated addresses.
+ * @throws {Error} If the coin configuration is not found or the curve is not supported.
+ */
 export const generateAddresses = ({
     mnemonic,
     idCoin,
+    walletAccount,
 }: GenerateAddressesParams): AddressResult[] => {
     const coin = config[idCoin];
     const network = coin.network;
@@ -45,6 +51,7 @@ export const generateAddresses = ({
                         mnemonic,
                         network,
                         derivation,
+                        walletAccount,
                     }),
                 );
                 break;
@@ -54,6 +61,7 @@ export const generateAddresses = ({
                         mnemonic,
                         network,
                         derivation,
+                        walletAccount,
                     }),
                 );
                 break;
@@ -63,6 +71,7 @@ export const generateAddresses = ({
                         mnemonic,
                         network,
                         derivation,
+                        walletAccount,
                     }),
                 );
                 break;

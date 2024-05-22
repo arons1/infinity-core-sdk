@@ -91,11 +91,13 @@ export const getPublicMasterKey = ({
     rootNode,
     bipIdCoin,
     protocol = Protocol.LEGACY,
+    walletAccount,
 }: MasterKeyParams): BIP32Interface => {
     return getPrivateMasterKey({
         rootNode,
         bipIdCoin,
         protocol,
+        walletAccount,
     }).neutered();
 };
 /**
@@ -111,11 +113,12 @@ export const getPrivateMasterKey = ({
     rootNode,
     bipIdCoin,
     protocol = 44,
+    walletAccount,
 }: MasterKeyParams): BIP32Interface => {
     return rootNode
         .deriveHardened(protocol)
         .deriveHardened(bipIdCoin)
-        .deriveHardened(0);
+        .deriveHardened(walletAccount);
 };
 
 /**

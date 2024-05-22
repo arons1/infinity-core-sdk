@@ -36,6 +36,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         expect(privateAccountNode.toBase58()).toBe(
             'xprv9zWjyVjLs9BAAqgGXzAZX5CDboLFHywAuMcwxaKqgxYCah6rZ3XVD6Qz7B4chRp8rKURkypYgzYPnAn4k6SJfGj2o9BYhHwuoYu5B1QDGif',
@@ -47,6 +48,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         expect(publicAccountNode.toBase58()).toBe(
             'xpub6DW6P1GEhWjTPKkje1hZtD8x9qAjhSf2GaYYkxjTFJ5BTVS16aqjktjTxVFbbnxZX79W7Xzpxr7MHJjoSHVP6Xyffi7x1VSUXWf1s4raJoS',
@@ -58,6 +60,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const privateAddress = getPrivateAddress({
             privateAccountNode,
@@ -72,6 +75,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.FIO,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const privateAddress = getFIOPrivateAddress({
             privateAccountNode,
@@ -86,6 +90,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddress({
             change: 0,
@@ -102,6 +107,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.BNB,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getBCPublicAddress({
             change: 0,
@@ -118,6 +124,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.FIO,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getFIOPublicAddress({
             change: 0,
@@ -134,6 +141,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.FIO,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getFIOPublicAddress({
             change: 0,
@@ -149,6 +157,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getXDCPublicAddress({
             change: 0,
@@ -166,6 +175,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getHarmonyPublicAddress({
             change: 0,
@@ -183,6 +193,7 @@ describe('generateAddressEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getOKXPublicAddress({
             change: 0,

@@ -9,14 +9,14 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.SEGWIT,
-                path: "m/84'/0'/0'/0/0",
+                path: "m/84'/0'/ACCOUNT'/0/0",
                 xpub: Encoding.ZPUB,
                 xprv: Encoding.ZPRIV,
                 protocol: Protocol.SEGWIT,
             },
             {
                 name: DerivationName.WRAPPED_SEGWIT,
-                path: "m/49'/0'/0'/0/0",
+                path: "m/49'/0'/ACCOUNT'/0/0",
                 xpub: Encoding.YPUB,
                 xprv: Encoding.YPRIV,
                 protocol: Protocol.WRAPPED_SEGWIT,
@@ -33,7 +33,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/2'/0'/0/0",
+                path: "m/44'/2'/ACCOUNT'/0/0",
                 xpub: Encoding.LTUB,
                 xprv: Encoding.LTPV,
                 protocol: Protocol.LEGACY,
@@ -50,7 +50,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/3'/0'/0/0",
+                path: "m/44'/3'/ACCOUNT'/0/0",
                 xpub: Encoding.DGUB,
                 xprv: Encoding.DGPUV,
                 protocol: Protocol.LEGACY,
@@ -67,7 +67,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.FIO,
-                path: "m/44'/235'/0'/0/0",
+                path: "m/44'/235'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -82,7 +82,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.STELLAR,
-                path: "m/44'/148'/0'",
+                path: "m/44'/148'/ACCOUNT'",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -97,7 +97,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.SOLANA,
-                path: "m/44'/501'/0'/0'",
+                path: "m/44'/501'/ACCOUNT'/0'",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -110,7 +110,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.TEZOS,
-                path: "m/44'/1729'/0'/0'",
+                path: "m/44'/1729'/ACCOUNT'/0'",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -124,7 +124,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.XRP,
-                path: "m/44'/144'/0'/0/0",
+                path: "m/44'/144'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -142,7 +142,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -158,7 +158,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.BNB,
-                path: "m/44'/714'/0'/0/0",
+                path: "m/44'/714'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -171,7 +171,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -187,7 +187,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -203,7 +203,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.SEGWIT,
-                path: "m/84'/17'/0'/0/0",
+                path: "m/84'/17'/ACCOUNT'/0/0",
                 xpub: Encoding.ZPUB,
                 xprv: Encoding.ZPRIV,
                 protocol: Protocol.SEGWIT,
@@ -220,12 +220,12 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.HARMONY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -239,7 +239,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -255,7 +255,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -270,7 +270,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -286,7 +286,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.XDC,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -301,7 +301,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -317,7 +317,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.OKX,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -331,7 +331,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -347,7 +347,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -361,7 +361,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -375,7 +375,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],
@@ -393,7 +393,7 @@ const config: Record<Coins, Derivation> = {
         derivations: [
             {
                 name: DerivationName.LEGACY,
-                path: "m/44'/60'/0'/0/0",
+                path: "m/44'/60'/ACCOUNT'/0/0",
                 protocol: Protocol.LEGACY,
             },
         ],

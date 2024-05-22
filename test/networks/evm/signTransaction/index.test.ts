@@ -30,6 +30,7 @@ describe('signTransactionEMV', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddress({
             change: 0,
@@ -61,6 +62,7 @@ describe('signTransactionEMV', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddress({
             change: 0,

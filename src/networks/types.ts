@@ -7,6 +7,7 @@ import { Keypair } from 'stellar-sdk';
 export type GenerateAddressesParams = {
     mnemonic: string;
     idCoin: Coins;
+    walletAccount: number;
 };
 export type GeneratePublicAddressParams = {
     publicAccountNode: BIP32Interface;
@@ -55,6 +56,7 @@ export type MasterKeyParams = {
     rootNode: BIP32Interface;
     bipIdCoin: CoinIds;
     protocol: Protocol;
+    walletAccount: number;
 };
 export type MasterAddressParams = {
     privateAccountNode: BIP32Interface;
@@ -73,6 +75,7 @@ export type Keys = {
 export type PublicKeyEd25519Params = {
     seed: Buffer;
     path: string;
+    walletAccount: number;
 };
 export type AddressParams = {
     privateAccountNode: BIP32Interface;
@@ -96,6 +99,7 @@ export type GenerateAddressParams = {
     mnemonic: string;
     network?: Network;
     derivation: DerivationParams;
+    walletAccount: number;
 };
 export type DerivationParams = {
     name: DerivationName;
@@ -123,6 +127,7 @@ export type getPrivateAddressED25519Params = getPublicAddressED25519Params;
 export type getPrivateMasterKeyParams = {
     protocol?: Protocol;
     rootNode: BIP32Interface;
+    walletAccount: number;
 };
 export type GetSeedParams = {
     mnemonic: string;
@@ -132,6 +137,7 @@ export type getAccountParams = {
 };
 export type GetKeyPairParams = {
     seed: Buffer;
+    walletAccount: number;
 };
 export type getPublicMasterKeyParams = getPrivateMasterKeyParams;
 export type getPublicMasterAddressParams = {

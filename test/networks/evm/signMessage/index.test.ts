@@ -32,6 +32,7 @@ describe('signMessageEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const privateKey = getPrivateKey({
             privateAccountNode,
@@ -50,6 +51,7 @@ describe('signMessageEVM', () => {
             bipIdCoin: CoinIds.ETH,
             protocol: Protocol.LEGACY,
             rootNode,
+            walletAccount: 0,
         });
         const publicAddress = getPublicAddress({
             publicAccountNode,

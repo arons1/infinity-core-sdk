@@ -14,18 +14,20 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         const secretKey = (0, ed25519_1.getSecretKey)({
             path: config_1.default[registry_1.Coins.TEZOS].derivations[0].path,
             seed,
+            walletAccount: 0
         });
         const signedMessage = (0, ed25519_1.sign)({
             secretKey,
             message: Buffer.from('Message to sign', 'utf-8'),
         });
-        (0, globals_1.expect)(Buffer.from(signedMessage).toString('hex')).toBe('6dfed7942b499dd09e6dff5047b047f3f012728ef5b03ba942effe552b27929530db5ca9c0ad4ef133220d4462277fe9e41b7f77cd16071338f9d83e2ff27c03');
+        (0, globals_1.expect)(Buffer.from(signedMessage).toString('hex')).toBe('4823529380a27dc72cb687eb2487bc5f05f9e90f6ee578185b4e50a67c30e663ee54d1917c19995406b77bbe7a9f90d6f61605acca3a1d94f7a466555c626809');
     });
     (0, globals_1.test)('signMessageSolana', async () => {
         const seed = (0, ed25519_1.getSeed)({ mnemonic });
         const secretKey = (0, ed25519_1.getSecretKey)({
             path: config_1.default[registry_1.Coins.SOLANA].derivations[0].path,
             seed,
+            walletAccount: 0
         });
         const signedMessage = (0, ed25519_1.sign)({
             secretKey,

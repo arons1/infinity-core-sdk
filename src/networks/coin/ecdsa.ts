@@ -72,11 +72,13 @@ class ECDSACoin extends Base {
      */
     getPrivateMasterKey({
         rootNode,
+        walletAccount,
     }: getPrivateMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol: 44,
             rootNode,
+            walletAccount,
         });
     }
 
@@ -86,11 +88,15 @@ class ECDSACoin extends Base {
      * @param {getPublicMasterKeyParams} rootNode - The root node for key derivation.
      * @return {BIP32Interface} The public master key.
      */
-    getPublicMasterKey({ rootNode }: getPublicMasterKeyParams): BIP32Interface {
+    getPublicMasterKey({
+        rootNode,
+        walletAccount,
+    }: getPublicMasterKeyParams): BIP32Interface {
         return getPrivateMasterKey({
             bipIdCoin: this.bipIdCoin,
             protocol: 44,
             rootNode,
+            walletAccount,
         }).neutered();
     }
 
@@ -160,8 +166,15 @@ class ECDSACoin extends Base {
      * @param {string} mnemonic - The mnemonic used to generate the addresses.
      * @return {AddressResult[]} An array of AddressResult objects representing the generated addresses.
      */
-    generateAddresses(mnemonic: string): AddressResult[] {
-        return generateAddresses({ mnemonic, idCoin: this.idCoin });
+    generateAddresses(
+        mnemonic: string,
+        walletAccount: number,
+    ): AddressResult[] {
+        return generateAddresses({
+            mnemonic,
+            idCoin: this.idCoin,
+            walletAccount,
+        });
     }
     /**
      * Retrieves the account associated with the given public address.

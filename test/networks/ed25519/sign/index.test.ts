@@ -16,6 +16,7 @@ describe('signMessageED25519', () => {
         const secretKey = getSecretKey({
             path: config[Coins.TEZOS].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const signedMessage = sign({
             secretKey,
@@ -30,6 +31,7 @@ describe('signMessageED25519', () => {
         const secretKey = getSecretKey({
             path: config[Coins.SOLANA].derivations[0].path,
             seed,
+            walletAccount: 0,
         });
         const signedMessage = sign({
             secretKey,
