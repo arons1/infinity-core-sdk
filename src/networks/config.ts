@@ -405,6 +405,34 @@ const config: Record<Coins, Derivation> = {
         rpc: ['https://base-rpc.publicnode.com'],
         apiUrl: 'https://api.basescan.org',
     },
+    [Coins.DOT]: {
+        derivations: [
+            {
+                name: DerivationName.DOT,
+                path: "m/44'/354'/ACCOUNT'/0'/0'",
+                protocol: Protocol.LEGACY,
+            },
+        ],
+        bip44: CoinIds.DOT,
+        curve: Curve.ED25519,
+        network: networks[Coins.DOT],
+        rpc: ['wss://rpc.polkadot.io'],
+        apiUrl: 'https://polkadot.api.subscan.io/',
+    },
+    [Coins.KSM]: {
+        derivations: [
+            {
+                name: DerivationName.KSM,
+                path: "m/44'/434'/ACCOUNT'/0'/0'",
+                protocol: Protocol.LEGACY,
+            },
+        ],
+        bip44: CoinIds.KSM,
+        curve: Curve.ED25519,
+        network: networks[Coins.KSM],
+        rpc: ['wss://kusama-rpc.polkadot.io'],
+        apiUrl: 'https://kusama.api.subscan.io/',
+    },
 };
 
 export default config;

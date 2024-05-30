@@ -5,3 +5,5 @@ export * as solana from './solana';
 export * as stellar from './stellar';
 export * as tezos from './tezos';
 export * as xrp from './xrp';
+export * as ksm from './ksm';
+export * as dot from './dot';

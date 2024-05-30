@@ -11,6 +11,8 @@ export enum DerivationName {
     XRP = 'xrp',
     STELLAR = 'stellar',
     TEZOS = 'tezos',
+    DOT = 'dot',
+    KSM = 'ksm',
 }
 export enum Encoding {
     XPUB = 'xpub',

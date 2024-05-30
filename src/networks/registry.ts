@@ -24,6 +24,8 @@ export enum Coins {
     ARB = 'arb',
     ETH_TESTNET = 'eth_testnet',
     BSC_TESTNET = 'bsc_testnet',
+    DOT = 'dot',
+    KSM = 'ksm',
 }
 export enum CoinIds {
     BTC = 0,
@@ -37,6 +39,8 @@ export enum CoinIds {
     GRS = 17,
     SOLANA = 501,
     TEZOS = 1729,
+    DOT = 354,
+    KSM = 434,
 }
 
 export enum Protocol {

@@ -260,6 +260,28 @@ const networks: Record<Coins, Network> = {
         scriptHash: 5,
         wif: 128,
     },
+    [Coins.DOT]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
+    [Coins.KSM]: {
+        messagePrefix: '\u0018Bitcoin Signed Message:\n',
+        bech32: 'bc',
+        bip32: {
+            public: 76067358,
+            private: 76066276,
+        },
+        pubKeyHash: 0,
+        scriptHash: 5,
+        wif: 128,
+    },
 };
 
 export default networks;

@@ -5,4 +5,6 @@ export const SupportedNetworks = [
     CoinIds.STELLAR,
     CoinIds.TEZOS,
     CoinIds.SOLANA,
+    CoinIds.DOT,
+    CoinIds.KSM,
 ];

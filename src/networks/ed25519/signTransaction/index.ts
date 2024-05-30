@@ -39,6 +39,9 @@ export const signTransaction = ({
         case Coins.TEZOS:
             transaction.sign(keyPair);
             return transaction;
+        case Coins.DOT:
+        case Coins.KSM:
+            return transaction.signAsync(keyPair);
         default:
             throw new Error(CoinNotSupported);
     }

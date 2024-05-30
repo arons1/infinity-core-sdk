@@ -3,7 +3,10 @@ import { isValidAddress } from '../../../../lib/commonjs/networks/utils/solana';
 import { isValidAddress as isValidAddressStellar } from '../../../../lib/commonjs/networks/utils/stellar';
 import { isValidAddress as isValidAddressTezos } from '../../../../lib/commonjs/networks/utils/tezos';
 import { getTezosPublicKeyHash } from '../../../../lib/commonjs/networks/ed25519/address/index';
+import { isValidAddress as isValidAddressKSM } from '../../../../lib/commonjs/networks/utils/ksm';
+import { isValidAddress as isValidAddressDOT } from '../../../../lib/commonjs/networks/utils/dot';
 import { isValidAddress as isValidAddressXRP } from '../../../../lib/commonjs/networks/utils/xrp';
+
 import {
     getSeed,
     getPublicStellarAddress,
@@ -12,6 +15,8 @@ import {
     getPublicKey,
     getKeyPair,
     getPublicXRPAddress,
+    getPublicPolkadotAddress,
+    getPublicKSMAddress,
 } from '../../../../lib/commonjs/networks/ed25519/address/index';
 import { isValidPublicKey } from '../../../../lib/commonjs/networks/utils/tezos';
 import { CoinIds, Coins } from '../../../../lib/commonjs/networks/registry';
@@ -79,5 +84,35 @@ describe('generateAddressED25519', () => {
         });
         expect(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         expect(isValidAddressXRP(publicAddress)).toBe(true);
+    });
+    test('generateDOTAddress', async () => {
+        const seed = getSeed({ mnemonic });
+        const keyPair = getKeyPair({
+            path: config[Coins.DOT].derivations[0].path,
+            seed,
+            walletAccount: 0,
+        });
+        const publicAddress = getPublicPolkadotAddress({
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.DOT }),
+        });
+        expect(publicAddress).toBe(
+            '15PevHkrsB6q43DPbyS5idBPZFuqXwoAkQqtkagxZRZicVr',
+        );
+        expect(isValidAddressDOT(publicAddress)).toBe(true);
+    });
+    test('generateKSMAddress', async () => {
+        const seed = getSeed({ mnemonic });
+        const keyPair = getKeyPair({
+            path: config[Coins.KSM].derivations[0].path,
+            seed,
+            walletAccount: 0,
+        });
+        const publicAddress = getPublicKSMAddress({
+            publicKey: getPublicKey({ keyPair, bipIdCoin: CoinIds.KSM }),
+        });
+        expect(publicAddress).toBe(
+            'D8Kd9wUf3YEMGrnnD6agDDsppyiHBVfoHePwNgM9v3EGrcw',
+        );
+        expect(isValidAddressKSM(publicAddress)).toBe(true);
     });
 });

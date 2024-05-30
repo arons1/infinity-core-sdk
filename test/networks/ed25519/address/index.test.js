@@ -8,6 +8,8 @@ const solana_1 = require("../../../../lib/commonjs/networks/utils/solana");
 const stellar_1 = require("../../../../lib/commonjs/networks/utils/stellar");
 const tezos_1 = require("../../../../lib/commonjs/networks/utils/tezos");
 const index_1 = require("../../../../lib/commonjs/networks/ed25519/address/index");
+const ksm_1 = require("../../../../lib/commonjs/networks/utils/ksm");
+const dot_1 = require("../../../../lib/commonjs/networks/utils/dot");
 const xrp_1 = require("../../../../lib/commonjs/networks/utils/xrp");
 const index_2 = require("../../../../lib/commonjs/networks/ed25519/address/index");
 const tezos_2 = require("../../../../lib/commonjs/networks/utils/tezos");
@@ -70,5 +72,31 @@ const mnemonic = 'derive lab over dragon nothing pioneer until deputy inherit he
         });
         (0, globals_1.expect)(publicAddress).toBe('rwDLcZL1MwUmyLwshgpxE6zRhxkAorwQDp');
         (0, globals_1.expect)((0, xrp_1.isValidAddress)(publicAddress)).toBe(true);
+    });
+    (0, globals_1.test)('generateDOTAddress', async () => {
+        const seed = (0, index_2.getSeed)({ mnemonic });
+        const keyPair = (0, index_2.getKeyPair)({
+            path: config_1.default[registry_1.Coins.DOT].derivations[0].path,
+            seed,
+            walletAccount: 0,
+        });
+        const publicAddress = (0, index_2.getPublicPolkadotAddress)({
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.DOT }),
+        });
+        (0, globals_1.expect)(publicAddress).toBe('15PevHkrsB6q43DPbyS5idBPZFuqXwoAkQqtkagxZRZicVr');
+        (0, globals_1.expect)((0, dot_1.isValidAddress)(publicAddress)).toBe(true);
+    });
+    (0, globals_1.test)('generateKSMAddress', async () => {
+        const seed = (0, index_2.getSeed)({ mnemonic });
+        const keyPair = (0, index_2.getKeyPair)({
+            path: config_1.default[registry_1.Coins.KSM].derivations[0].path,
+            seed,
+            walletAccount: 0,
+        });
+        const publicAddress = (0, index_2.getPublicKSMAddress)({
+            publicKey: (0, index_2.getPublicKey)({ keyPair, bipIdCoin: registry_1.CoinIds.KSM }),
+        });
+        (0, globals_1.expect)(publicAddress).toBe('D8Kd9wUf3YEMGrnnD6agDDsppyiHBVfoHePwNgM9v3EGrcw');
+        (0, globals_1.expect)((0, ksm_1.isValidAddress)(publicAddress)).toBe(true);
     });
 });

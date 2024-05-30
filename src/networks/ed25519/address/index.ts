@@ -1,6 +1,8 @@
 import nacl from 'tweetnacl';
 import { mnemonicToSeedSync, validateMnemonic } from '../../../core/bip39';
 import { derivePath } from '../../../core/ed25519';
+import { Keyring } from '@polkadot/keyring';
+import { encodeAddress } from '@polkadot/util-crypto';
 import { deriveAddress } from 'ripple-keypairs';
 import {
     CoinNotSupported,
@@ -153,6 +155,8 @@ export const getSecretAddress = ({
         return StrKey.encodeEd25519SecretSeed(secretKey);
     } else if (bipIdCoin == CoinIds.TEZOS) {
         return b58cencode(secretKey, prefix[Prefix.EDSK]);
+    } else if (bipIdCoin == CoinIds.DOT || bipIdCoin == CoinIds.KSM) {
+        return '0x' + secretKey.toString('hex');
     } else {
         return base58.encode(secretKey);
     }
@@ -181,6 +185,18 @@ export const getKeyPair = ({
     if (coin == CoinIds.XRP) {
         const m = fromSeed(seed);
         return m.derivePath(path);
+    } else if (coin == CoinIds.DOT || coin == CoinIds.KSM) {
+        const keySecret = derivePath(path, seed.toString('hex'));
+        let keyring: Keyring;
+        if (coin == CoinIds.DOT) {
+            keyring = new Keyring({ ss58Format: 0 });
+        } else if (coin == CoinIds.KSM) {
+            keyring = new Keyring({ ss58Format: 2 });
+        } else {
+            throw new Error(CoinNotSupported);
+        }
+
+        return keyring.addFromSeed(keySecret.key);
     } else {
         const keySecret = derivePath(path, seed.toString('hex'));
         if (coin == CoinIds.STELLAR)
@@ -205,7 +221,9 @@ export const getPublicKey = ({ keyPair, bipIdCoin }: GetPublicKeyParams) => {
         throw new Error(CoinNotSupported);
     if (bipIdCoin == CoinIds.TEZOS) {
         return blake2b(keyPair.publicKey, { dkLen: 20 });
-    } else if (bipIdCoin == 148) return keyPair.rawPublicKey();
+    } else if (bipIdCoin == CoinIds.STELLAR) return keyPair.rawPublicKey();
+    else if (bipIdCoin == CoinIds.DOT || bipIdCoin == CoinIds.KSM)
+        return keyPair.addressRaw;
     return keyPair.publicKey;
 };
 
@@ -245,6 +263,20 @@ export const getPublicTezosAddress = ({
     return b58cencode(publicKey, prefix[Prefix.TZ1]);
 };
 
+export const getPublicPolkadotAddress = ({
+    publicKey,
+}: {
+    publicKey: Uint8Array;
+}): string => {
+    return encodeAddress(publicKey, 0);
+};
+export const getPublicKSMAddress = ({
+    publicKey,
+}: {
+    publicKey: Uint8Array;
+}): string => {
+    return encodeAddress(publicKey, 2);
+};
 /**
  * Generates addresses based on derivation and mnemonic.
  *
@@ -302,6 +334,16 @@ export const generateAddresses = ({
             });
             newAddress.publicKeyHash = getTezosPublicKeyHash({
                 keyPair,
+            });
+            break;
+        case DerivationName.DOT:
+            newAddress.publicAddress = getPublicPolkadotAddress({
+                publicKey: newAddress.publicKey,
+            });
+            break;
+        case DerivationName.KSM:
+            newAddress.publicAddress = getPublicKSMAddress({
+                publicKey: newAddress.publicKey,
             });
             break;
         default:
