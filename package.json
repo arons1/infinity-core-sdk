@@ -1,6 +1,6 @@
 {
   "name": "@infinity/core-sdk",
-  "version": "1.0.91",
+  "version": "1.0.99",
   "description": "",
   "main": "./lib/commonjs/index.js",
   "types": "./lib/commonjs/index.d.ts",

@@ -123,6 +123,9 @@ export type Derivation = {
 export type getPublicAddressED25519Params = {
     keyPair: any;
 };
+export type getPrivateAddressED25591Params = {
+    privateKey: Buffer;
+};
 export type getPrivateAddressED25519Params = getPublicAddressED25519Params;
 export type getPrivateMasterKeyParams = {
     protocol?: Protocol;
@@ -160,5 +163,5 @@ export type getPublicAddressParams = {
 export type getPrivateAddressParams = {
     change?: number;
     index?: number;
-    privateAccountNode: BIP32Interface;
+    privateKey: Buffer;
 };

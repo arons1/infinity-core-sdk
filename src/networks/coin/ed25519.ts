@@ -1,7 +1,6 @@
 import { DerivationTypeNotSupported, NotImplemented } from '../../errors';
 import {
     getKeyPair,
-    getPrivateKey,
     getPublicKey,
     getPublicSolanaAddress,
     getPublicStellarAddress,
@@ -18,7 +17,7 @@ import {
     GetKeyPairParams,
     GetSeedParams,
     getAccountParams,
-    getPrivateAddressED25519Params,
+    getPrivateAddressED25591Params,
     getPublicAddressED25519Params,
 } from '../types';
 import Base from './base';
@@ -52,13 +51,13 @@ class ED25519Coin extends Base {
     /**
      * Retrieves the private address using the provided key pair.
      *
-     * @param {getPrivateAddressED25519Params} keyPair - The key pair object.
+     * @param {Buffer} privateKey - The key pair object.
      * @return {string} The private address.
      */
 
-    getPrivateAddress({ keyPair }: getPrivateAddressED25519Params) {
+    getPrivateAddress({ privateKey }: getPrivateAddressED25591Params) {
         return getSecretAddress({
-            secretKey: getPrivateKey({ keyPair }),
+            secretKey: privateKey,
             bipIdCoin: this.bipIdCoin,
         });
     }

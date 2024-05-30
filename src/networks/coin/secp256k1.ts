@@ -148,17 +148,10 @@ class SECP256K1Coin extends Base {
     /**
      * Retrieves the private address associated with the given private account node, change, and index.
      *
-     * @param {getPrivateAddressParams} privateAccountNode - The private account node.
-     * @param {number} [change=0] - The change derivation.
-     * @param {number} [index=0] - The index derivation.
-     * @return {string} The private address.
+     * @param {Buffer} privateKey - The private account node.
      */
-    getPrivateAddress({
-        privateAccountNode,
-        change = 0,
-        index = 0,
-    }: getPrivateAddressParams): string {
-        return getPrivateAddress({ privateAccountNode, change, index });
+    getPrivateAddress({ privateKey }: getPrivateAddressParams): string {
+        return getPrivateAddress({ privateKey });
     }
 
     /**

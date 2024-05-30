@@ -12,12 +12,10 @@ import {
     toChecksumAddress,
 } from '../sdk/ethereumjs-util/account';
 import {
-    AddressParams,
     AddressResult,
     GenerateAddressParams,
     PublicAddressParams,
 } from '../../types';
-import networks from '../../networks';
 import {
     getPrivateKey,
     getPrivateMasterKey,
@@ -31,7 +29,7 @@ import { extractPath } from '../../../utils';
 import { createHash } from 'crypto';
 import { shortenKey, stringFromUInt64T } from '../../../core/math/integers';
 import { DerivationName } from '../../constants';
-import { Coins, Protocol } from '../../registry';
+import { Protocol } from '../../registry';
 
 const ec = new elliptic('secp256k1');
 
@@ -142,12 +140,10 @@ export const getXDCPublicAddress = ({
  */
 
 export const getFIOPrivateAddress = ({
-    privateAccountNode,
-}: AddressParams): string => {
-    const privateKey = getPrivateKey({
-        privateAccountNode,
-        network: networks[Coins.FIO],
-    })?.privateKey;
+    privateKey,
+}: {
+    privateKey: Buffer;
+}): string => {
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     const private_key = Buffer.concat([new Buffer([0x80]), privateKey]);
     const sha256 = (data: Buffer) => createHash('sha256').update(data).digest();
@@ -166,16 +162,10 @@ export const getFIOPrivateAddress = ({
  * @throws {Error} If the private key is undefined.
  */
 export const getPrivateAddress = ({
-    privateAccountNode,
-    change = 0,
-    index = 0,
-}: AddressParams): string => {
-    const privateKey = getPrivateKey({
-        privateAccountNode,
-        index,
-        change,
-        network: networks[Coins.ETH],
-    })?.privateKey;
+    privateKey,
+}: {
+    privateKey: Buffer;
+}): string => {
     if (typeof privateKey == 'undefined') throw new Error(GenPrivateKeyError);
     return '0x' + privateKey.toString('hex');
 };
@@ -289,13 +279,11 @@ export const generateAddresses = ({
     });
     if (derivation.name == DerivationName.FIO) {
         newAddress.privateAddress = getFIOPrivateAddress({
-            privateAccountNode,
-            network,
+            privateKey: newAddress.privateKey,
         });
     } else {
         newAddress.privateAddress = getPrivateAddress({
-            privateAccountNode,
-            network,
+            privateKey: newAddress.privateKey,
         });
     }
 

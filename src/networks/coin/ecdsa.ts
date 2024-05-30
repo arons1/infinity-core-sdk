@@ -106,8 +106,8 @@ class ECDSACoin extends Base {
      * @param {getPrivateAddressParams} privateAccountNode - The private account node.
      * @return {string} The private address.
      */
-    getPrivateAddress({ privateAccountNode }: getPrivateAddressParams): string {
-        return getPrivateAddress({ privateAccountNode });
+    getPrivateAddress({ privateKey }: getPrivateAddressParams): string {
+        return getPrivateAddress({ privateKey });
     }
 
     /**

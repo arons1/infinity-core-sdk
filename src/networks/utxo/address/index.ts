@@ -1,4 +1,4 @@
-import { Network, payments } from 'bitcoinjs-lib';
+import { BIP32Interface, Network, payments } from 'bitcoinjs-lib';
 
 import {
     DerivationTypeNotSupported,
@@ -6,7 +6,6 @@ import {
     MissingExtendedParams,
 } from '../../../errors/networks';
 import {
-    AddressParams,
     AddressResult,
     GenerateAddressParams,
     GeneratePublicAddressParams,
@@ -36,19 +35,11 @@ import { bip32 } from '../../../core';
  * @returns {string} The private address in Wallet Import Format (WIF).
  */
 export const getPrivateAddress = ({
-    privateAccountNode,
-    change = 0,
-    index = 0,
-    network,
-}: AddressParams): string => {
-    var privateKey = getPrivateKey({
-        privateAccountNode,
-        index,
-        change,
-        network,
-    });
-    if (privateKey?.privateKey == undefined)
-        throw new Error(GenPrivateKeyError);
+    privateKey,
+}: {
+    privateKey: BIP32Interface;
+}): string => {
+    if (privateKey == undefined) throw new Error(GenPrivateKeyError);
     return privateKey.toWIF();
 };
 
@@ -182,8 +173,7 @@ export const generateAddresses = ({
         publicAccountNode: privateAccountNode,
     });
     newAddress.privateAddress = getPrivateAddress({
-        privateAccountNode,
-        network,
+        privateKey: newAddress.privateKey,
     });
     switch (derivation.name) {
         case DerivationName.LEGACY:

@@ -10,6 +10,7 @@ import {
     getFIOAccount,
 } from '../../../../lib/commonjs/networks/evm/address';
 import {
+    getPrivateKey,
     getPrivateMasterKey,
     getPublicMasterKey,
     getRootNode,
@@ -63,7 +64,9 @@ describe('generateAddressEVM', () => {
             walletAccount: 0,
         });
         const privateAddress = getPrivateAddress({
-            privateAccountNode,
+            privateKey: getPrivateKey({
+                privateAccountNode,
+            })?.privateKey as Buffer,
         });
         expect(privateAddress).toBe(
             '0x8a1db23fb2baa1b2f85a5c3bf5d1b70972caa3e66f537be7216d0ffdeb899d93',
@@ -77,8 +80,10 @@ describe('generateAddressEVM', () => {
             rootNode,
             walletAccount: 0,
         });
-        const privateAddress = getFIOPrivateAddress({
-            privateAccountNode,
+        const privateAddress = getPrivateAddress({
+            privateKey: getPrivateKey({
+                privateAccountNode,
+            })?.privateKey as Buffer,
         });
         expect(privateAddress).toBe(
             '5KCYRtCo7sza6RdBRaBHD5ERvrW415iVdZ9e6KCd34jmVDfkoay',
