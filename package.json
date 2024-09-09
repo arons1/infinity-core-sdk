@@ -1,7 +1,7 @@
 {
-  "name": "@infinity/core-sdk",
-  "version": "1.0.99",
-  "description": "",
+  "name": "@infinitywallet/core-sdk",
+  "version": "1.0.0",
+  "description": "Infinity Wallet Core SDK",
   "main": "./lib/commonjs/index.js",
   "types": "./lib/commonjs/index.d.ts",
   "directories": {
